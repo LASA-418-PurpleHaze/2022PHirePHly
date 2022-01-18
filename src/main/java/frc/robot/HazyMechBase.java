@@ -15,6 +15,8 @@ public class HazyMechBase implements Subsystem{
         rFrontSpark = new CANSparkMax(2, MotorType.kBrushless);
         lBackSpark = new CANSparkMax(3, MotorType.kBrushless);
         rBackSpark = new CANSparkMax(4, MotorType.kBrushless);
+
+        setDefaultCommand(RobotContainer.commandMecanum);
     }
 
 
@@ -61,7 +63,5 @@ public class HazyMechBase implements Subsystem{
         }
       }
     
-    public void initDefaultCommand(){
-        driveCartesian(0,0,0);
-    }
+
 }
