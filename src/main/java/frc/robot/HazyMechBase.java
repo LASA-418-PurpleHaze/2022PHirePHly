@@ -1,21 +1,81 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.ControlType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
-public class HazyMechBase extends Subsystem{
+public class HazyMechBase implements Subsystem{
     private CANSparkMax lFrontSpark;
     private CANSparkMax rFrontSpark;
     private CANSparkMax lBackSpark;
     private CANSparkMax rBackSpark;
+
+    private RelativeEncoder lFrontEncoder;
+    private RelativeEncoder rFrontEncoder;
+    private RelativeEncoder lBackEncoder;
+    private RelativeEncoder rBackEncoder;
+
+    private SparkMaxPIDController lFront_pidController;
+    private SparkMaxPIDController rFront_pidController;
+    private SparkMaxPIDController lBack_pidController;
+    private SparkMaxPIDController rBack_pidController;
+
+    private boolean turnDelay;
+    private double distance;
+    private double offset;
+    private double milStart;
+    private boolean delayed;
+
+    private double tx;
+    private double ty;
+    private double ta;
+    private boolean tv;
+
+    private double angleofTarget;
+
 
     public HazyMechBase(){
         lFrontSpark = new CANSparkMax(1, MotorType.kBrushless);
         rFrontSpark = new CANSparkMax(2, MotorType.kBrushless);
         lBackSpark = new CANSparkMax(3, MotorType.kBrushless);
         rBackSpark = new CANSparkMax(4, MotorType.kBrushless);
+        
+        lFrontEncoder = lFrontSpark.getEncoder();
+        lFrontEncoder.setInverted(false);
+        ((CANPIDController) lFrontSpark).setFeedbackDevice(lFrontEncoder);
+        lFront_pidController.setP(RobotMap.DRIVEP);
+        lFront_pidController.setI(RobotMap.DRIVEI);
+        lFront_pidController.setD(RobotMap.DRIVED);
+
+        rFrontEncoder = rFrontSpark.getEncoder();
+        rFrontEncoder.setInverted(false);
+        ((CANPIDController) rFrontSpark).setFeedbackDevice(rFrontEncoder);
+        rFront_pidController.setP(RobotMap.DRIVEP);
+        rFront_pidController.setI(RobotMap.DRIVEI);
+        rFront_pidController.setD(RobotMap.DRIVED);
+
+        lBackEncoder = lBackSpark.getEncoder();
+        lBackEncoder.setInverted(false);
+        ((CANPIDController) lBackSpark).setFeedbackDevice(lBackEncoder);
+        lBack_pidController.setP(RobotMap.DRIVEP);
+        lBack_pidController.setI(RobotMap.DRIVEI);
+        lBack_pidController.setD(RobotMap.DRIVED);
+
+        rFrontEncoder = rBackSpark.getEncoder();
+        rFrontEncoder.setInverted(false);
+        ((CANPIDController) rBackSpark).setFeedbackDevice(rFrontEncoder);
+        rFront_pidController.setP(RobotMap.DRIVEP);
+        rFront_pidController.setI(RobotMap.DRIVEI);
+        rFront_pidController.setD(RobotMap.DRIVED);
     }
 
 
@@ -44,6 +104,13 @@ public class HazyMechBase extends Subsystem{
             return low;
         return input;
     }
+    private double clamp(double input){
+        if(input>RobotMap.MAXVISIONSPEED)
+          return RobotMap.MAXVISIONSPEED; 
+        else if (input < -RobotMap.MAXVISIONSPEED)
+          return -RobotMap.MAXVISIONSPEED;
+        return input;
+      }
 
     protected void normalize(double[] wheelSpeeds) { //utility function for drive cartesian
         double maxMagnitude = Math.abs(wheelSpeeds[0]);
@@ -61,8 +128,81 @@ public class HazyMechBase extends Subsystem{
           }
         }
       }
-    
-    @Override
+      public void updateData() {
+        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+         tv = table.getEntry("tv").getDouble(0)==1.0 ? true : false;
+         tx = table.getEntry("tx").getDouble(0);
+         ty = table.getEntry("ty").getDouble(0);
+         ta = table.getEntry("ta").getDouble(0);
+         offset = tx;
+
+      }
+
+      public void getTargetDistance() {
+
+        if (!tv) {
+            distance = 0;
+        }
+
+        angleofTarget =  ty;
+        distance =  (RobotMap.heightOfTarget - RobotMap.heightOfCamera) / Math.tan(Math.toRadians(RobotMap.angleOfCamera + angleofTarget));
+        }
+      
+        public void turnToTarget() {
+            Robot.solenoidToLight.set(true);
+
+           
+            if (delayed){
+                milStart = java.lang.System.currentTimeMillis();
+                delayed = false;
+            }
+            if(java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY){
+                double turnPower = RobotMap.VISIONVELTURN * (offset-RobotMap.RIGHTSIDEOFFSET);
+                rFront_pidController.setReference(turnPower, ControlType.kVelocity);
+                lFront_pidController.setReference(turnPower, ControlType.kVelocity);
+                rBack_pidController.setReference(turnPower, ControlType.kVelocity);
+                lBack_pidController.setReference(turnPower, ControlType.kVelocity);
+                
+            }
+        }
+
+        public void goToTarget(){
+            Robot.solenoidToLight.set(true);
+            
+            if (delayed){
+              milStart = java.lang.System.currentTimeMillis();
+              delayed = false;
+            }
+            if(java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY){
+              double travelDistance;
+              if(distance == -1.0)
+                travelDistance = 0.0;
+              else
+                travelDistance = RobotMap.SHOOTDISTANCE - distance;
+              //System.out.println(java.lang.System.currentTimeMillis()-lastData);
+              double turnPower = clamp(RobotMap.VISIONTURN * offset);
+              if(turnPower > -0.105 && turnPower < 0.0 && Math.abs(offset) >= 10.0)
+                turnPower = -0.105;
+              else if(turnPower < 0.105 && turnPower > 0.0 && Math.abs(offset) >= 10.0)
+                turnPower = 0.105;
+              
+              if(Math.abs(offset) < 10.0)
+                turnPower = 0.0;
+              
+              double forwardPower =clamp( -travelDistance*RobotMap.VISIONSPEED);
+              System.out.println("turn: " + turnPower + " forward: " + forwardPower);
+              driveCartesian(0, -forwardPower, -turnPower);
+              
+            }
+          }
+
+        public void toggleDelayed(){
+            delayed = true;
+          }
+      
+          public void toggleTurnDelay(){
+            turnDelay = true;
+          }
     public void initDefaultCommand(){
         driveCartesian(0,0,0);
     }
