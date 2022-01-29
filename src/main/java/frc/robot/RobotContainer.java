@@ -1,12 +1,20 @@
 package frc.robot;
 
-public class RobotContainer {
-    public static HazyMechBase hazyMechBase;
-    public static CommandMecanum commandMecanum;
+import edu.wpi.first.wpilibj.Joystick;
 
+public class RobotContainer {
+    Joystick leftJoystick = new Joystick(RobotMap.LEFTJOYSTICKPORT);
+    Joystick rightJoystick = new Joystick(RobotMap.RIGHTJOYSTICKPORT);
+    
+    HazyMechBase hazyMechBase = new HazyMechBase();
+    CommandMecanum commandMecanum = new CommandMecanum(hazyMechBase, leftJoystick, rightJoystick);
 
     public RobotContainer(){
-        hazyMechBase = new HazyMechBase();
-        commandMecanum = new CommandMecanum(hazyMechBase);
+        configureButtonBindings();
+        hazyMechBase.setDefaultCommand(commandMecanum);
+    }
+
+    public void configureButtonBindings () {
+
     }
 }

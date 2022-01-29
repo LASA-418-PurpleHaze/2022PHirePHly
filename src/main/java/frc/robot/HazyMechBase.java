@@ -1,10 +1,10 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class HazyMechBase implements Subsystem{
+public class HazyMechBase extends SubsystemBase {
     private CANSparkMax lFrontSpark;
     private CANSparkMax rFrontSpark;
     private CANSparkMax lBackSpark;
@@ -15,10 +15,7 @@ public class HazyMechBase implements Subsystem{
         rFrontSpark = new CANSparkMax(2, MotorType.kBrushless);
         lBackSpark = new CANSparkMax(3, MotorType.kBrushless);
         rBackSpark = new CANSparkMax(4, MotorType.kBrushless);
-
-        setDefaultCommand(RobotContainer.commandMecanum);
     }
-
 
     public void driveCartesian(double x, double y, double angle){
         y = clamp(y, -1.0,1.0);

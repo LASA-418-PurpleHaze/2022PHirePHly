@@ -3,12 +3,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Axis;
 
 public class HazyController extends XboxController{
 	public HazyController(int port) {
         super(port);
-		// TODO Auto-generated constructor stub
 	}
 
     public JoystickButton aButton = new JoystickButton(this, 1);
@@ -21,8 +19,6 @@ public class HazyController extends XboxController{
 	public JoystickButton startButton = new JoystickButton(this, 8);
 	public JoystickButton leftStickButton = new JoystickButton(this, 9);
     public JoystickButton rightStickButton = new JoystickButton(this, 10);
-    //public HazyTriggers triggers = new HazyTriggers(p);
-    //public HazyJoysticks joysticks = new HazyJoysticks(p);
     //public HazyDPad dPad = new HazyDPad(p);
 
     public JoystickButton getXBut(){
@@ -72,8 +68,4 @@ public class HazyController extends XboxController{
     public boolean getRightAxis(){
         return getRightTriggerAxis() > .1;
     }
-
-
-
-
 }

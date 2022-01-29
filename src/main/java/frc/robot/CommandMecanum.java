@@ -1,20 +1,24 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class CommandMecanum extends CommandBase{
+public class CommandMecanum extends CommandBase {
 
-    private final HazyMechBase m_hazymechBase;
+    private final HazyMechBase c_hazyMechBase;
+    private final Joystick c_leftJoystick;
+    private final Joystick c_rightJoystick;
 
-    public CommandMecanum(HazyMechBase subsystem){
-        m_hazymechBase = subsystem;
-        addRequirements(m_hazymechBase);
-
+    public CommandMecanum(HazyMechBase subsystem, Joystick left, Joystick right){
+        c_hazyMechBase = subsystem;
+        c_leftJoystick = left;
+        c_rightJoystick = right;
+        addRequirements(c_hazyMechBase);
     }
 
     @Override
     public void execute(){
-        m_hazymechBase.driveCartesian(OI.leftJoystick.getX(), OI.leftJoystick.getY(), OI.rightJoystick.getX());
+        c_hazyMechBase.driveCartesian(0, c_leftJoystick.getY(), c_rightJoystick.getX());
     }
 
 }
