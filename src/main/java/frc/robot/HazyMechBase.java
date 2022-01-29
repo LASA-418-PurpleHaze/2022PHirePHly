@@ -5,18 +5,22 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class HazyMechBase extends SubsystemBase {
+    
+    //Declaration of all motorcontrollers in subsystem
     private CANSparkMax lFrontSpark;
     private CANSparkMax rFrontSpark;
     private CANSparkMax lBackSpark;
     private CANSparkMax rBackSpark;
-
+    
+    //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
     public HazyMechBase(){
         lFrontSpark = new CANSparkMax(1, MotorType.kBrushless);
         rFrontSpark = new CANSparkMax(2, MotorType.kBrushless);
         lBackSpark = new CANSparkMax(3, MotorType.kBrushless);
         rBackSpark = new CANSparkMax(4, MotorType.kBrushless);
     }
-
+    
+    //Mecanum drive function that is called by the default
     public void driveCartesian(double x, double y, double angle){
         y = clamp(y, -1.0,1.0);
         x = clamp(x, -1.0,1.0);
@@ -35,6 +39,7 @@ public class HazyMechBase extends SubsystemBase {
         rBackSpark.set(-wheelSpeeds[3]*-1);
     }
     
+    //Keeps input value between the high and low values
     private double clamp (double input, double low, double high){ //utility function for drive cartesian
         if(input > high)
             return high;
@@ -42,7 +47,8 @@ public class HazyMechBase extends SubsystemBase {
             return low;
         return input;
     }
-
+    
+    //Sets a max speed value that the wheels can't exceed
     protected void normalize(double[] wheelSpeeds) { //utility function for drive cartesian
         double maxMagnitude = Math.abs(wheelSpeeds[0]);
         
