@@ -1,11 +1,10 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class HazyMechBase extends Subsystem{
+public class HazyMechBase extends SubsystemBase {
     private CANSparkMax lFrontSpark;
     private CANSparkMax rFrontSpark;
     private CANSparkMax lBackSpark;
@@ -17,7 +16,6 @@ public class HazyMechBase extends Subsystem{
         lBackSpark = new CANSparkMax(3, MotorType.kBrushless);
         rBackSpark = new CANSparkMax(4, MotorType.kBrushless);
     }
-
 
     public void driveCartesian(double x, double y, double angle){
         y = clamp(y, -1.0,1.0);
@@ -62,8 +60,5 @@ public class HazyMechBase extends Subsystem{
         }
       }
     
-    @Override
-    public void initDefaultCommand(){
-        driveCartesian(0,0,0);
-    }
+
 }
