@@ -23,5 +23,4 @@ public class CommandMecanum extends CommandBase {
     public void execute(){
         c_hazyMechBase.driveCartesian(0, c_leftJoystick.getY(), c_rightJoystick.getX());
     }
-
 }

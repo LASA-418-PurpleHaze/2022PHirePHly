@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+//Holds all subsystems and commands for the robot and sets button bindings
 public class RobotContainer {
     
     //Robot's controllers that drivers use
