@@ -1,10 +1,11 @@
-//Imports fot the Joystick and its functions
 package frc.robot;
 
+//Imports fot the Joystick and its functions
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 
-public class HazyController extends XboxController{
+public class HazyController extends XboxController {
+    
 	public HazyController(int port) {
         super(port);
 	}

@@ -18,8 +18,8 @@ public class CommandMecanum extends CommandBase {
         addRequirements(c_hazyMechBase); //Links the command to the subsystem it affects
     }
 
-    @Override
     //The function that is called by the commandscheduler when command is called
+    @Override
     public void execute(){
         c_hazyMechBase.driveCartesian(0, c_leftJoystick.getY(), c_rightJoystick.getX());
     }
