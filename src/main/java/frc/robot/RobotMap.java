@@ -12,4 +12,16 @@ public class RobotMap {
     public static final int RIGHTFRONTSPARK = 4;
     public static final int LEFTBACKSPARK = 5;
     public static final int RIGHTBACKSPARK = 6;
+
+    // Shooter //
+    public static final int SHOOTERSPARK = 7;
+    public static final double SHOOTERP = 0;
+    public static final double SHOOTERI = 0;
+    public static final double SHOOTERD = 0;
+    public static final double SHOOTERFF = 0;
+    public static final double SHOOTERSPEED = 0;
+
+    // High Feeder //
+    public static final int HIGHFEEDERTALON = 8;
+
 }
