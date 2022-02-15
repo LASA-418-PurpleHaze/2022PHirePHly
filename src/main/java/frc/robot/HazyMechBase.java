@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -39,6 +40,8 @@ public class HazyMechBase implements Subsystem{
     private boolean tv;
 
     private double angleofTarget;
+
+    private Solenoid solenoidToLight;
 
     public HazyMechBase(){
         lFrontSpark = new CANSparkMax(RobotMap.LEFTFRONTSPARK, MotorType.kBrushless);
@@ -141,7 +144,7 @@ public class HazyMechBase implements Subsystem{
     }
       
     public void turnToTarget() {
-        Robot.solenoidToLight.set(true);
+        solenoidToLight.set(true);
         
         if (delayed) {
             milStart = java.lang.System.currentTimeMillis();
@@ -157,7 +160,7 @@ public class HazyMechBase implements Subsystem{
     }
 
     public void goToTarget(){
-        Robot.solenoidToLight.set(true);
+        solenoidToLight.set(true);
         
         if (delayed) {
             milStart = java.lang.System.currentTimeMillis();
