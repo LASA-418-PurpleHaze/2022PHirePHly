@@ -8,8 +8,9 @@ public class RobotContainer {
     //Robot's controllers that drivers use
     Joystick leftJoystick = new Joystick(RobotMap.LEFTJOYSTICKPORT);
     Joystick rightJoystick = new Joystick(RobotMap.RIGHTJOYSTICKPORT);
-    
-    //Chassis subystem and command setup
+
+    //Subsystems and commands    
+    // Chassis //
     HazyMechBase hazyMechBase = new HazyMechBase();
     CommandMecanum commandMecanum = new CommandMecanum(hazyMechBase, leftJoystick, rightJoystick);
     
