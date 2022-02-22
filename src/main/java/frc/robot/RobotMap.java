@@ -13,13 +13,34 @@ public class RobotMap {
     public static final int LEFTBACKSPARK = 5;
     public static final int RIGHTBACKSPARK = 6;
 
+    public static final double CHASSISLEFTFRONTP = 0;
+    public static final double CHASSISLEFTFRONTI = 0;
+    public static final double CHASSISLEFTFRONTD = 0;
+    public static final double CHASSISLEFTFRONTF = 0;
+
+    public static final double CHASSISBACKFRONTP = 0;
+    public static final double CHASSISBACKFRONTI = 0;
+    public static final double CHASSISBACKFRONTD = 0;
+    public static final double CHASSISBACKFRONTF = 0;
+
+    public static final double CHASSISLEFTBACKP = 0;
+    public static final double CHASSISLEFTBACKI = 0;
+    public static final double CHASSISLEFTBACKD = 0;
+    public static final double CHASSISLEFTBACKF = 0;
+
+    public static final double CHASSISRIGHTBACKP = 0;
+    public static final double CHASSISRIGHTBACKI = 0;
+    public static final double CHASSISRIGHTBACKD = 0;
+    public static final double CHASSISRIGHTBACKF = 0;
+
     // Shooter //
     public static final int SHOOTERSPARK = 7;
+    public static final double SHOOTERSPEED = 0;
+
     public static final double SHOOTERP = 0;
     public static final double SHOOTERI = 0;
     public static final double SHOOTERD = 0;
     public static final double SHOOTERFF = 0;
-    public static final double SHOOTERSPEED = 0;
 
     // High Feeder //
     public static final int HIGHFEEDERTALON = 8;

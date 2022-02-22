@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class CommandMecanum extends CommandBase {
     
     //Declare the controllers and subsystem used to control the command
-    private HazyMechBase c_hazyMechBase;
-    private Joystick c_leftJoystick;
-    private Joystick c_rightJoystick;
+    private final HazyMechBase c_hazyMechBase;
+    private final Joystick c_leftJoystick;
+    private final Joystick c_rightJoystick;
     
     //Pass the subsystem and controllers used in command into the constructor for initialization
     public CommandMecanum(HazyMechBase subsystem, Joystick left, Joystick right){
@@ -19,7 +19,8 @@ public class CommandMecanum extends CommandBase {
     }
 
     //The function that is called by the commandscheduler when command is called
+    @Override
     public void execute(){
-        c_hazyMechBase.driveCartesian(0, c_leftJoystick.getY(), c_rightJoystick.getX());
+        c_hazyMechBase.driveCartesian(-c_leftJoystick.getX(), c_leftJoystick.getY(), -c_rightJoystick.getX());
     }
 }

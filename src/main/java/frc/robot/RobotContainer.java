@@ -13,11 +13,12 @@ public class RobotContainer {
     Joystick leftJoystick = new Joystick(RobotMap.LEFTJOYSTICKPORT);
     Joystick rightJoystick = new Joystick(RobotMap.RIGHTJOYSTICKPORT);
     
-    //Chassis subystem and command setup
+    //Subsystems and commands
+    // Chassis //
     HazyMechBase hazyMechBase = new HazyMechBase();
     CommandMecanum commandMecanum = new CommandMecanum(hazyMechBase, leftJoystick, rightJoystick);
 
-    //Shooter subsystem and command setup
+    // Shooter //
     HazyShooter hazyShooter = new HazyShooter();
     CommandShoot commandShoot = new CommandShoot(hazyShooter);
     CommandShooterDefault commandShooterDefault = new CommandShooterDefault(hazyShooter);
@@ -32,6 +33,7 @@ public class RobotContainer {
     
     //Use this method to define button->command mappings
     public void configureButtonBindings () {
+        // Shooter //
         new JoystickButton(hazyController, Button.kRightStick.value).toggleWhenPressed(commandShoot);
     }
 }

@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class HazyMechBase extends SubsystemBase {
@@ -11,6 +12,12 @@ public class HazyMechBase extends SubsystemBase {
     private CANSparkMax rFrontSpark;
     private CANSparkMax lBackSpark;
     private CANSparkMax rBackSpark;
+
+    //Declaration of PID controllers for the motorcontrollers
+    private SparkMaxPIDController lFrontSparkPID;
+    private SparkMaxPIDController rFrontSparkPID;
+    private SparkMaxPIDController lBackSparkPID;
+    private SparkMaxPIDController rBackSparkPID;
     
     //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
     public HazyMechBase(){
@@ -18,6 +25,33 @@ public class HazyMechBase extends SubsystemBase {
         rFrontSpark = new CANSparkMax(RobotMap.RIGHTFRONTSPARK, MotorType.kBrushless);
         lBackSpark = new CANSparkMax(RobotMap.LEFTBACKSPARK, MotorType.kBrushless);
         rBackSpark = new CANSparkMax(RobotMap.RIGHTBACKSPARK, MotorType.kBrushless);
+
+        //PID setup
+        /*
+        lFrontSparkPID = lFrontSpark.getPIDController();
+        lFrontSparkPID.setP(RobotMap.CHASSISLEFTFRONTP);
+        lFrontSparkPID.setI(RobotMap.CHASSISLEFTFRONTI);
+        lFrontSparkPID.setD(RobotMap.CHASSISLEFTFRONTD);
+        lFrontSparkPID.setFF(RobotMap.CHASSISLEFTFRONTF);
+
+        rFrontSparkPID = rFrontSpark.getPIDController();
+        rFrontSparkPID.setP(RobotMap.CHASSISBACKFRONTP);
+        rFrontSparkPID.setI(RobotMap.CHASSISBACKFRONTI);
+        rFrontSparkPID.setD(RobotMap.CHASSISBACKFRONTD);
+        rFrontSparkPID.setFF(RobotMap.CHASSISBACKFRONTF);
+
+        lBackSparkPID = lBackSpark.getPIDController();
+        lBackSparkPID.setP(RobotMap.CHASSISLEFTBACKP);
+        lBackSparkPID.setI(RobotMap.CHASSISLEFTBACKI);
+        lBackSparkPID.setD(RobotMap.CHASSISLEFTBACKD);
+        lBackSparkPID.setFF(RobotMap.CHASSISLEFTBACKF);
+
+        rBackSparkPID = rBackSpark.getPIDController();
+        rBackSparkPID.setP(RobotMap.CHASSISRIGHTBACKP);
+        rBackSparkPID.setI(RobotMap.CHASSISRIGHTBACKI);
+        rBackSparkPID.setD(RobotMap.CHASSISRIGHTBACKD);
+        rBackSparkPID.setFF(RobotMap.CHASSISRIGHTBACKF);
+        */
     }
     
     //Mecanum drive function that is called by the default
