@@ -32,4 +32,6 @@ public class RobotMap {
     public static final double CHASSISRIGHTBACKI = 0;
     public static final double CHASSISRIGHTBACKD = 0;
     public static final double CHASSISRIGHTBACKF = 0;
+
+    public static final double DEADBAND = 0.1;
 }

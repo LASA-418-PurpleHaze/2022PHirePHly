@@ -56,8 +56,10 @@ public class HazyMechBase extends SubsystemBase {
     
     //Mecanum drive function that is called by the default
     public void driveCartesian(double x, double y, double angle){
-        y = clamp(y, -1.0,1.0);
         x = clamp(x, -1.0,1.0);
+        x = applyDeadband(x, RobotMap.DEADBAND);
+        y = clamp(y, -1.0,1.0);
+        y = applyDeadband(y, RobotMap.DEADBAND);
 
         //The + and - are to make the mecanum drive move correctly & be able to move side to side
         double[] wheelSpeeds = new double[4];
@@ -82,6 +84,17 @@ public class HazyMechBase extends SubsystemBase {
             return low;
         return input;
     }
+
+    private double applyDeadband(double value, double deadband) {
+        if (Math.abs(value) > deadband) {
+          if (value > 0.0) 
+            return (value - deadband) / (1.0 - deadband);
+          else 
+            return (value + deadband) / (1.0 - deadband);  
+        } 
+        else 
+          return 0.0;
+      }
     
     //Sets a max speed value that the wheels can't exceed
     protected void normalize(double[] wheelSpeeds){ //utility function for drive cartesian
