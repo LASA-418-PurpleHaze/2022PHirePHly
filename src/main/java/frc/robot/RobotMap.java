@@ -8,10 +8,10 @@ public class RobotMap {
     public static final int RIGHTJOYSTICKPORT = 2;
 
     // Drive Train //
-    public static final int LEFTFRONTSPARK = 3;
-    public static final int RIGHTFRONTSPARK = 4;
-    public static final int LEFTBACKSPARK = 5;
-    public static final int RIGHTBACKSPARK = 6;
+    public static final int LEFTFRONTSPARK = 9;
+    public static final int RIGHTFRONTSPARK = 7;
+    public static final int LEFTBACKSPARK = 3;
+    public static final int RIGHTBACKSPARK = 2;
 
     public static final double CHASSISLEFTFRONTP = 0;
     public static final double CHASSISLEFTFRONTI = 0;
