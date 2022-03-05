@@ -13,6 +13,6 @@ public class CommandShoot extends CommandBase{
 
     //The function that is called by the commandscheduler when command is called
     public void execute(){
-        c_hazyShooter.shoot();
+        c_hazyShooter.stupidShoot();
     }
 }

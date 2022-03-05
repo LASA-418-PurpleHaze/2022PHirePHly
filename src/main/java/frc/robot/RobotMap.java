@@ -8,10 +8,11 @@ public class RobotMap {
     public static final int RIGHTJOYSTICKPORT = 2;
 
     // Drive Train //
-    public static final int LEFTFRONTSPARK = 3;
-    public static final int RIGHTFRONTSPARK = 4;
-    public static final int LEFTBACKSPARK = 5;
-    public static final int RIGHTBACKSPARK = 6;
+
+    public static final int LEFTFRONTSPARK = 9;
+    public static final int RIGHTFRONTSPARK = 7;
+    public static final int LEFTBACKSPARK = 12;
+    public static final int RIGHTBACKSPARK = 2;
 
     public static final double CHASSISLEFTFRONTP = 0;
     public static final double CHASSISLEFTFRONTI = 0;
@@ -34,15 +35,29 @@ public class RobotMap {
     public static final double CHASSISRIGHTBACKF = 0;
 
     // Shooter //
-    public static final int SHOOTERSPARK = 7;
-    public static final double SHOOTERSPEED = 0;
+    //public static final int SHOOTERSPARKRIGHT = 6;
+    public static final int SHOOTERSPARKLEFT = 5;
+    public static final double SHOOTERSPEED = 1000;
 
-    public static final double SHOOTERP = 0;
+    public static final double SHOOTERP = 1;
     public static final double SHOOTERI = 0;
     public static final double SHOOTERD = 0;
     public static final double SHOOTERFF = 0;
 
     // High Feeder //
-    public static final int HIGHFEEDERTALON = 8;
+    public static final int HIGHFEEDERTALON = 5;
+
+    // Intake //
+    public static final int INTAKESPINTALON = 0;
+    public static final int INTAKEUPDOWNTALON = 1;
+    public static final int INTAKEDOWNTICKS = -2000;
+    public static final int INTAKEUPTICKS = 0;
+
+    public static final double INTAKEUPDOWNP = 1;
+    public static final int INTAKEUPDOWNI = 0;
+    public static final int INTAKEUPDOWND = 0;
+    public static final int INTAKEUPDOWNF = 0;
+    public static final double DEADBAND = 0.1;
+    
 
 }

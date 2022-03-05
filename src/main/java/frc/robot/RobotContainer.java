@@ -15,8 +15,8 @@ public class RobotContainer {
     
     //Subsystems and commands
     // Chassis //
-    HazyMechBase hazyMechBase = new HazyMechBase();
-    CommandMecanum commandMecanum = new CommandMecanum(hazyMechBase, leftJoystick, rightJoystick);
+    //HazyMechBase hazyMechBase = new HazyMechBase();
+    //CommandMecanum commandMecanum = new CommandMecanum(hazyMechBase, leftJoystick, rightJoystick);
 
     // Shooter //
     HazyShooter hazyShooter = new HazyShooter();
@@ -27,13 +27,20 @@ public class RobotContainer {
     //Default commands are what commands run in on a subsystem when no other command is scheduled (called)
     public RobotContainer(){
         configureButtonBindings();
-        hazyMechBase.setDefaultCommand(commandMecanum);
-        hazyShooter.setDefaultCommand(commandShooterDefault);
+        //hazyMechBase.setDefaultCommand(commandMecanum);
+        //hazyShooter.setDefaultCommand(commandShooterDefault);
     }
     
     //Use this method to define button->command mappings
     public void configureButtonBindings () {
         // Shooter //
-        new JoystickButton(hazyController, Button.kRightStick.value).toggleWhenPressed(commandShoot);
+        //new JoystickButton(hazyController, Button.kRightStick.value).toggleWhenPressed(commandShoot);
+        new JoystickButton(hazyController, Button.kRightStick.value).whileHeld(commandShoot);
+
+    }
+    public void DPadWrapper() {
+        if (hazyController.getPOV() == 0) {
+            //hazyIntake.drop();
+        }
     }
 }
