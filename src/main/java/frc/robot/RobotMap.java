@@ -58,6 +58,10 @@ public class RobotMap {
     public static final int INTAKEUPDOWND = 0;
     public static final int INTAKEUPDOWNF = 0;
     public static final double DEADBAND = 0.1;
+
+    //Lift
+    public static final int TILTMOTORPORT = 0;
+    public static final int LIFTMOTORPORT = 0;
     
 
 }
