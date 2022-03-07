@@ -5,19 +5,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //local imports
 import frc.robot.Subsystems.HazyLift;
-import frc.robot.*;
 
-public class CommandBarTwoLiftUp extends CommandBase {
+public class CommandStupidTilt extends CommandBase {
 
     private HazyLift c_IntialLift;
-    public CommandBarTwoLiftUp(HazyLift lift) {
+    public CommandStupidTilt(HazyLift lift) {
         c_IntialLift = lift;
         addRequirements(c_IntialLift);
     }
 
     @Override
     public void execute() {
-        c_IntialLift.lift(RobotMap.BARTWOUPTICKS);
-        //c_IntialLift.tilt(0);
+        c_IntialLift.stupidTilt();
     }
 }

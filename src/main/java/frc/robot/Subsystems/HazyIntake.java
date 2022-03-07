@@ -22,8 +22,8 @@ public class HazyIntake extends SubsystemBase {
         upDownTalon = new TalonSRX(RobotMap.INTAKEUPDOWNTALON);
         isUp = true;
         // sets the talon to not go at max speed (for simple movement)
-        upDownTalon.configPeakOutputForward(0.5);
-        upDownTalon.configPeakOutputReverse(0.5);
+        //upDownTalon.configPeakOutputForward(0.5);
+        //upDownTalon.configPeakOutputReverse(0.5);
         resetEncoders();
        
         upDownTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -39,7 +39,9 @@ public class HazyIntake extends SubsystemBase {
         spinTalon.set(ControlMode.PercentOutput, 0);
     }
     public void drop() {
+        System.out.println("first" + upDownTalon.getSelectedSensorPosition());
         upDownTalon.set(ControlMode.Position, RobotMap.INTAKEDOWNTICKS);
+        System.out.println(upDownTalon.getSelectedSensorPosition());
     }
     public void raise() {
         upDownTalon.set(ControlMode.Position, RobotMap.INTAKEUPTICKS);

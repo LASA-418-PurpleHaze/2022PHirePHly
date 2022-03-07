@@ -13,6 +13,7 @@ public class CommandShoot extends CommandBase{
     //Pass the subsystem and controllers used in command into the constructor for initialization
     public CommandShoot(HazyShooter shooter){
         c_hazyShooter = shooter;
+        addRequirements(shooter);
     }
 
     //The function that is called by the commandscheduler when command is called

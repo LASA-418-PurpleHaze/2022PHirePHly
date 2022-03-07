@@ -14,6 +14,7 @@ public class CommandShooterDefault extends CommandBase{
     //Pass the subsystem and controllers used in command into the constructor for initialization
     public CommandShooterDefault(HazyShooter shooter){
         c_hazyShooter = shooter;
+        addRequirements(shooter);
     }
 
     //The function that is called by the commandscheduler when command is called

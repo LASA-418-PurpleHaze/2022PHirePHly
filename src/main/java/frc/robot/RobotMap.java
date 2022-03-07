@@ -9,9 +9,9 @@ public class RobotMap {
 
     // Drive Train //
     public static final int LEFTFRONTSPARK = 9;
-    public static final int RIGHTFRONTSPARK = 7;
+    public static final int RIGHTFRONTSPARK = 13;
     public static final int LEFTBACKSPARK = 3;
-    public static final int RIGHTBACKSPARK = 2;
+    public static final int RIGHTBACKSPARK = 11;
 
     public static final double CHASSISLEFTFRONTP = 0;
     public static final double CHASSISLEFTFRONTI = 0;
@@ -34,48 +34,48 @@ public class RobotMap {
     public static final double CHASSISRIGHTBACKF = 0;
 
     // Intake //
-    public static final int INTAKESPINTALON = 0;
-    public static final int INTAKEUPDOWNTALON = 1;
+    public static final int INTAKESPINTALON = 1;
+    public static final int INTAKEUPDOWNTALON = 0;
     public static final int INTAKEDOWNTICKS = -1200;
     public static final int INTAKEUPTICKS = 3;
 
-    public static final double INTAKEUPDOWNP = .5;
+    public static final double INTAKEUPDOWNP = 1;
     public static final double INTAKEUPDOWNI = 0;
     public static final double INTAKEUPDOWND = 0;
     public static final double INTAKEUPDOWNF = 0;
-    public static final double DEADBAND = 0.1;
+    public static final double DEADBAND = 0.25;
 
     // Shooter //
-    public static final int SHOOTERSPARKLEFT = 0;
-    public static final int SHOOTERSPARKRIGHT = 0;
-    public static final int HIGHFEEDERSPARK = 0;
+    public static final int SHOOTERSPARKLEFT = 5;
+    public static final int SHOOTERSPARKRIGHT = 7;
+    public static final int HIGHFEEDERSPARK = 6;
     public static final double SHOOTERP = 0;
     public static final double SHOOTERI = 0;
     public static final double SHOOTERD = 0;
     public static final double SHOOTERF = 0;
     public static final double SHOOTERMAX = 1;
     public static final double SHOOTERSPEED = 3000;
-    public static final double HIGHFEEDERSPEED = 0.3;
+    public static final double HIGHFEEDERSPEED = 0.7;
 
     // Lift //
-    public static final int LIFTMOTORPORTLEFT = 0;
-    public static final int LIFTMOTORPORTRIGHT = 0;
-    public static final int TILTMOTORPORT = 0;
+    public static final int LIFTMOTORPORTLEFT = 12;
+    public static final int LIFTMOTORPORTRIGHT = 4;
+    public static final int TILTMOTORPORT = 2;
 
-    public static final double TILTP = 0;
+    public static final double TILTP = 2;
     public static final double TILTI = 0;
     public static final double TILTD = 0;
     public static final double TILTF = 0;
-    public static final double LIFTP = 0;
+    public static final double LIFTP = 3;
     public static final double LIFTI = 0;
     public static final double LIFTD = 0;
     public static final double LIFTF = 0;
 
     public static final double BARONEUPTICKS = 0;
     public static final double BARONEDOWNTICKS = 0;
-    public static final double BARTWOUPTICKS = 0;
+    public static final double BARTWOUPTICKS = 2.45;
     public static final double BARTWODOWNTICKS = 0;
-    public static final double BARTHREETILTTICKS = 0;
+    public static final double BARTHREETILTTICKS = 0.05;
     public static final double BARTHREEDOWNTICKS = 0;
     public static final double BARFOURTILTTICKS = 0;
     public static final double BARFOURDOWNTICKS = 0;

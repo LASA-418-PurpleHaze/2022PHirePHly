@@ -71,7 +71,7 @@ public class HazyMechBase extends SubsystemBase {
         rBackSparkPID.setD(RobotMap.CHASSISRIGHTBACKD);
         rBackSparkPID.setFF(RobotMap.CHASSISRIGHTBACKF);
 
-        solenoidToLight = new Solenoid(PneumaticsModuleType.REVPH,0);
+        //solenoidToLight = new Solenoid(PneumaticsModuleType.REVPH,0);
         visionPort = new SerialPort(RobotMap.BAUDRATE, SerialPort.Port.kMXP);        
     }
 
@@ -81,7 +81,7 @@ public class HazyMechBase extends SubsystemBase {
 
     //Turns the robot to face the target and drives it to the correct shooting distance
     public void goToTarget(){
-        solenoidToLight.set(true);
+        //solenoidToLight.set(true);
         
         //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
         if (delayed){
@@ -117,7 +117,7 @@ public class HazyMechBase extends SubsystemBase {
 
     //Only turns the robot to face the target
     public void turnToTarget(){
-        solenoidToLight.set(true);
+        //solenoidToLight.set(true);
         
         //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
         if (delayed){
@@ -137,7 +137,7 @@ public class HazyMechBase extends SubsystemBase {
 
     //Turns RingLights Off
     public void lightOff(){
-        solenoidToLight.set(false);
+        //solenoidToLight.set(false);
     }
 
     //Sets delay to true

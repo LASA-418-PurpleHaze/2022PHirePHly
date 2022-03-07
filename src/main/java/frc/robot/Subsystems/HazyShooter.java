@@ -25,7 +25,7 @@ public class HazyShooter extends SubsystemBase{
      //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
     public HazyShooter(){
         shooterLeft =  new CANSparkMax(RobotMap.SHOOTERSPARKLEFT, MotorType.kBrushed);
-        shooterRight = new CANSparkMax(RobotMap.SHOOTERSPARKRIGHT, MotorType.kBrushed);
+        //shooterRight = new CANSparkMax(RobotMap.SHOOTERSPARKRIGHT, MotorType.kBrushed);
         leftEncoder = shooterLeft.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
         leftPID = shooterLeft.getPIDController();
         leftPID.setFeedbackDevice(leftEncoder);
@@ -42,7 +42,7 @@ public class HazyShooter extends SubsystemBase{
     //Spins the shooter up to a certain velocity
     public void shoot(){
         leftPID.setReference(RobotMap.SHOOTERSPEED, CANSparkMax.ControlType.kVelocity);
-        shooterRight.follow(shooterLeft, true);
+        //shooterRight.follow(shooterLeft, true);
         if(getShooterRPM() >= RobotMap.SHOOTERSPEED - 100) 
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }

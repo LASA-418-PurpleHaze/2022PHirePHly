@@ -51,7 +51,13 @@ public class RobotContainer {
     CommandBarThreeLiftDown commandBarThreeLiftDown = new CommandBarThreeLiftDown(hazyLift);
     CommandBarFourTilt commandBarFourTilt = new CommandBarFourTilt(hazyLift);
     CommandBarFourLiftDown commandBarFourLiftDown = new CommandBarFourLiftDown(hazyLift);
-
+    CommandStupidLift commandStupidLift = new CommandStupidLift(hazyLift);
+    CommandStupidDown commandStupidDown = new CommandStupidDown(hazyLift);
+    CommandStupidDefault commandStupidDefault = new CommandStupidDefault(hazyLift);
+    CommandReset commandReset = new CommandReset(hazyLift);
+    CommandStupidTilt commandStupidTilt = new CommandStupidTilt(hazyLift);
+    CommandStupidBack commandStupidBack = new CommandStupidBack(hazyLift);
+    CommandResetIntakeEncoders commandResetIntakeEncoders = new CommandResetIntakeEncoders(hazyIntake);
     // Autonomous //
     SequentialCommandGroup twoballAuton = new SequenceTwoBallAuton(hazyMechBase, hazyShooter, hazyIntake);
     
@@ -61,6 +67,7 @@ public class RobotContainer {
         hazyMechBase.setDefaultCommand(commandMecanum);
         hazyIntake.setDefaultCommand(commandIntakeDefault);
         hazyShooter.setDefaultCommand(commandShooterDefault);
+        hazyLift.setDefaultCommand(commandStupidDefault);
         //Not sure if lift needs a default command since all it does is go to PID positions so it won't keep spinning forever, maybe I'm wrong
     }
     
@@ -73,6 +80,15 @@ public class RobotContainer {
         new JoystickButton(hazyController, Button.kB.value).whileHeld(commandRaiseDropIntake);  //B                         --> raise or drop intake
         new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);    //A                         --> start or stop shooter
         new JoystickButton(hazyController, Button.kX.value).whileHeld(commandHighFeed);         //X                         --> manually spin the high feeder
+        new JoystickButton(hazyController, Button.kRightStick.value).whileHeld(commandStupidLift);
+        new JoystickButton(hazyController, Button.kLeftStick.value).whileHeld(commandStupidDown);
+        new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandBarTwoLiftUp);
+        new JoystickButton(rightJoystick, 4).whenPressed(commandReset);
+        new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandBarThreeTilt);
+        new JoystickButton(rightJoystick, 4).whenPressed(commandResetIntakeEncoders);
+
+        // new JoystickButton(hazyController, Button.kLeftBumper.value).whenPressed(commandStupidTilt);
+        // new JoystickButton(hazyController, Button.kRightBumper.value).whenPressed(commandStupidBack);
     }
 
     public void DPadWrapper() {
