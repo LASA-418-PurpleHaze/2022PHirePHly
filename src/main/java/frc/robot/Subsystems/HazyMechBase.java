@@ -1,0 +1,266 @@
+package frc.robot.Subsystems; //folder the file is in
+
+//wpilib imports
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.SerialPort;
+
+//REV imports
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+//local imports
+import frc.robot.*;
+
+public class HazyMechBase extends SubsystemBase {
+    
+    //Declaration of all motorcontrollers in subsystem
+    private CANSparkMax lFrontSpark;
+    private CANSparkMax rFrontSpark;
+    private CANSparkMax lBackSpark;
+    private CANSparkMax rBackSpark;
+
+    //Declaration of PID controllers for the motorcontrollers
+    private SparkMaxPIDController lFrontSparkPID;
+    private SparkMaxPIDController rFrontSparkPID;
+    private SparkMaxPIDController lBackSparkPID;
+    private SparkMaxPIDController rBackSparkPID;
+
+    //Declaration of variables used by vision
+    private Solenoid solenoidToLight;
+    private SerialPort visionPort; //Not sure why we're using a serial port instead of a network table to get Limelight data. Consider changing later
+
+    private double offset; 
+    private boolean delayed;
+    private boolean turnDelay;
+    private double distance;
+    private double milStart;
+    private double lastData;
+
+    //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
+    public HazyMechBase(){
+        lFrontSpark = new CANSparkMax(RobotMap.LEFTFRONTSPARK, MotorType.kBrushless);
+        rFrontSpark = new CANSparkMax(RobotMap.RIGHTFRONTSPARK, MotorType.kBrushless);
+        lBackSpark = new CANSparkMax(RobotMap.LEFTBACKSPARK, MotorType.kBrushless);
+        rBackSpark = new CANSparkMax(RobotMap.RIGHTBACKSPARK, MotorType.kBrushless);
+
+        //PID setup (we may be able to change this where one motor on each side is a leader an the other one follows it)
+        lFrontSparkPID = lFrontSpark.getPIDController();
+        lFrontSparkPID.setP(RobotMap.CHASSISLEFTFRONTP);
+        lFrontSparkPID.setI(RobotMap.CHASSISLEFTFRONTI);
+        lFrontSparkPID.setD(RobotMap.CHASSISLEFTFRONTD);
+        lFrontSparkPID.setFF(RobotMap.CHASSISLEFTFRONTF);
+
+        rFrontSparkPID = rFrontSpark.getPIDController();
+        rFrontSparkPID.setP(RobotMap.CHASSISBACKFRONTP);
+        rFrontSparkPID.setI(RobotMap.CHASSISBACKFRONTI);
+        rFrontSparkPID.setD(RobotMap.CHASSISBACKFRONTD);
+        rFrontSparkPID.setFF(RobotMap.CHASSISBACKFRONTF);
+
+        lBackSparkPID = lBackSpark.getPIDController();
+        lBackSparkPID.setP(RobotMap.CHASSISLEFTBACKP);
+        lBackSparkPID.setI(RobotMap.CHASSISLEFTBACKI);
+        lBackSparkPID.setD(RobotMap.CHASSISLEFTBACKD);
+        lBackSparkPID.setFF(RobotMap.CHASSISLEFTBACKF);
+
+        rBackSparkPID = rBackSpark.getPIDController();
+        rBackSparkPID.setP(RobotMap.CHASSISRIGHTBACKP);
+        rBackSparkPID.setI(RobotMap.CHASSISRIGHTBACKI);
+        rBackSparkPID.setD(RobotMap.CHASSISRIGHTBACKD);
+        rBackSparkPID.setFF(RobotMap.CHASSISRIGHTBACKF);
+
+        solenoidToLight = new Solenoid(PneumaticsModuleType.REVPH,0);
+        visionPort = new SerialPort(RobotMap.BAUDRATE, SerialPort.Port.kMXP);        
+    }
+
+
+
+    // Vision Functions //
+
+    //Turns the robot to face the target and drives it to the correct shooting distance
+    public void goToTarget(){
+        solenoidToLight.set(true);
+        
+        //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
+        if (delayed){
+            milStart = java.lang.System.currentTimeMillis();
+            delayed = false;
+        }
+
+        //Basically a primitive, custom coded, primary and auxiliary closed loop (PID) control. 
+        //The primary loop is moving the robot to the shooting distance while the auxiliary loop is turning the robot to face the target
+        if(java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY){
+            double travelDistance;
+            if(distance == -1.0)
+            travelDistance = 0.0;
+            else
+            travelDistance = RobotMap.SHOOTDISTANCE - distance;
+            //System.out.println(java.lang.System.currentTimeMillis()-lastData);
+            double turnPower = clamp(RobotMap.VISIONTURN * offset, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
+            if(turnPower > -0.105 && turnPower < 0.0 && Math.abs(offset) >= 10.0) 
+            turnPower = -0.105;
+            else if(turnPower < 0.105 && turnPower > 0.0 && Math.abs(offset) >= 10.0)
+            turnPower = 0.105;
+            
+            //This checks if the robot is "close enough" to facing the target as the real error will rarely ever be 0 exactly.
+            //We don't need the error to be 0 exactly, we just need the robot to face the target with some allowable room for error
+            if(Math.abs(offset) < 10.0)
+            turnPower = 0.0;
+            
+            double forwardPower =clamp(-travelDistance*RobotMap.VISIONSPEED, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
+            //System.out.println("turn: " + turnPower + " forward: " + forwardPower);
+            driveCartesian(0, -forwardPower, -turnPower);
+        }
+    }
+
+    //Only turns the robot to face the target
+    public void turnToTarget(){
+        solenoidToLight.set(true);
+        
+        //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
+        if (delayed){
+          milStart = java.lang.System.currentTimeMillis();
+          delayed = false;
+        }
+        if(java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY){
+            double turnPower = RobotMap.VISIONVELTURN * (offset);
+            driveCartesian(0, 0, -turnPower);
+
+        //   rightFrontTalon.set(ControlMode.Velocity,turnPower);
+        //   rightBackTalon.set(ControlMode.Velocity,turnPower);
+        //   leftFrontTalon.set(ControlMode.Velocity,turnPower);
+        //   leftBackTalon.set(ControlMode.Velocity,turnPower);
+        }
+      }
+
+    //Turns RingLights Off
+    public void lightOff(){
+        solenoidToLight.set(false);
+    }
+
+    //Sets delay to true
+    public void toggleDelayed(){
+        delayed = true;
+    }
+
+    //Sets turn delay to true
+    public void toggleTurnDelay(){
+        turnDelay = true;
+    }
+
+    public void readData(){
+        String data = visionPort.readString();
+        
+        //System.out.println(data);
+        //Do this to filter out null data
+        if(data.equals("none")){
+            offset = 0.0; //Offset will rarely if ever be exactly 0 so if offset is 0 we know there is no data
+            distance = -1.0; //distance to target can't be negative so if it's -1 we know there is just no data
+        }
+
+
+        if(!data.equals("") && !data.equals("none")){
+            try{
+                offset = Double.parseDouble(data.substring(8,data.indexOf("distance")));
+                distance = Double.parseDouble(data.substring(data.indexOf("distance")));
+                if(distance > 2000)
+                    distance = -1; //Distance should never be over 2000 (choose an arbitrary number here, doesn't have to be 2000), we do this to filter out any random glitches that the Limelight might give us  
+                else
+                    lastData = java.lang.System.currentTimeMillis();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+    }
+    
+    
+    
+    // Autonomous Functions //
+
+    //Tells the robot to move forward "x" feet
+    //Convert "x" rotations to feet
+    public void moveFeet(double x){
+        lFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        lBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+    }
+
+    //Tells the robot to turn "x" degrees
+    //Convert "x" rotations to degrees
+    public void turnDegrees(double x){
+        lFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        lBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        rFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
+        rBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition); 
+    }
+    
+
+
+    // Joystick Driving Functions //
+    
+    //Mecanum drive function that is called by the default
+    public void driveCartesian(double x, double y, double angle){
+        x = clamp(x, -1.0,1.0);
+        x = applyDeadband(x, RobotMap.DEADBAND);
+        y = clamp(y, -1.0,1.0);
+        y = applyDeadband(y, RobotMap.DEADBAND);
+
+        //The + and - are to make the mecanum drive move correctly & be able to move side to side
+        double[] wheelSpeeds = new double[4];
+        wheelSpeeds[0] = x + y + angle;
+        wheelSpeeds[1] = -x + y - angle;
+        wheelSpeeds[2] = -x + y + angle;
+        wheelSpeeds[3] = x + y - angle;
+    
+        normalize(wheelSpeeds);
+    
+        lFrontSpark.set(-wheelSpeeds[0] );
+        rFrontSpark.set(wheelSpeeds[1]);
+        lBackSpark.set(-wheelSpeeds[2]);
+        rBackSpark.set(wheelSpeeds[3]);
+    }
+
+    //Keeps input value between the high and low values
+    private double clamp (double input, double low, double high){ //utility function for drive cartesian
+        if (input > high)
+            return high;
+        else if (input < low)
+            return low;
+        return input;
+    }
+
+    //Ignores inputs from the joysticks below a certain value in case the joystick isn't zero'd correctly
+    private double applyDeadband(double value, double deadband) {
+        if (Math.abs(value) > deadband) {
+          if (value > 0.0) 
+            return (value - deadband) / (1.0 - deadband);
+          else 
+            return (value + deadband) / (1.0 - deadband);  
+        } 
+        else 
+          return 0.0;
+      }
+    
+    //Sets a max speed value that the wheels can't exceed
+    protected void normalize(double[] wheelSpeeds){ //utility function for drive cartesian
+        double maxMagnitude = Math.abs(wheelSpeeds[0]);
+        
+        for (int i = 1; i < wheelSpeeds.length; i++) {
+            double temp = Math.abs(wheelSpeeds[i]);
+            if (maxMagnitude < temp) {
+                maxMagnitude = temp;
+            }
+        }
+  
+        if (maxMagnitude > 1.0) {
+            for (int i = 0; i < wheelSpeeds.length; i++) {
+                wheelSpeeds[i] = wheelSpeeds[i] / maxMagnitude;
+            }
+        }
+    }
+}

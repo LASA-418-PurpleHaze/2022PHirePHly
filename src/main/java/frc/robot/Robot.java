@@ -1,9 +1,6 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+package frc.robot; //folder the file is in
 
-package frc.robot;
-
+//wpilib imports
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -61,20 +58,21 @@ public class Robot extends TimedRobot {
         m_autoSelected = m_chooser.getSelected();
         // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
         System.out.println("Auto selected: " + m_autoSelected);
+
+        switch (m_autoSelected) {
+            case kCustomAuto:
+                // Put custom auto code here
+                break;
+            case kDefaultAuto:
+            default:
+                robotContainer.getAutonomousCommand().schedule();
+                break;
+            }
     }
 
     /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
-        switch (m_autoSelected) {
-        case kCustomAuto:
-            // Put custom auto code here
-            break;
-        case kDefaultAuto:
-        default:
-            // Put default auto code here
-            break;
-        }
     }
 
     /** This function is called once when teleop is enabled. */
