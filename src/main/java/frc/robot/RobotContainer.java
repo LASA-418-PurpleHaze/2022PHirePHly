@@ -2,13 +2,10 @@ package frc.robot; //folder the file is in
 
 //wpilib imports
 import edu.wpi.first.wpilibj.Joystick;
-<<<<<<< Updated upstream
-=======
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController.Button;
->>>>>>> Stashed changes
 
 //local imports
 import frc.robot.Subsystems.*;
@@ -22,19 +19,16 @@ public class RobotContainer {
     //Robot's controllers that drivers use
     Joystick leftJoystick = new Joystick(RobotMap.LEFTJOYSTICKPORT);
     Joystick rightJoystick = new Joystick(RobotMap.RIGHTJOYSTICKPORT);
-<<<<<<< Updated upstream
-
-    //Subsystems and commands    
-    // Chassis //
-    HazyMechBase hazyMechBase = new HazyMechBase();
-    CommandMecanum commandMecanum = new CommandMecanum(hazyMechBase, leftJoystick, rightJoystick);
-=======
+    XboxController hazyController = new XboxController(RobotMap.CONTROLLERPORT);
     
     //Subsystems and commands
 
     // Chassis //
     HazyMechBase hazyMechBase = new HazyMechBase();
     CommandMecanum commandMecanum = new CommandMecanum(hazyMechBase, leftJoystick, rightJoystick);
+    CommandFollowVision commandFollowVision = new CommandFollowVision(hazyMechBase);
+    CommandTurnVision commandTurnVision = new CommandTurnVision(hazyMechBase);
+    CommandPreciseMecanum commandPreciseMecanum = new CommandPreciseMecanum(hazyMechBase, leftJoystick, rightJoystick);
 
     // Intake //
     HazyIntake hazyIntake = new HazyIntake();
@@ -46,36 +40,57 @@ public class RobotContainer {
     // Shooter //
     HazyShooter hazyShooter = new HazyShooter();
     CommandShoot commandShoot = new CommandShoot(hazyShooter);
+    CommandHighFeed commandHighFeed = new CommandHighFeed(hazyShooter);
     CommandShooterDefault commandShooterDefault = new CommandShooterDefault(hazyShooter);
+
+    // Lift //
+    HazyLift hazyLift = new HazyLift();
+    CommandBarTwoLiftUp commandBarTwoLiftUp = new CommandBarTwoLiftUp(hazyLift);
+    CommandBarTwoLiftDown commandBarTwoLiftDown = new CommandBarTwoLiftDown(hazyLift);
+    CommandBarThreeTilt commandBarThreeTilt = new CommandBarThreeTilt(hazyLift);
+    CommandBarThreeLiftDown commandBarThreeLiftDown = new CommandBarThreeLiftDown(hazyLift);
+    CommandBarFourTilt commandBarFourTilt = new CommandBarFourTilt(hazyLift);
+    CommandBarFourLiftDown commandBarFourLiftDown = new CommandBarFourLiftDown(hazyLift);
 
     // Autonomous //
     SequentialCommandGroup twoballAuton = new SequenceTwoBallAuton(hazyMechBase, hazyShooter, hazyIntake);
->>>>>>> Stashed changes
     
     //This constructor is called once in Robotinit and should set up all button-> command bindings and default commands
     public RobotContainer(){
         configureButtonBindings();
         hazyMechBase.setDefaultCommand(commandMecanum);
-<<<<<<< Updated upstream
-=======
         hazyIntake.setDefaultCommand(commandIntakeDefault);
         hazyShooter.setDefaultCommand(commandShooterDefault);
->>>>>>> Stashed changes
+        //Not sure if lift needs a default command since all it does is go to PID positions so it won't keep spinning forever, maybe I'm wrong
     }
     
     //Use this method to define button->command mappings
     public void configureButtonBindings () {
-<<<<<<< Updated upstream
-        
-=======
         new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                      //Right joystick Trigger    --> spin intake
         new JoystickButton(leftJoystick, 1).whileHeld(commandSpitIntake);                       //Left joystick Trigger     --> spit intake
+        new JoystickButton(rightJoystick, 2).whileHeld(commandFollowVision);                    //Right joystick thumb      --> makes robot turn to target and go to shooting distance
+        new JoystickButton(leftJoystick, 2).whileHeld(commandPreciseMecanum);                   //Left joystick thumb       --> quarters all joystick inputs so the robot moves slower and is easier to control
         new JoystickButton(hazyController, Button.kB.value).whileHeld(commandRaiseDropIntake);  //B                         --> raise or drop intake
         new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);    //A                         --> start or stop shooter
+        new JoystickButton(hazyController, Button.kX.value).whileHeld(commandHighFeed);         //X                         --> manually spin the high feeder
     }
 
+    public void DPadWrapper() {
+        if(hazyController.getPOV() == 0){
+            commandBarTwoLiftUp.execute();
+        }
+        else if(hazyController.getPOV() == 90){
+            commandBarTwoLiftDown.execute();
+        }
+        else if(hazyController.getPOV() == 180){
+            commandBarThreeTilt.execute();
+        }
+        else if(hazyController.getPOV() == 270){
+            commandBarThreeLiftDown.execute();
+        }
+    }
+    //Sends autonomous command so that it can be used in robot.java
     public SequentialCommandGroup getAutonomousCommand(){
         return twoballAuton;
->>>>>>> Stashed changes
     }
 }

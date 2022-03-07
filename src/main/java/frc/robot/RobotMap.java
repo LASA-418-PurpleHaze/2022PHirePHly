@@ -33,9 +33,6 @@ public class RobotMap {
     public static final double CHASSISRIGHTBACKD = 0;
     public static final double CHASSISRIGHTBACKF = 0;
 
-<<<<<<< Updated upstream
-    public static final double DEADBAND = 0.1;
-=======
     // Intake //
     public static final int INTAKESPINTALON = 0;
     public static final int INTAKEUPDOWNTALON = 1;
@@ -96,5 +93,4 @@ public class RobotMap {
     public static final double VISIONTURN = .001;
     public static final double VISIONSPEED = .007;
 
->>>>>>> Stashed changes
 }

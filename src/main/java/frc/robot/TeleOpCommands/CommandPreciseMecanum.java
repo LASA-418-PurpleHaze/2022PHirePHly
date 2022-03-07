@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 //local imports
 import frc.robot.Subsystems.HazyMechBase;
 
-public class CommandMecanum extends CommandBase {
+public class CommandPreciseMecanum extends CommandBase {
     
     //Declare the controllers and subsystem used to control the command
     private final HazyMechBase c_hazyMechBase;
@@ -15,7 +15,7 @@ public class CommandMecanum extends CommandBase {
     private final Joystick c_rightJoystick;
     
     //Pass the subsystem and controllers used in command into the constructor for initialization
-    public CommandMecanum(HazyMechBase subsystem, Joystick left, Joystick right){
+    public CommandPreciseMecanum(HazyMechBase subsystem, Joystick left, Joystick right){
         c_hazyMechBase = subsystem;
         c_leftJoystick = left;
         c_rightJoystick = right;
@@ -25,9 +25,6 @@ public class CommandMecanum extends CommandBase {
     //The function that is called by the commandscheduler when command is called
     @Override
     public void execute(){
-        c_hazyMechBase.driveCartesian(-c_leftJoystick.getX(), c_leftJoystick.getY(), -c_rightJoystick.getX());
-        c_hazyMechBase.lightOff();
-        c_hazyMechBase.toggleDelayed();
-        c_hazyMechBase.toggleTurnDelay();
+        c_hazyMechBase.driveCartesian(0.25 * -c_leftJoystick.getX(), 0.25 * c_leftJoystick.getY(), 0.25 * -c_rightJoystick.getX());
     }
 }

@@ -21,12 +21,9 @@ public class HazyShooter extends SubsystemBase{
     private RelativeEncoder leftEncoder;
     private RelativeEncoder rightEncoder; //not used rn because the right motor is just following the output of the left motor
     private SparkMaxPIDController leftPID;
-    //private RelativeEncoder shooterEncoder;
-    //private TalonSRX highFeeder;
 
      //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
     public HazyShooter(){
-        //shooterRight = new CANSparkMax(RobotMap.SHOOTERSPARKRIGHT, MotorType.kBrushless);
         shooterLeft =  new CANSparkMax(RobotMap.SHOOTERSPARKLEFT, MotorType.kBrushed);
         shooterRight = new CANSparkMax(RobotMap.SHOOTERSPARKRIGHT, MotorType.kBrushed);
         leftEncoder = shooterLeft.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
@@ -69,5 +66,10 @@ public class HazyShooter extends SubsystemBase{
     //returns RPM of the shooter
     public double getShooterRPM(){
         return leftEncoder.getVelocity();
+    }
+
+    //Moves the high feeder at a set speed, used for manually spinning the high feeder
+    public void moveFeeder(){
+        highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
 }
