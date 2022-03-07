@@ -12,6 +12,6 @@ public class CommandIntakeDefault extends CommandBase {
 
     @Override
     public void execute () {
-        c_hazyIntake.defaultC();
+        c_hazyIntake.stopSpinning();
     }
 }

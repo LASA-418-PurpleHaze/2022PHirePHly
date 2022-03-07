@@ -13,8 +13,6 @@ public class HazyLift extends SubsystemBase  {
     public HazyLift() {
         tiltMotor = new CANSparkMax(RobotMap.TILTMOTORPORT, MotorType.kBrushed);
         liftMotor = new CANSparkMax(RobotMap.LIFTMOTORPORT, MotorType.kBrushed);
-
-      
     }
 
     public void stupidTilt() {

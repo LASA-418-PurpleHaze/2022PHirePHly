@@ -27,37 +27,37 @@ public class HazyMechBase extends SubsystemBase {
         rBackSpark = new CANSparkMax(RobotMap.RIGHTBACKSPARK, MotorType.kBrushless);
 
         //PID setup
-        /*
         lFrontSparkPID = lFrontSpark.getPIDController();
-        lFrontSparkPID.setP(RobotMap.CHASSISLEFTFRONTP);
-        lFrontSparkPID.setI(RobotMap.CHASSISLEFTFRONTI);
-        lFrontSparkPID.setD(RobotMap.CHASSISLEFTFRONTD);
-        lFrontSparkPID.setFF(RobotMap.CHASSISLEFTFRONTF);
+        lFrontSparkPID.setP(RobotMap.CHASSISP);
+        lFrontSparkPID.setI(RobotMap.CHASSISI);
+        lFrontSparkPID.setD(RobotMap.CHASSISD);
+        lFrontSparkPID.setFF(RobotMap.CHASSISFF);
 
         rFrontSparkPID = rFrontSpark.getPIDController();
-        rFrontSparkPID.setP(RobotMap.CHASSISBACKFRONTP);
-        rFrontSparkPID.setI(RobotMap.CHASSISBACKFRONTI);
-        rFrontSparkPID.setD(RobotMap.CHASSISBACKFRONTD);
-        rFrontSparkPID.setFF(RobotMap.CHASSISBACKFRONTF);
+        rFrontSparkPID.setP(RobotMap.CHASSISP);
+        rFrontSparkPID.setI(RobotMap.CHASSISI);
+        rFrontSparkPID.setD(RobotMap.CHASSISD);
+        rFrontSparkPID.setFF(RobotMap.CHASSISFF);
 
         lBackSparkPID = lBackSpark.getPIDController();
-        lBackSparkPID.setP(RobotMap.CHASSISLEFTBACKP);
-        lBackSparkPID.setI(RobotMap.CHASSISLEFTBACKI);
-        lBackSparkPID.setD(RobotMap.CHASSISLEFTBACKD);
-        lBackSparkPID.setFF(RobotMap.CHASSISLEFTBACKF);
+        lBackSparkPID.setP(RobotMap.CHASSISP);
+        lBackSparkPID.setI(RobotMap.CHASSISI);
+        lBackSparkPID.setD(RobotMap.CHASSISD);
+        lBackSparkPID.setFF(RobotMap.CHASSISFF);
 
         rBackSparkPID = rBackSpark.getPIDController();
-        rBackSparkPID.setP(RobotMap.CHASSISRIGHTBACKP);
-        rBackSparkPID.setI(RobotMap.CHASSISRIGHTBACKI);
-        rBackSparkPID.setD(RobotMap.CHASSISRIGHTBACKD);
-        rBackSparkPID.setFF(RobotMap.CHASSISRIGHTBACKF);
-        */
+        rBackSparkPID.setP(RobotMap.CHASSISP);
+        rBackSparkPID.setI(RobotMap.CHASSISI);
+        rBackSparkPID.setD(RobotMap.CHASSISD);
+        rBackSparkPID.setFF(RobotMap.CHASSISFF);
     }
     
     //Mecanum drive function that is called by the default
     public void driveCartesian(double x, double y, double angle){
-        y = clamp(y, -1.0,1.0);
         x = clamp(x, -1.0,1.0);
+        x = applyDeadband(x, RobotMap.DEADBAND);
+        y = clamp(y, -1.0,1.0);
+        y = applyDeadband(y, RobotMap.DEADBAND);
 
         //The + and - are to make the mecanum drive move correctly & be able to move side to side
         double[] wheelSpeeds = new double[4];
@@ -73,6 +73,10 @@ public class HazyMechBase extends SubsystemBase {
         lBackSpark.set(-wheelSpeeds[2]);
         rBackSpark.set(wheelSpeeds[3]);
     }
+
+    public void moveXInches(double x) { // neg x --> backwards (towards intake), pos x --> forwards (towards shooter)
+        
+    }
     
     //Keeps input value between the high and low values
     private double clamp (double input, double low, double high){ //utility function for drive cartesian
@@ -82,6 +86,18 @@ public class HazyMechBase extends SubsystemBase {
             return low;
         return input;
     }
+
+    //Makes the robot not drift when it should be stationary
+    private double applyDeadband(double value, double deadband) {
+        if (Math.abs(value) > deadband) {
+          if (value > 0.0) 
+            return (value - deadband) / (1.0 - deadband);
+          else 
+            return (value + deadband) / (1.0 - deadband);  
+        } 
+        else 
+          return 0.0;
+      }
     
     //Sets a max speed value that the wheels can't exceed
     protected void normalize(double[] wheelSpeeds){ //utility function for drive cartesian

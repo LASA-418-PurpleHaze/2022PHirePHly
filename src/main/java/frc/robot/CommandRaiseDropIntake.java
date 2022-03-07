@@ -12,7 +12,7 @@ public class CommandRaiseDropIntake extends CommandBase {
 
     @Override
     public void execute () {
-        //c_hazyIntake.resetEncoderTicks();
+        // c_hazyIntake.resetEncoderTicks();
         c_hazyIntake.drop();
     }
 

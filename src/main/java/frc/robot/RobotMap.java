@@ -8,34 +8,20 @@ public class RobotMap {
     public static final int RIGHTJOYSTICKPORT = 2;
 
     // Drive Train //
-
     public static final int LEFTFRONTSPARK = 9;
     public static final int RIGHTFRONTSPARK = 7;
     public static final int LEFTBACKSPARK = 12;
     public static final int RIGHTBACKSPARK = 2;
 
-    public static final double CHASSISLEFTFRONTP = 0;
-    public static final double CHASSISLEFTFRONTI = 0;
-    public static final double CHASSISLEFTFRONTD = 0;
-    public static final double CHASSISLEFTFRONTF = 0;
+    public static final double CHASSISP = 0;
+    public static final double CHASSISI = 0;
+    public static final double CHASSISD = 0;
+    public static final double CHASSISFF = 0;
 
-    public static final double CHASSISBACKFRONTP = 0;
-    public static final double CHASSISBACKFRONTI = 0;
-    public static final double CHASSISBACKFRONTD = 0;
-    public static final double CHASSISBACKFRONTF = 0;
-
-    public static final double CHASSISLEFTBACKP = 0;
-    public static final double CHASSISLEFTBACKI = 0;
-    public static final double CHASSISLEFTBACKD = 0;
-    public static final double CHASSISLEFTBACKF = 0;
-
-    public static final double CHASSISRIGHTBACKP = 0;
-    public static final double CHASSISRIGHTBACKI = 0;
-    public static final double CHASSISRIGHTBACKD = 0;
-    public static final double CHASSISRIGHTBACKF = 0;
+    public static final double DEADBAND = 0.2;
 
     // Shooter //
-    //public static final int SHOOTERSPARKRIGHT = 6;
+    public static final int SHOOTERSPARKRIGHT = 6;
     public static final int SHOOTERSPARKLEFT = 5;
     public static final double SHOOTERSPEED = 1000;
 
@@ -54,14 +40,11 @@ public class RobotMap {
     public static final int INTAKEUPTICKS = 0;
 
     public static final double INTAKEUPDOWNP = 1;
-    public static final int INTAKEUPDOWNI = 0;
-    public static final int INTAKEUPDOWND = 0;
-    public static final int INTAKEUPDOWNF = 0;
-    public static final double DEADBAND = 0.1;
+    public static final double INTAKEUPDOWNI = 0;
+    public static final double INTAKEUPDOWND = 0;
+    public static final double INTAKEUPDOWNFF = 0;
 
-    //Lift
+    // Lift //
     public static final int TILTMOTORPORT = 0;
     public static final int LIFTMOTORPORT = 0;
-    
-
 }
