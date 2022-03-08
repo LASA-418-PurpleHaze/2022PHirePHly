@@ -25,8 +25,8 @@ public class CommandMecanum extends CommandBase {
     //The function that is called by the commandscheduler when command is called
     @Override
     public void execute(){
-        //c_hazyMechBase.driveCartesian(-c_leftJoystick.getX(), c_leftJoystick.getY(), -c_rightJoystick.getX());
-        c_hazyMechBase.driveCartesian(0, 0, 0);
+        c_hazyMechBase.driveCartesian(-c_leftJoystick.getX(), c_leftJoystick.getY(), -c_rightJoystick.getX());
+        //c_hazyMechBase.driveCartesian(0, 0, 0);
         c_hazyMechBase.lightOff();
         c_hazyMechBase.toggleDelayed();
         c_hazyMechBase.toggleTurnDelay();

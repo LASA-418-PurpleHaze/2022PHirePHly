@@ -16,6 +16,6 @@ public class CommandRaiseDropIntake extends CommandBase {
 
     @Override
     public void execute () {
-        c_hazyIntake.drop();
+        c_hazyIntake.dropOrRaise();
     }
 }

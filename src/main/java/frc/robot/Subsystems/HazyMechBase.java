@@ -4,7 +4,8 @@ package frc.robot.Subsystems; //folder the file is in
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.networktables.*;
+
 
 //REV imports
 import com.revrobotics.CANSparkMax;
@@ -30,14 +31,22 @@ public class HazyMechBase extends SubsystemBase {
 
     //Declaration of variables used by vision
     private Solenoid solenoidToLight;
-    private SerialPort visionPort; //Not sure why we're using a serial port instead of a network table to get Limelight data. Consider changing later
+    private NetworkTableInstance limeTable; //Not sure why we're using a serial port instead of a network table to get Limelight data. Consider changing later
 
-    private double offset; 
+    
     private boolean delayed;
     private boolean turnDelay;
-    private double distance;
     private double milStart;
-    private double lastData;
+
+    private double tv;
+    private double offset;
+    private double ty;
+    private double ta;
+
+    private final double targetHeight = 104.0;
+    private final double limeHeight = 36.0;
+    private final double limeAngle = 7.5;
+    private double distance;
 
     //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
     public HazyMechBase(){
@@ -71,8 +80,9 @@ public class HazyMechBase extends SubsystemBase {
         rBackSparkPID.setD(RobotMap.CHASSISRIGHTBACKD);
         rBackSparkPID.setFF(RobotMap.CHASSISRIGHTBACKF);
 
-        //solenoidToLight = new Solenoid(PneumaticsModuleType.REVPH,0);
-        visionPort = new SerialPort(RobotMap.BAUDRATE, SerialPort.Port.kMXP);        
+        
+        //solenoidToLight = new Solenoid(PneumaticsModuleType.REVPH,5);
+        //visionPort = new SerialPort(RobotMap.BAUDRATE, SerialPort.Port.kMXP);        
     }
 
 
@@ -118,6 +128,7 @@ public class HazyMechBase extends SubsystemBase {
     //Only turns the robot to face the target
     public void turnToTarget(){
         //solenoidToLight.set(true);
+        System.out.println("Error: " + distance);
         
         //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
         if (delayed){
@@ -125,8 +136,13 @@ public class HazyMechBase extends SubsystemBase {
           delayed = false;
         }
         if(java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY){
-            double turnPower = RobotMap.VISIONVELTURN * (offset);
+            double turnPower = RobotMap.VISIONVELTURN * (offset/100);
             driveCartesian(0, 0, -turnPower);
+            //lFrontSpark.set(turnPower);
+            //rFrontSpark.set(turnPower);
+            //lBackSpark.set(turnPower);
+            //rBackSpark.set(turnPower);
+
 
         //   rightFrontTalon.set(ControlMode.Velocity,turnPower);
         //   rightBackTalon.set(ControlMode.Velocity,turnPower);
@@ -151,30 +167,12 @@ public class HazyMechBase extends SubsystemBase {
     }
 
     public void readData(){
-        String data = visionPort.readString();
-        
-        //System.out.println(data);
-        //Do this to filter out null data
-        if(data.equals("none")){
-            offset = 0.0; //Offset will rarely if ever be exactly 0 so if offset is 0 we know there is no data
-            distance = -1.0; //distance to target can't be negative so if it's -1 we know there is just no data
-        }
+        tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+        offset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+        ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+        ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
-
-        if(!data.equals("") && !data.equals("none")){
-            try{
-                offset = Double.parseDouble(data.substring(8,data.indexOf("distance")));
-                distance = Double.parseDouble(data.substring(data.indexOf("distance")));
-                if(distance > 2000)
-                    distance = -1; //Distance should never be over 2000 (choose an arbitrary number here, doesn't have to be 2000), we do this to filter out any random glitches that the Limelight might give us  
-                else
-                    lastData = java.lang.System.currentTimeMillis();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        
+        distance = (targetHeight - limeHeight)/(Math.tan( Math.PI/180 * (limeAngle+ty)));
     }
     
     

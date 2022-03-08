@@ -33,22 +33,28 @@ public class RobotMap {
     public static final double CHASSISRIGHTBACKD = 0;
     public static final double CHASSISRIGHTBACKF = 0;
 
-    // Intake //
-    public static final int INTAKESPINTALON = 1;
-    public static final int INTAKEUPDOWNTALON = 0;
-    public static final int INTAKEDOWNTICKS = -1200;
-    public static final int INTAKEUPTICKS = 3;
-
-    public static final double INTAKEUPDOWNP = 1;
-    public static final double INTAKEUPDOWNI = 0;
-    public static final double INTAKEUPDOWND = 0;
-    public static final double INTAKEUPDOWNF = 0;
     public static final double DEADBAND = 0.25;
 
+    // Intake //
+    public static final int INTAKESPINTALON = 0;
+    public static final int INTAKEUPDOWNTALON = 1;
+    public static final int INTAKEDOWNTICKS = -1600;
+    public static final int INTAKEUPTICKS = -200;
+
+    public static final double INTAKEUPP = 0.65;
+    public static final double INTAKEUPI = 0;
+    public static final double INTAKEUPD = 0;
+    public static final double INTAKEUPF = 0;
+
+    public static final double INTAKEDOWNP = 0.4;
+    public static final double INTAKEDOWNI = 0;
+    public static final double INTAKEDOWND = 1;
+    public static final double INTAKEDOWNF = 0;
+
     // Shooter //
-    public static final int SHOOTERSPARKLEFT = 5;
-    public static final int SHOOTERSPARKRIGHT = 7;
-    public static final int HIGHFEEDERSPARK = 6;
+    public static final int SHOOTERTALONLEFT = 6;
+    public static final int SHOOTERTALONRIGHT = 8;
+    public static final int HIGHFEEDERSPARK = 10;
     public static final double SHOOTERP = 0;
     public static final double SHOOTERI = 0;
     public static final double SHOOTERD = 0;
@@ -86,10 +92,10 @@ public class RobotMap {
 
     // Vision //
     public static final int BAUDRATE = 115200;
-    public static final int VISIONDELAY = 500;
+    public static final int VISIONDELAY = 200;
     public static final double SHOOTDISTANCE = 0;
-    public static final double MAXVISIONSPEED = .5;
-    public static final double VISIONVELTURN = 15.0;
+    public static final double MAXVISIONSPEED = .3;
+    public static final double VISIONVELTURN = 3.5;
     public static final double VISIONTURN = .001;
     public static final double VISIONSPEED = .007;
 

@@ -75,7 +75,7 @@ public class RobotContainer {
     public void configureButtonBindings () {
         new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                      //Right joystick Trigger    --> spin intake
         new JoystickButton(leftJoystick, 1).whileHeld(commandSpitIntake);                       //Left joystick Trigger     --> spit intake
-        new JoystickButton(rightJoystick, 2).whileHeld(commandFollowVision);                    //Right joystick thumb      --> makes robot turn to target and go to shooting distance
+        new JoystickButton(rightJoystick, 2).whileHeld(commandTurnVision);                    //Right joystick thumb      --> makes robot turn to target and go to shooting distance
         new JoystickButton(leftJoystick, 2).whileHeld(commandPreciseMecanum);                   //Left joystick thumb       --> quarters all joystick inputs so the robot moves slower and is easier to control
         new JoystickButton(hazyController, Button.kB.value).whileHeld(commandRaiseDropIntake);  //B                         --> raise or drop intake
         new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);    //A                         --> start or stop shooter

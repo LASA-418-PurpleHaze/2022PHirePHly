@@ -25,6 +25,6 @@ public class CommandPreciseMecanum extends CommandBase {
     //The function that is called by the commandscheduler when command is called
     @Override
     public void execute(){
-        c_hazyMechBase.driveCartesian(0.25 * -c_leftJoystick.getX(), 0.25 * c_leftJoystick.getY(), 0.25 * -c_rightJoystick.getX());
+        c_hazyMechBase.driveCartesian(0.3 * -c_leftJoystick.getX(), 0.3 * c_leftJoystick.getY(), 0.3 * -c_rightJoystick.getX());
     }
 }
