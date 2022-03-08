@@ -34,19 +34,25 @@ public class HazyShooter extends SubsystemBase{
         shooterLeft.config_kD(0, RobotMap.SHOOTERD);
         shooterLeft.config_kF(0, RobotMap.SHOOTERF);
 
+        shooterRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+        shooterRight.config_kP(0, RobotMap.SHOOTERP);
+        shooterRight.config_kI(0, RobotMap.SHOOTERI);
+        shooterRight.config_kD(0, RobotMap.SHOOTERD);
+        shooterRight.config_kF(0, RobotMap.SHOOTERF);
     }
 
     //Spins the shooter up to a certain velocity
     public void shoot(){
         shooterLeft.set(ControlMode.PercentOutput, RobotMap.SHOOTERSPEED);
-        shooterRight.set(ControlMode.Follower, shooterLeft.getDeviceID());
-        //if(getShooterRPM() >= RobotMap.SHOOTERSPEED - 100) 
-           //highFeeder.set(RobotMap.HIGHFEEDERSPEED);
+        shooterRight.set(ControlMode.PercentOutput, RobotMap.SHOOTERSPEED);
+        if(getShooterRPM() >= RobotMap.SHOOTERSPEED - 100) 
+           highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
 
     //Default Command Calls this, stops the shooter motor
     public void stopShooter(){
         shooterLeft.set(ControlMode.PercentOutput,0);
+        shooterRight.set(ControlMode.PercentOutput,0);
     }
 
     //Default Command Calls this, stops the feeder motor

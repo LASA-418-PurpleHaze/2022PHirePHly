@@ -60,7 +60,7 @@ public class RobotMap {
     public static final double SHOOTERD = 0;
     public static final double SHOOTERF = 0;
     public static final double SHOOTERMAX = 1;
-    public static final double SHOOTERSPEED = 3000;
+    public static final double SHOOTERSPEED = 2500;
     public static final double HIGHFEEDERSPEED = 0.7;
 
     // Lift //
