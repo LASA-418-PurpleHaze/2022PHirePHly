@@ -39,6 +39,9 @@ public class HazyShooter extends SubsystemBase{
         shooterRight.config_kI(0, RobotMap.SHOOTERI);
         shooterRight.config_kD(0, RobotMap.SHOOTERD);
         shooterRight.config_kF(0, RobotMap.SHOOTERF);
+
+        shooterLeft.configPeakOutputReverse(-1);
+        shooterRight.configPeakOutputForward(1);
     }
 
     //Spins the shooter up to a certain velocity

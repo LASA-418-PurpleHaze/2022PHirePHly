@@ -70,7 +70,7 @@ public class HazyLift extends SubsystemBase  {
     //tilts the lift a certain number of encoder ticks
     public void tilt(double ticks) {
         tiltMotorPID.setReference(ticks, CANSparkMax.ControlType.kPosition);
-        System.out.println(tiltEncoder.getPosition());
+        System.out.println("tilt" + tiltEncoder.getPosition());
     }
     
     //makes the lift go up or down a certain number of ticks
@@ -78,7 +78,7 @@ public class HazyLift extends SubsystemBase  {
         liftMotorRightPID.setReference(ticks, CANSparkMax.ControlType.kPosition);
         liftMotorLeft.follow(liftMotorRight,true);
         // liftMotorRightPID.setReference(-setpoint, CANSparkMax.ControlType.kPosition); //Right motor must run opposite to the left motor because that's how our lift is set up mechanically
-        System.out.println(liftRightEncoder.getPosition());
+        System.out.println("lift" + liftRightEncoder.getPosition());
     }
 
     public void resetEncoders(){

@@ -46,9 +46,9 @@ public class RobotMap {
     public static final double INTAKEUPD = 0;
     public static final double INTAKEUPF = 0;
 
-    public static final double INTAKEDOWNP = 0.4;
+    public static final double INTAKEDOWNP = 0.7;
     public static final double INTAKEDOWNI = 0;
-    public static final double INTAKEDOWND = 1;
+    public static final double INTAKEDOWND = 2;
     public static final double INTAKEDOWNF = 0;
 
     // Shooter //
@@ -68,7 +68,7 @@ public class RobotMap {
     public static final int LIFTMOTORPORTRIGHT = 4;
     public static final int TILTMOTORPORT = 2;
 
-    public static final double TILTP = 2;
+    public static final double TILTP = 10;
     public static final double TILTI = 0;
     public static final double TILTD = 0;
     public static final double TILTF = 0;
