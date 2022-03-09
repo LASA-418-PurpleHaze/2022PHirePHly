@@ -8,14 +8,14 @@ import frc.robot.Subsystems.HazyLift;
 
 public class CommandStupidTilt extends CommandBase {
 
-    private HazyLift c_IntialLift;
+    private HazyLift c_hazyLift;
     public CommandStupidTilt(HazyLift lift) {
-        c_IntialLift = lift;
-        addRequirements(c_IntialLift);
+        c_hazyLift = lift;
+        addRequirements(c_hazyLift);
     }
 
     @Override
     public void execute() {
-        c_IntialLift.stupidTilt();
+        c_hazyLift.stupidTilt();
     }
 }

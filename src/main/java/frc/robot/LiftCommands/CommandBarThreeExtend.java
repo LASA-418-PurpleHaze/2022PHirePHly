@@ -7,16 +7,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.HazyLift;
 import frc.robot.*;
 
-public class CommandBarFourTilt extends CommandBase {
 
-    private HazyLift c_IntialLift;
-    public CommandBarFourTilt(HazyLift lift) {
-        c_IntialLift = lift;
-        addRequirements(c_IntialLift);
+public class CommandBarThreeExtend extends CommandBase {
+
+    private HazyLift c_hazyLift;
+    public CommandBarThreeExtend (HazyLift lift) {
+        c_hazyLift = lift;
+        addRequirements(c_hazyLift);
     }
 
     @Override
     public void execute() {
-        c_IntialLift.tilt(RobotMap.BARFOURTILTTICKS);
+        c_hazyLift.lift(RobotMap.BARTHREEEXTEND);
     }
 }

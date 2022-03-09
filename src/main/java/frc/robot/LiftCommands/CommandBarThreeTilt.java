@@ -9,14 +9,14 @@ import frc.robot.*;
 
 public class CommandBarThreeTilt extends CommandBase {
 
-    private HazyLift c_IntialLift;
+    private HazyLift c_hazyLift;
     public CommandBarThreeTilt(HazyLift lift) {
-        c_IntialLift = lift;
-        addRequirements(c_IntialLift);
+        c_hazyLift = lift;
+        addRequirements(c_hazyLift);
     }
 
     @Override
     public void execute() {
-        c_IntialLift.tilt(RobotMap.BARTHREETILTTICKS);
+        c_hazyLift.tilt(RobotMap.BARTHREETILT);
     }
 }

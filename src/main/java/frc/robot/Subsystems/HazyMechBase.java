@@ -80,9 +80,12 @@ public class HazyMechBase extends SubsystemBase {
         rBackSparkPID.setD(RobotMap.CHASSISRIGHTBACKD);
         rBackSparkPID.setFF(RobotMap.CHASSISRIGHTBACKF);
 
-        
         //solenoidToLight = new Solenoid(PneumaticsModuleType.REVPH,5);
         //visionPort = new SerialPort(RobotMap.BAUDRATE, SerialPort.Port.kMXP);        
+    }
+
+    public void resetEncoders(){
+        
     }
 
 

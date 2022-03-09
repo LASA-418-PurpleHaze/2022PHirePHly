@@ -14,16 +14,11 @@ import frc.robot.*;
 public class HazyIntake extends SubsystemBase {
     private TalonSRX spinTalon;
     private TalonSRX upDownTalon;
-
-    private boolean isUp;
     
     public HazyIntake () {
         spinTalon = new TalonSRX(RobotMap.INTAKESPINTALON);
         upDownTalon = new TalonSRX(RobotMap.INTAKEUPDOWNTALON);
-        isUp = true;
-        // sets the talon to not go at max speed (for simple movement)
-        //upDownTalon.configPeakOutputForward(0.5);
-        //upDownTalon.configPeakOutputReverse(0.5);
+        
         resetEncoders();
        
         upDownTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -50,24 +45,27 @@ public class HazyIntake extends SubsystemBase {
         spinTalon.set(ControlMode.PercentOutput, 0);
         System.out.println(upDownTalon.getSelectedSensorPosition());
     }
+
     public void drop() {
         System.out.println("first" + upDownTalon.getSelectedSensorPosition());
         upDownTalon.set(ControlMode.Position, RobotMap.INTAKEDOWNTICKS);
         System.out.println(upDownTalon.getSelectedSensorPosition());
     }
+
     public void raise() {
         upDownTalon.set(ControlMode.Position, RobotMap.INTAKEUPTICKS);
-
     }
+
     public void resetEncoders() {
         upDownTalon.setSelectedSensorPosition(0);
     }
+    
     public void dropOrRaise () {
         if (upDownTalon.getSelectedSensorPosition() > -1000) {
             upDownTalon.selectProfileSlot(0, 0); //Sets the motor to use the "0" id where we have stored our PID values and makes usre its running in primary closed loop mode: each motor can have multiple PID slots each with its own id
             upDownTalon.set(ControlMode.Position, RobotMap.INTAKEDOWNTICKS);
         } else {
-            upDownTalon.selectProfileSlot(1, 0); //Sets the motor to use the "0" id where we have stored our PID values and makes usre its running in primary closed loop mode: each motor can have multiple PID slots each with its own id
+            upDownTalon.selectProfileSlot(1, 0); //Sets the motor to use the "1" id where we have stored our PID values and makes usre its running in primary closed loop mode: each motor can have multiple PID slots each with its own id
             upDownTalon.set(ControlMode.Position, RobotMap.INTAKEUPTICKS);
         }
     }

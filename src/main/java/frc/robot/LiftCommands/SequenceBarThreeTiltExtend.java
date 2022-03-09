@@ -6,13 +6,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //local imports
 import frc.robot.Subsystems.HazyLift;
 
-public class SequenceBarFour extends SequentialCommandGroup {
+public class SequenceBarThreeTiltExtend extends SequentialCommandGroup {
     
     //Pass the subsystem and controllers used in command into the constructor for initialization
-    public SequenceBarFour(HazyLift lift){
+    public SequenceBarThreeTiltExtend (HazyLift lift){
         addCommands(
-            new CommandBarFourTilt(lift), 
-            new CommandBarFourLiftDown(lift)
+            new CommandBarThreeTilt(lift), 
+            new CommandBarThreeExtend(lift)
         );  
     }
 }

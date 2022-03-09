@@ -77,14 +77,12 @@ public class RobotMap {
     public static final double LIFTD = 0;
     public static final double LIFTF = 0;
 
-    public static final double BARONEUPTICKS = 0;
-    public static final double BARONEDOWNTICKS = 0;
-    public static final double BARTWOUPTICKS = 2.45;
-    public static final double BARTWODOWNTICKS = 0;
-    public static final double BARTHREETILTTICKS = 0.05;
-    public static final double BARTHREEDOWNTICKS = 0;
-    public static final double BARFOURTILTTICKS = 0;
-    public static final double BARFOURDOWNTICKS = 0;
+    public static final double BARTWOUP = 2.45;
+    public static final double BARTWODOWN = 0;
+    public static final double BARTHREETILT = 0.05;
+    public static final double BARTHREEEXTEND = 0;
+    public static final double BARTHREETILTBACK = 0;
+    public static final double BARTHREEPULL = 0;
 
     // Autonomous //
     public static final double FIRSTMOVE = 0;

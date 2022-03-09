@@ -12,7 +12,9 @@ public class SequenceBarThree extends SequentialCommandGroup {
     public SequenceBarThree(HazyLift lift){
         addCommands(
             new CommandBarThreeTilt(lift), 
-            new CommandBarThreeLiftDown(lift)
+            new CommandBarThreeExtend(lift),
+            new CommandBarThreeTiltBack(lift),
+            new CommandBarThreePull(lift)
         );  
     }
 }

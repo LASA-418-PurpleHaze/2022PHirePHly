@@ -9,14 +9,14 @@ import frc.robot.*;
 
 public class CommandBarTwoLiftDown extends CommandBase {
 
-    private HazyLift c_IntialLift;
+    private HazyLift c_hazyLift;
     public CommandBarTwoLiftDown(HazyLift lift) {
-        c_IntialLift = lift;
-        addRequirements(c_IntialLift);
+        c_hazyLift = lift;
+        addRequirements(c_hazyLift);
     }
 
     @Override
     public void execute() {
-        c_IntialLift.lift(RobotMap.BARTWODOWNTICKS);
+        c_hazyLift.lift(RobotMap.BARTWODOWN);
     }
 }

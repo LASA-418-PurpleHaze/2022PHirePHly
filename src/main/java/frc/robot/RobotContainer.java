@@ -3,10 +3,13 @@ package frc.robot; //folder the file is in
 //wpilib imports
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.XboxController.Button;
-
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 //local imports
 import frc.robot.Subsystems.*;
 import frc.robot.LiftCommands.*;
@@ -45,69 +48,89 @@ public class RobotContainer {
 
     // Lift //
     HazyLift hazyLift = new HazyLift();
-    CommandBarTwoLiftUp commandBarTwoLiftUp = new CommandBarTwoLiftUp(hazyLift);
-    CommandBarTwoLiftDown commandBarTwoLiftDown = new CommandBarTwoLiftDown(hazyLift);
-    CommandBarThreeTilt commandBarThreeTilt = new CommandBarThreeTilt(hazyLift);
-    CommandBarThreeLiftDown commandBarThreeLiftDown = new CommandBarThreeLiftDown(hazyLift);
-    CommandBarFourTilt commandBarFourTilt = new CommandBarFourTilt(hazyLift);
-    CommandBarFourLiftDown commandBarFourLiftDown = new CommandBarFourLiftDown(hazyLift);
+    CommandResetIntakeEncoders commandResetIntakeEncoders = new CommandResetIntakeEncoders(hazyIntake);
+    
+    CommandStupidDefault commandStupidDefault = new CommandStupidDefault(hazyLift);
     CommandStupidLift commandStupidLift = new CommandStupidLift(hazyLift);
     CommandStupidDown commandStupidDown = new CommandStupidDown(hazyLift);
-    CommandStupidDefault commandStupidDefault = new CommandStupidDefault(hazyLift);
-    CommandReset commandReset = new CommandReset(hazyLift);
     CommandStupidTilt commandStupidTilt = new CommandStupidTilt(hazyLift);
-    CommandStupidBack commandStupidBack = new CommandStupidBack(hazyLift);
-    CommandBarTwoTilt commandTwoTilt = new CommandBarTwoTilt(hazyLift);
-    CommandResetIntakeEncoders commandResetIntakeEncoders = new CommandResetIntakeEncoders(hazyIntake);
+    CommandStupidTiltBack commandStupidTiltBack = new CommandStupidTiltBack(hazyLift);
+
+    CommandBarTwoLiftUp commandBarTwoLiftUp = new CommandBarTwoLiftUp(hazyLift);
+    SequenceBarTwoLiftDown sequenceBarTwoLiftDown = new SequenceBarTwoLiftDown(hazyLift);
+
+    SequenceBarThreeTiltExtend sequenceBarThreeTiltExtend = new SequenceBarThreeTiltExtend(hazyLift);
+    CommandBarThreeTiltBack commandBarThreeTiltBack = new CommandBarThreeTiltBack(hazyLift);
+    CommandBarThreePull commandBarThreePull = new CommandBarThreePull(hazyLift);
+
     // Autonomous //
-    SequentialCommandGroup twoballAuton = new SequenceTwoBallAuton(hazyMechBase, hazyShooter, hazyIntake);
+    SendableChooser<Command> chooser = new SendableChooser<>();
+    SequentialCommandGroup twoBallAuton = new SequenceTwoBallAuton(hazyMechBase, hazyShooter, hazyIntake);
+
+    // Etc //
+    CommandResetAllEncoders commandResetAllEncoders = new CommandResetAllEncoders(hazyMechBase, hazyIntake, hazyLift);
     
     //This constructor is called once in Robotinit and should set up all button-> command bindings and default commands
     public RobotContainer(){
         configureButtonBindings();
+
         hazyMechBase.setDefaultCommand(commandMecanum);
         hazyIntake.setDefaultCommand(commandIntakeDefault);
         hazyShooter.setDefaultCommand(commandShooterDefault);
         hazyLift.setDefaultCommand(commandStupidDefault);
         //Not sure if lift needs a default command since all it does is go to PID positions so it won't keep spinning forever, maybe I'm wrong
+
+        chooser.setDefaultOption("Two Ball Auto", twoBallAuton);
+        // chooser.addOption("One Ball Auto", oneBallAuto);
+        Shuffleboard.getTab("Autonomous").add(chooser);
     }
+
+    
     
     //Use this method to define button->command mappings
     public void configureButtonBindings () {
-        new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                      //Right joystick Trigger    --> spin intake
-        new JoystickButton(leftJoystick, 1).whileHeld(commandSpitIntake);                       //Left joystick Trigger     --> spit intake
-        new JoystickButton(rightJoystick, 2).whileHeld(commandTurnVision);                    //Right joystick thumb      --> makes robot turn to target and go to shooting distance
-        new JoystickButton(leftJoystick, 2).whileHeld(commandPreciseMecanum);                   //Left joystick thumb       --> quarters all joystick inputs so the robot moves slower and is easier to control
-        new JoystickButton(hazyController, Button.kB.value).whenPressed(commandRaiseDropIntake);  //B                         --> raise or drop intake
-        new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);    //A                         --> start or stop shooter
-        new JoystickButton(hazyController, Button.kX.value).whileHeld(commandHighFeed);         //X                         --> manually spin the high feeder
-        new JoystickButton(hazyController, Button.kRightStick.value).whileHeld(commandStupidLift);
-        new JoystickButton(hazyController, Button.kLeftStick.value).whileHeld(commandStupidDown);
-        new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandBarTwoLiftUp);
-        new JoystickButton(rightJoystick, 4).whenPressed(commandReset);
-        new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandTwoTilt);
-        new JoystickButton(rightJoystick, 4).whenPressed(commandResetIntakeEncoders);
+        // Chassis //
+        // new JoystickButton(rightJoystick, 4).whenPressed(commandSwapDirection);                      // RJ 4 --> swap direction
+        new JoystickButton(leftJoystick, 2).whenPressed(commandPreciseMecanum);                         // LJ 2 --> precise mecanum
+        new JoystickButton(rightJoystick, 2).whileHeld(commandTurnVision);                              // RJ 2 --> turn to vision
+        new JoystickButton(rightJoystick, 3).whileHeld(commandFollowVision);                            // RJ 3 --> follow vision
 
-        // new JoystickButton(hazyController, Button.kLeftBumper.value).whenPressed(commandStupidTilt);
-        // new JoystickButton(hazyController, Button.kRightBumper.value).whenPressed(commandStupidBack);
+        // Intake //
+        new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                              // RJ 1 --> spin intake
+        new JoystickButton(leftJoystick, 1).whileHeld(commandSpitIntake);                               // LJ 1 --> spin intake (backwards)
+        new JoystickButton(hazyController, Button.kB.value).whenPressed(commandRaiseDropIntake);        // B    --> raise/drop intake
+        // new JoystickButton(hazyController, Button.kX.value).whenPressed(commandHalfLiftIntake);      // X    --> half lift intake to get bouncing balls
+
+        // Shooter //
+        new JoystickButton(hazyController, Button.kA.value).whenPressed(commandShoot);                  // A    --> full shoot by itself
+
+        // Lift //
+        new JoystickButton(hazyController, Button.kLeftStick.value).whileHeld(commandStupidDown);       // press left xbox stick    --> manually move lift down
+        new JoystickButton(hazyController, Button.kRightStick.value).whileHeld(commandStupidLift);      // press right xbox stick   --> manually move lift up 
+        new JoystickButton(leftJoystick, 3).whenPressed(commandBarTwoLiftUp);                           // LJ 3                     --> lift up to above bar 2
+        new JoystickButton(leftJoystick, 5).whenPressed(sequenceBarTwoLiftDown);                        // LJ 5                     --> lift down to be completely on bar 2
+
+        // Etc //
+        new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetAllEncoders);
     }
+
 
     public void DPadWrapper() {
-        if(hazyController.getPOV() == 0){
-            commandBarTwoLiftUp.execute();
+        // Lift //
+        if(hazyController.getPOV() == 0) {} //Up
+        else if(hazyController.getPOV() == 90){ //Right
+            commandBarThreeTiltBack.execute();                                                          // DPad right --> tilt arm back to be on bar 3
         }
-        else if(hazyController.getPOV() == 90){
-            commandBarTwoLiftDown.execute();
+        else if(hazyController.getPOV() == 180){ //Down
+            commandBarThreePull.execute();                                                              // DPad down  --> pull arm to bar 3
         }
-        else if(hazyController.getPOV() == 180){
-            commandBarThreeTilt.execute();
-        }
-        else if(hazyController.getPOV() == 270){
-            commandBarThreeLiftDown.execute();
+        else if(hazyController.getPOV() == 270){ //Left
+            sequenceBarThreeTiltExtend.execute();                                                       // DPad left  --> tilt arm to bar 3 and extend to bar 3
         }
     }
+    
     //Sends autonomous command so that it can be used in robot.java
-    public SequentialCommandGroup getAutonomousCommand(){
-        return twoballAuton;
+    public Command getAutonomousCommand() {
+        return chooser.getSelected();
     }
 }
