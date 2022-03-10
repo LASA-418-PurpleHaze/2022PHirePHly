@@ -32,6 +32,8 @@ public class RobotContainer {
     CommandFollowVision commandFollowVision = new CommandFollowVision(hazyMechBase);
     CommandTurnVision commandTurnVision = new CommandTurnVision(hazyMechBase);
     CommandPreciseMecanum commandPreciseMecanum = new CommandPreciseMecanum(hazyMechBase, leftJoystick, rightJoystick);
+    CommandResetMecanumEncoders commandResetMecanumEncoders = new CommandResetMecanumEncoders(hazyMechBase);
+    CommandMoveForward commandMoveForward = new CommandMoveForward(hazyMechBase);
 
     // Intake //
     HazyIntake hazyIntake = new HazyIntake();
@@ -42,6 +44,8 @@ public class RobotContainer {
     CommandSpinIntake commandSpinIntake = new CommandSpinIntake(hazyIntake);
     CommandSpitIntake commandSpitIntake = new CommandSpitIntake(hazyIntake);
     CommandStopDropIntake commandStopDropIntake = new CommandStopDropIntake(hazyIntake);
+    CommandResetIntakeEncoders commandResetIntakeEncoders = new CommandResetIntakeEncoders(hazyIntake);
+
     // Shooter //
     HazyShooter hazyShooter = new HazyShooter();
     CommandShoot commandShoot = new CommandShoot(hazyShooter);
@@ -50,8 +54,7 @@ public class RobotContainer {
 
     // Lift //
     HazyLift hazyLift = new HazyLift();
-    CommandResetIntakeEncoders commandResetIntakeEncoders = new CommandResetIntakeEncoders(hazyIntake);
-    
+    CommandResetLiftEncoder commandResetLiftEncoder = new CommandResetLiftEncoder(hazyLift);
     CommandStupidDefault commandStupidDefault = new CommandStupidDefault(hazyLift);
     CommandStupidLift commandStupidLift = new CommandStupidLift(hazyLift);
     CommandStupidDown commandStupidDown = new CommandStupidDown(hazyLift);
@@ -71,7 +74,7 @@ public class RobotContainer {
     SequentialCommandGroup twoBallAuton = new SequenceTwoBallAuton(hazyMechBase, hazyShooter, hazyIntake);
 
     // Etc //
-    CommandResetAllEncoders commandResetAllEncoders = new CommandResetAllEncoders(hazyMechBase, hazyIntake, hazyLift);
+    //CommandResetAllEncoders commandResetAllEncoders = new CommandResetAllEncoders(hazyMechBase, hazyIntake, hazyLift);
     
     //This constructor is called once in Robotinit and should set up all button-> command bindings and default commands
     public RobotContainer(){
@@ -94,7 +97,7 @@ public class RobotContainer {
     public void configureButtonBindings () {
         // Chassis //
         // new JoystickButton(rightJoystick, 4).whenPressed(commandSwapDirection);                      // RJ 4 --> swap direction
-        new JoystickButton(leftJoystick, 2).whenPressed(commandPreciseMecanum);                         // LJ 2 --> precise mecanum
+        new JoystickButton(leftJoystick, 2).whileHeld(commandPreciseMecanum);                         // LJ 2 --> precise mecanum
         new JoystickButton(rightJoystick, 2).whileHeld(commandTurnVision);
         new JoystickButton(rightJoystick, 2).whileHeld(commandSpinIntake);                              // RJ 2 --> turn to vision
         // RJ 2 --> turn to vision
@@ -114,12 +117,17 @@ public class RobotContainer {
         // Lift //
         new JoystickButton(hazyController, Button.kLeftStick.value).whileHeld(commandStupidDown);       // press left xbox stick    --> manually move lift down
         new JoystickButton(hazyController, Button.kRightStick.value).whileHeld(commandStupidLift);      // press right xbox stick   --> manually move lift up 
-        new JoystickButton(leftJoystick, 3).whenPressed(commandBarTwoLiftUp);                           // LJ 3                     --> lift up to above bar 2
-        new JoystickButton(leftJoystick, 5).whenPressed(commandBarTwoLiftDown);                        // LJ 5                     --> lift down to be completely on bar 2
+        //new JoystickButton(leftJoystick, 3).whenPressed(commandBarTwoLiftUp);                           // LJ 3                     --> lift up to above bar 2
+        //new JoystickButton(leftJoystick, 5).whenPressed(commandBarTwoLiftDown);                        // LJ 5                     --> lift down to be completely on bar 2
 
         // Etc //
         new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetIntakeEncoders);
-        new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandResetAllEncoders);
+        new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetIntakeEncoders);
+        new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetMecanumEncoders);
+
+        new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
+        //new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetLiftEncoders);
+        //new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandResetAllEncoders);
     }
 
 
@@ -127,18 +135,19 @@ public class RobotContainer {
         // Lift //
         if(hazyController.getPOV() == 0) {} //Up
         else if(hazyController.getPOV() == 90){ //Right
-            commandBarThreeTiltBack.execute();                                                          // DPad right --> tilt arm back to be on bar 3
+            //commandBarThreeTiltBack.execute();                                                          // DPad right --> tilt arm back to be on bar 3
         }
         else if(hazyController.getPOV() == 180){ //Down
-            commandBarThreePull.execute();                                                              // DPad down  --> pull arm to bar 3
+            //commandBarThreePull.execute();                                                              // DPad down  --> pull arm to bar 3
         }
         else if(hazyController.getPOV() == 270){ //Left
-            sequenceBarThreeTiltExtend.execute();                                                       // DPad left  --> tilt arm to bar 3 and extend to bar 3
+            //sequenceBarThreeTiltExtend.execute();                                                       // DPad left  --> tilt arm to bar 3 and extend to bar 3
         }
     }
     
     //Sends autonomous command so that it can be used in robot.java
     public Command getAutonomousCommand() {
-        return chooser.getSelected();
+        //return chooser.getSelected();
+        return twoBallAuton;
     }
 }

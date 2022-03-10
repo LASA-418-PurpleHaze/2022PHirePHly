@@ -55,6 +55,12 @@ public class HazyMechBase extends SubsystemBase {
         lBackSpark = new CANSparkMax(RobotMap.LEFTBACKSPARK, MotorType.kBrushless);
         rBackSpark = new CANSparkMax(RobotMap.RIGHTBACKSPARK, MotorType.kBrushless);
 
+        lFrontSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        lBackSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        rFrontSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        lBackSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
+
+
         //PID setup (we may be able to change this where one motor on each side is a leader an the other one follows it)
         lFrontSparkPID = lFrontSpark.getPIDController();
         lFrontSparkPID.setP(RobotMap.CHASSISLEFTFRONTP);
@@ -81,15 +87,20 @@ public class HazyMechBase extends SubsystemBase {
         rBackSparkPID.setFF(RobotMap.CHASSISRIGHTBACKF);
 
         //solenoidToLight = new Solenoid(PneumaticsModuleType.REVPH,5);
-        //visionPort = new SerialPort(RobotMap.BAUDRATE, SerialPort.Port.kMXP);        
+        //visionPort = new SerialPort(RobotMap.BAUDRATE, SerialPort.Port.kMXP);  
+        lFrontSparkPID.setOutputRange(-.35, .35);
+        lBackSparkPID.setOutputRange(-.35, .35);
+        rFrontSparkPID.setOutputRange(-.35, .35);
+        rBackSparkPID.setOutputRange(-.35, .35);
+        resetEncoders();
     }
 
     public void resetEncoders(){
-        
+        lFrontSpark.getEncoder().setPosition(0);
+        lBackSpark.getEncoder().setPosition(0);
+        rFrontSpark.getEncoder().setPosition(0);
+        rBackSpark.getEncoder().setPosition(0);
     }
-
-
-
     // Vision Functions //
 
     //Turns the robot to face the target and drives it to the correct shooting distance
@@ -130,7 +141,7 @@ public class HazyMechBase extends SubsystemBase {
 
     //Only turns the robot to face the target
     public void turnToTarget(){
-        //solenoidToLight.set(true);
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
         System.out.println("Error: " + distance);
         
         //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
@@ -139,7 +150,7 @@ public class HazyMechBase extends SubsystemBase {
           delayed = false;
         }
         if(java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY){
-            double turnPower = RobotMap.VISIONVELTURN * (offset/100);
+            double turnPower = RobotMap.VISIONVELTURN * (offset/22);
             driveCartesian(0, 0, -turnPower);
             //lFrontSpark.set(turnPower);
             //rFrontSpark.set(turnPower);
@@ -156,7 +167,7 @@ public class HazyMechBase extends SubsystemBase {
 
     //Turns RingLights Off
     public void lightOff(){
-        //solenoidToLight.set(false);
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     }
 
     //Sets delay to true
@@ -185,8 +196,8 @@ public class HazyMechBase extends SubsystemBase {
     //Tells the robot to move forward "x" feet
     //Convert "x" rotations to feet
     public void moveFeet(double x){
-        lFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
-        lBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        lFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
+        lBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
         rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
         rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
     }
@@ -194,10 +205,10 @@ public class HazyMechBase extends SubsystemBase {
     //Tells the robot to turn "x" degrees
     //Convert "x" rotations to degrees
     public void turnDegrees(double x){
-        lFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
-        lBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
-        rFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
-        rBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition); 
+        lFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
+        lBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
+        rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition); 
     }
     
 
@@ -224,6 +235,7 @@ public class HazyMechBase extends SubsystemBase {
         rFrontSpark.set(wheelSpeeds[1]);
         lBackSpark.set(-wheelSpeeds[2]);
         rBackSpark.set(wheelSpeeds[3]);
+
     }
 
     //Keeps input value between the high and low values

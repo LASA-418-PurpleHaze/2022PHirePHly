@@ -22,6 +22,16 @@ public class SequenceTwoBallAuton extends SequentialCommandGroup {
         //         new CommandTurnVision(chassis)
         //     )
         // );
-        
+        addCommands(
+            new ParallelCommandGroup(
+                new CommandMoveForward(chassis),
+                new CommandDropIntake(intake)
+            ),
+            new ParallelCommandGroup(
+                new CommandSpinIntake(intake),
+                //new CommandTurnVision(chassis)
+                new CommandShoot(shooter)
+            )
+        );
     }
 }

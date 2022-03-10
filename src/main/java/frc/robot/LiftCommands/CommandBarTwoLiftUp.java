@@ -17,7 +17,7 @@ public class CommandBarTwoLiftUp extends CommandBase {
 
     @Override
     public void execute() {
-        c_hazyLift.lift(RobotMap.BARTWOUP);
+        //c_hazyLift.lift(RobotMap.BARTWOUP);
         //c_IntialLift.tilt(0);
     }
 }

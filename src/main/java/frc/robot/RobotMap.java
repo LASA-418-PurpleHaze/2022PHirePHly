@@ -13,22 +13,22 @@ public class RobotMap {
     public static final int LEFTBACKSPARK = 3;
     public static final int RIGHTBACKSPARK = 11;
 
-    public static final double CHASSISLEFTFRONTP = 0;
+    public static final double CHASSISLEFTFRONTP = 1;
     public static final double CHASSISLEFTFRONTI = 0;
     public static final double CHASSISLEFTFRONTD = 0;
     public static final double CHASSISLEFTFRONTF = 0;
 
-    public static final double CHASSISBACKFRONTP = 0;
+    public static final double CHASSISBACKFRONTP = 1;
     public static final double CHASSISBACKFRONTI = 0;
     public static final double CHASSISBACKFRONTD = 0;
     public static final double CHASSISBACKFRONTF = 0;
 
-    public static final double CHASSISLEFTBACKP = 0;
+    public static final double CHASSISLEFTBACKP = 1;
     public static final double CHASSISLEFTBACKI = 0;
     public static final double CHASSISLEFTBACKD = 0;
     public static final double CHASSISLEFTBACKF = 0;
 
-    public static final double CHASSISRIGHTBACKP = 0;
+    public static final double CHASSISRIGHTBACKP = 1;
     public static final double CHASSISRIGHTBACKI = 0;
     public static final double CHASSISRIGHTBACKD = 0;
     public static final double CHASSISRIGHTBACKF = 0;
@@ -55,12 +55,12 @@ public class RobotMap {
     public static final int SHOOTERTALONLEFT = 6;
     public static final int SHOOTERTALONRIGHT = 8;
     public static final int HIGHFEEDERSPARK = 10;
-    public static final double SHOOTERP = 0;
-    public static final double SHOOTERI = 0;
+    public static final double SHOOTERSPEED = 15000;
+    public static final double SHOOTERP = 0.015;
+    public static final double SHOOTERI = 0.00008;
     public static final double SHOOTERD = 0;
-    public static final double SHOOTERF = 0;
+    public static final double SHOOTERF = (3/1561) * (SHOOTERSPEED/4096);
     public static final double SHOOTERMAX = 1;
-    public static final double SHOOTERSPEED = 2500;
     public static final double HIGHFEEDERSPEED = 0.7;
 
     // Lift //
@@ -85,6 +85,9 @@ public class RobotMap {
     public static final double BARTHREEEXTEND = 0;
     public static final double BARTHREETILTBACK = 0;
     public static final double BARTHREEPULL = 0;
+    public static final double MAXLIFTHEIGHT = -3.3;
+    public static final double MINLIFTHEIGHT = -0.05;
+    public static final double MAINTAINPOSVOLTAGE = 0;
 
     // Autonomous //
     public static final double FIRSTMOVE = 0;
@@ -95,7 +98,7 @@ public class RobotMap {
     public static final int VISIONDELAY = 200;
     public static final double SHOOTDISTANCE = 0;
     public static final double MAXVISIONSPEED = .3;
-    public static final double VISIONVELTURN = 3.5;
+    public static final double VISIONVELTURN = 0.5;
     public static final double VISIONTURN = .001;
     public static final double VISIONSPEED = .007;
 

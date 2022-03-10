@@ -43,7 +43,7 @@ public class HazyIntake extends SubsystemBase {
     public void defaultC () {
         upDownTalon.set(ControlMode.PercentOutput, 0);
         spinTalon.set(ControlMode.PercentOutput, 0);
-        System.out.println(upDownTalon.getSelectedSensorPosition());
+        //System.out.println(upDownTalon.getSelectedSensorPosition());
     }
 
     public void drop() {

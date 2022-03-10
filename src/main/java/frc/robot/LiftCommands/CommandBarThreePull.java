@@ -18,6 +18,6 @@ public class CommandBarThreePull extends CommandBase {
 
     @Override
     public void execute() {
-        c_hazyLift.lift(RobotMap.BARTHREEPULL);
+        //c_hazyLift.lift(RobotMap.BARTHREEPULL);
     }
 }

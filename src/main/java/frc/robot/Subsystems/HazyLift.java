@@ -35,6 +35,11 @@ public class HazyLift extends SubsystemBase  {
         liftMotorLeft = new CANSparkMax(RobotMap.LIFTMOTORPORTLEFT, MotorType.kBrushed);
         liftMotorRight = new CANSparkMax(RobotMap.LIFTMOTORPORTRIGHT, MotorType.kBrushed);
 
+        tiltMotor.restoreFactoryDefaults();
+        liftMotorLeft.restoreFactoryDefaults();
+        liftMotorRight.restoreFactoryDefaults();
+
+
         tiltEncoder = tiltMotor.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
         liftLeftEncoder = liftMotorLeft.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
         liftRightEncoder = liftMotorRight.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
@@ -63,6 +68,8 @@ public class HazyLift extends SubsystemBase  {
         liftMotorRightPID.setD(RobotMap.LIFTD);
         liftMotorRightPID.setFF(RobotMap.LIFTF);
 
+        liftMotorLeftPID.setOutputRange(-1, 1);
+        liftMotorRightPID.setOutputRange(-1, 1);
         resetEncoders();
         //tiltMotorPID.setReference(0, CANSparkMax.ControlType.kPosition);
     }
@@ -75,14 +82,14 @@ public class HazyLift extends SubsystemBase  {
     
     //makes the lift go up or down a certain number of ticks
     public void lift(double ticks) {
-        liftMotorRightPID.setReference(ticks, CANSparkMax.ControlType.kPosition);
-        liftMotorLeft.follow(liftMotorRight,true);
+        //liftMotorRightPID.setReference(-3.7, CANSparkMax.ControlType.kPosition);
+        //liftMotorLeft.follow(liftMotorRight,true);
         // liftMotorRightPID.setReference(-setpoint, CANSparkMax.ControlType.kPosition); //Right motor must run opposite to the left motor because that's how our lift is set up mechanically
-        System.out.println("lift" + liftRightEncoder.getPosition());
+        //System.out.println("lift" + liftRightEncoder.getPosition());
     }
     public void lifttilt(double liftTicks, double tiltTicks) {
-        lift(liftTicks);
-        tilt(tiltTicks);
+        //lift(liftTicks);
+        //tilt(tiltTicks);
     }
 
     public void resetEncoders(){
@@ -97,6 +104,23 @@ public class HazyLift extends SubsystemBase  {
         liftMotorLeft.follow(liftMotorRight,true);
         //System.out.println("Left" + liftLeftEncoder.getPosition());
         System.out.println("Right" + liftRightEncoder.getPosition());
+        if(liftRightEncoder.getPosition() <= RobotMap.MAXLIFTHEIGHT){ //Going up is negative encoder ticks so we do <= instead of >=
+            liftMotorRight.set(0); 
+        }
+
+        System.out.println("LIFT MOVING DOWNup");
+
+    }
+
+    public void stupidDown(){
+        liftMotorRight.set(-0.5);
+        liftMotorLeft.follow(liftMotorRight,true);
+        System.out.println("Right" + liftRightEncoder.getPosition());
+        if(liftRightEncoder.getPosition() >= RobotMap.MINLIFTHEIGHT){
+            liftMotorRight.set(0);
+        }
+
+        System.out.println("LIFT MOVING DOWN");
     }
     // public void reallyStupidTilt(double ticks) {
     //     if (tiltEncoder.getPosition() > .12) {
@@ -119,17 +143,13 @@ public class HazyLift extends SubsystemBase  {
         System.out.println("Hello");
     }
 
-    public void stupidDown(){
-        liftMotorRight.set(-0.75);
-        liftMotorLeft.follow(liftMotorRight,true);
-        System.out.println("Right" + liftRightEncoder.getPosition());
-    }
+    
 
     public void stupidDefault(){
         liftMotorLeft.set(0);
         liftMotorRight.set(0); 
         tiltMotor.set(0);
-        //System.out.println(tiltEncoder.getPosition());
+        System.out.println(liftRightEncoder.getPosition());
     }
     public void fakeEStop() {
         liftMotorLeft.set(0);

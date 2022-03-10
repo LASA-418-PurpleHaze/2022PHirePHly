@@ -42,12 +42,16 @@ public class HazyShooter extends SubsystemBase{
 
         shooterLeft.configPeakOutputReverse(-1);
         shooterRight.configPeakOutputForward(1);
+
+        shooterLeft.setSelectedSensorPosition(0);
+        shooterRight.setSelectedSensorPosition(0);
+
     }
 
     //Spins the shooter up to a certain velocity
     public void shoot(){
-        shooterLeft.set(ControlMode.PercentOutput, RobotMap.SHOOTERSPEED);
-        shooterRight.set(ControlMode.PercentOutput, RobotMap.SHOOTERSPEED);
+        shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
+        shooterRight.follow(shooterLeft);
         if(getShooterRPM() >= RobotMap.SHOOTERSPEED - 100) 
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
