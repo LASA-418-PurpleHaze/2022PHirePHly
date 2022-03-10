@@ -69,8 +69,8 @@ public class HazyLift extends SubsystemBase  {
 
     //tilts the lift a certain number of encoder ticks
     public void tilt(double ticks) {
-        tiltMotorPID.setReference(ticks, CANSparkMax.ControlType.kPosition);
         System.out.println("tilt" + tiltEncoder.getPosition());
+        tiltMotorPID.setReference(ticks, CANSparkMax.ControlType.kPosition);
     }
     
     //makes the lift go up or down a certain number of ticks
@@ -79,6 +79,10 @@ public class HazyLift extends SubsystemBase  {
         liftMotorLeft.follow(liftMotorRight,true);
         // liftMotorRightPID.setReference(-setpoint, CANSparkMax.ControlType.kPosition); //Right motor must run opposite to the left motor because that's how our lift is set up mechanically
         System.out.println("lift" + liftRightEncoder.getPosition());
+    }
+    public void lifttilt(double liftTicks, double tiltTicks) {
+        lift(liftTicks);
+        tilt(tiltTicks);
     }
 
     public void resetEncoders(){
@@ -94,14 +98,24 @@ public class HazyLift extends SubsystemBase  {
         //System.out.println("Left" + liftLeftEncoder.getPosition());
         System.out.println("Right" + liftRightEncoder.getPosition());
     }
+    // public void reallyStupidTilt(double ticks) {
+    //     if (tiltEncoder.getPosition() > .12) {
+    //         tiltMotorPID.setReference(ticks, CANSparkMax.ControlType.kPosition);
+    //     }
+        
+
+    // }
 
     public void stupidTilt(){
-        tiltMotor.set(-0.2);
-        System.out.println("Hello");
+        // tiltMotor.set(-0.3);
+        System.out.println("tilt" + tiltEncoder.getPosition());
+
+        //System.out.println("Hello");
+        //tilt(0.093);
     }
 
     public void stupidTiltBack(){
-        tiltMotor.set(0.5);
+        tiltMotor.set(0.3);
         System.out.println("Hello");
     }
 
@@ -116,6 +130,11 @@ public class HazyLift extends SubsystemBase  {
         liftMotorRight.set(0); 
         tiltMotor.set(0);
         //System.out.println(tiltEncoder.getPosition());
+    }
+    public void fakeEStop() {
+        liftMotorLeft.set(0);
+        liftMotorRight.set(0); 
+        tiltMotor.set(0);
     }
 
     public void noTilt(){

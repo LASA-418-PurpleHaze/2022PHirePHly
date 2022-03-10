@@ -68,13 +68,15 @@ public class RobotMap {
     public static final int LIFTMOTORPORTRIGHT = 4;
     public static final int TILTMOTORPORT = 2;
 
-    public static final double TILTP = 10;
+    public static final double TILTP = 5;
     public static final double TILTI = 0;
     public static final double TILTD = 0;
     public static final double TILTF = 0;
-    public static final double LIFTP = 3;
+
+
+    public static final double LIFTP = 30;
     public static final double LIFTI = 0;
-    public static final double LIFTD = 0;
+    public static final double LIFTD = 4;
     public static final double LIFTF = 0;
 
     public static final double BARTWOUP = 2.45;
