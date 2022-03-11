@@ -22,5 +22,11 @@ public class CommandMoveForward extends CommandBase {
     @Override
     public void execute(){
         c_hazyMechBase.moveFeet(20);
+        System.out.println("moving forward");
     }
+    @Override
+    public boolean isFinished() {
+        return c_hazyMechBase.didMoveForward();
+    }
+
 }

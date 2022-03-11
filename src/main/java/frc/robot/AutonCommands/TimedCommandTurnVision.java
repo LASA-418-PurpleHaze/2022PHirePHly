@@ -1,4 +1,4 @@
-package frc.robot.TeleOpCommands; //folder the file is in
+package frc.robot.AutonCommands; //folder the file is in
 
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -6,11 +6,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 //local imports
 import frc.robot.Subsystems.HazyMechBase;
 
-public class CommandTurnVision extends CommandBase {
+public class TimedCommandTurnVision extends CommandBase {
     private HazyMechBase c_hazyMechBase;
-
-    public CommandTurnVision(HazyMechBase base){
+    private double startTime;
+    public TimedCommandTurnVision(double time, HazyMechBase base){
         c_hazyMechBase = base;
+        startTime = time;
         addRequirements(c_hazyMechBase);    
 }
 
@@ -21,6 +22,9 @@ public class CommandTurnVision extends CommandBase {
     }
     @Override
     public boolean isFinished() {
+        if(java.lang.System.currentTimeMillis() > startTime + 7000){
+            return true;
+        }
         return false;
     }
 

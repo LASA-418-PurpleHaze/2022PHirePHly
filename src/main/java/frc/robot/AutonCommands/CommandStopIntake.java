@@ -1,4 +1,4 @@
-package frc.robot.TeleOpCommands; //folder the file is in
+package frc.robot.AutonCommands; //folder the file is in
 
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -6,20 +6,20 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 //local imports
 import frc.robot.Subsystems.HazyIntake;
 
-public class CommandSpinIntake extends CommandBase {
+public class CommandStopIntake extends CommandBase {
     private HazyIntake c_hazyIntake;
 
-    public CommandSpinIntake (HazyIntake subsystem) {
+    public CommandStopIntake(HazyIntake subsystem) {
         c_hazyIntake = subsystem;
         addRequirements(c_hazyIntake);
     }
 
     @Override
     public void execute () {
-        c_hazyIntake.spin();
+        c_hazyIntake.defaultC();
     }
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

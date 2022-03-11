@@ -73,6 +73,9 @@ public class HazyIntake extends SubsystemBase {
             //intakeStop();
         }
     }
+    public boolean isDown() {
+        return (upDownTalon.getSelectedSensorPosition() < -1000);
+    }
     
 
 

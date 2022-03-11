@@ -202,6 +202,11 @@ public class HazyMechBase extends SubsystemBase {
         rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
     }
 
+    public boolean didMoveForward () {
+        System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
+        return lFrontSpark.getEncoder().getPosition() <= -19;
+    }
+
     //Tells the robot to turn "x" degrees
     //Convert "x" rotations to degrees
     public void turnDegrees(double x){
