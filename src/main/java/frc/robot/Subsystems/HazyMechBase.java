@@ -3,6 +3,7 @@ package frc.robot.Subsystems; //folder the file is in
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.networktables.*;
 
@@ -122,12 +123,13 @@ public class HazyMechBase extends SubsystemBase {
             else
             travelDistance = RobotMap.SHOOTDISTANCE - distance;
             //System.out.println(java.lang.System.currentTimeMillis()-lastData);
-            double turnPower = clamp(RobotMap.VISIONTURN * offset, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
+            // double turnPower = clamp(RobotMap.VISIONTURN * (offset/22), RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
+            double turnPower = RobotMap.VISIONTURN * (offset/22);
             if(turnPower > -0.105 && turnPower < 0.0 && Math.abs(offset) >= 10.0) 
             turnPower = -0.105;
             else if(turnPower < 0.105 && turnPower > 0.0 && Math.abs(offset) >= 10.0)
             turnPower = 0.105;
-            
+            SmartDashboard.putNumber("limelight", distance);
             //This checks if the robot is "close enough" to facing the target as the real error will rarely ever be 0 exactly.
             //We don't need the error to be 0 exactly, we just need the robot to face the target with some allowable room for error
             if(Math.abs(offset) < 10.0)
@@ -135,7 +137,7 @@ public class HazyMechBase extends SubsystemBase {
             
             double forwardPower =clamp(-travelDistance*RobotMap.VISIONSPEED, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
             //System.out.println("turn: " + turnPower + " forward: " + forwardPower);
-            driveCartesian(0, -forwardPower, -turnPower);
+            driveCartesian(0, - forwardPower, -turnPower);
         }
     }
 
@@ -143,7 +145,8 @@ public class HazyMechBase extends SubsystemBase {
     public void turnToTarget(){
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
         System.out.println("Error: " + distance);
-        
+
+        //SmartDashboard.putNumber("limelight", distance);
         //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
         if (delayed){
           milStart = java.lang.System.currentTimeMillis();
@@ -187,6 +190,8 @@ public class HazyMechBase extends SubsystemBase {
         ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
         distance = (targetHeight - limeHeight)/(Math.tan( Math.PI/180 * (limeAngle+ty)));
+
+        System.out.println("our offset is " + offset + " and distance is " + distance);
     }
     
     

@@ -51,7 +51,7 @@ public class RobotContainer {
     CommandShoot commandShoot = new CommandShoot(hazyShooter);
     CommandHighFeed commandHighFeed = new CommandHighFeed(hazyShooter);
     CommandShooterDefault commandShooterDefault = new CommandShooterDefault(hazyShooter);
-
+    CommandShootLow commandShootLow = new CommandShootLow(hazyShooter);
     // Lift //
     HazyLift hazyLift = new HazyLift();
     CommandResetLiftEncoder commandResetLiftEncoder = new CommandResetLiftEncoder(hazyLift);
@@ -126,6 +126,7 @@ public class RobotContainer {
         new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetIntakeEncoders);
         new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetMecanumEncoders);
 
+        new JoystickButton(hazyController, Button.kBack.value).toggleWhenPressed(commandShootLow);
         new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
         //new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetLiftEncoders);
         //new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandResetAllEncoders);
@@ -136,7 +137,8 @@ public class RobotContainer {
         // Lift //
         if(hazyController.getPOV() == 0) {} //Up
         else if(hazyController.getPOV() == 90){ //Right
-            //commandBarThreeTiltBack.execute();                                                          // DPad right --> tilt arm back to be on bar 3
+            //System.out.println("dpad 90");
+            //commandShootLow.execute();                                                       // DPad right --> tilt arm back to be on bar 3
         }
         else if(hazyController.getPOV() == 180){ //Down
             //commandBarThreePull.execute();                                                              // DPad down  --> pull arm to bar 3

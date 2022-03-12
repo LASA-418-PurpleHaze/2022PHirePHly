@@ -55,6 +55,12 @@ public class HazyShooter extends SubsystemBase{
         if(getShooterRPM() >= RobotMap.SHOOTERSPEED - 100) 
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
+    public void shootLow(){
+        shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERLOWSPEED);
+        shooterRight.follow(shooterLeft);
+        if(getShooterRPM() >= RobotMap.SHOOTERLOWSPEED - 100) 
+           highFeeder.set(RobotMap.HIGHFEEDERSPEED);
+    }
 
     //Default Command Calls this, stops the shooter motor
     public void stopShooter(){

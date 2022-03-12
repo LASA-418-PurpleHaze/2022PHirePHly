@@ -94,12 +94,12 @@ public class HazyIntake extends SubsystemBase {
     }
 
     public void spin () {
-        spinTalon.set(ControlMode.PercentOutput, .75);
+        spinTalon.set(ControlMode.PercentOutput, 1);
         //System.out.println("Out Volts: " + spinTalon.getBusVoltage());
     }
 
     public void spit () {
-        spinTalon.set(ControlMode.PercentOutput, -.75);
+        spinTalon.set(ControlMode.PercentOutput, -1);
         //System.out.println("Volts: " + spinTalon.getBusVoltage());
     }
 }

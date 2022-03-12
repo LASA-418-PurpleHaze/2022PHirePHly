@@ -21,7 +21,7 @@ public class CommandMoveForward extends CommandBase {
     //The function that is called by the commandscheduler when command is called
     @Override
     public void execute(){
-        c_hazyMechBase.moveFeet(20);
+        c_hazyMechBase.moveFeet(27);
         System.out.println("moving forward");
     }
     @Override
