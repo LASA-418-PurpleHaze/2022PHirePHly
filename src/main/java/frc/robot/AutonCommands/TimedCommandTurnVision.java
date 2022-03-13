@@ -19,6 +19,8 @@ public class TimedCommandTurnVision extends CommandBase {
     public void execute(){
         c_hazyMechBase.readData();
         c_hazyMechBase.turnToTarget();
+        //c_hazyMechBase.goToTarget();
+
     }
     @Override
     public boolean isFinished() {

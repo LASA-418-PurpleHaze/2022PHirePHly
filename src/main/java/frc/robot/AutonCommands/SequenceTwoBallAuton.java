@@ -12,14 +12,14 @@ public class SequenceTwoBallAuton extends SequentialCommandGroup {
     //Pass the subsystem and controllers used in command into the constructor for initialization
     public SequenceTwoBallAuton(HazyMechBase chassis, HazyShooter shooter, HazyIntake intake){
         addCommands(
-            //new CommandDropIntake(intake),
+            new CommandDropIntake(intake),
             new ParallelCommandGroup(
-                //new TimedCommandSpinIntake(intake),
+                new TimedCommandSpinIntake(intake),
                 new SequentialCommandGroup(
                     new CommandMoveForward(chassis),
-                    //new TimedCommandTurnVision(chassis),
-                    new CommandStopMecBase(chassis)
-                    //new CommandTimedShoot(shooter)
+                    new TimedCommandTurnVision(chassis),
+                    new CommandStopMecBase(chassis),
+                    new CommandTimedShoot(shooter)
                 )
                 // stop
             ),

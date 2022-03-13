@@ -137,7 +137,7 @@ public class HazyMechBase extends SubsystemBase {
             
             double forwardPower =clamp(-travelDistance*RobotMap.VISIONSPEED, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
             //System.out.println("turn: " + turnPower + " forward: " + forwardPower);
-            driveCartesian(0, - forwardPower, -turnPower);
+            driveCartesian(0, forwardPower, -turnPower);
         }
     }
 
@@ -209,7 +209,7 @@ public class HazyMechBase extends SubsystemBase {
 
     public boolean didMoveForward () {
         System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
-        return lFrontSpark.getEncoder().getPosition() <= -19;
+        return lFrontSpark.getEncoder().getPosition() <= -(RobotMap.AUTONTAXIDISTANCE-1);
     }
 
     //Tells the robot to turn "x" degrees

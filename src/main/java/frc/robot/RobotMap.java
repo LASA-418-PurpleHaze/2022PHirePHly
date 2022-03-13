@@ -9,7 +9,7 @@ public class RobotMap {
 
     // Drive Train //
     public static final int LEFTFRONTSPARK = 9;
-    public static final int RIGHTFRONTSPARK = 13;
+    public static final int RIGHTFRONTSPARK = 5;
     public static final int LEFTBACKSPARK = 3;
     public static final int RIGHTBACKSPARK = 11;
 
@@ -93,6 +93,8 @@ public class RobotMap {
     // Autonomous //
     public static final double FIRSTMOVE = 0;
     public static final double FIRSTTURN = 0;
+    public static final int AUTONTAXIDISTANCE = 45;
+
 
     // Vision //
     public static final int BAUDRATE = 115200;
