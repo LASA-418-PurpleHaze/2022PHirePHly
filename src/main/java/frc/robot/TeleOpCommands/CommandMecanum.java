@@ -31,4 +31,9 @@ public class CommandMecanum extends CommandBase {
         c_hazyMechBase.toggleDelayed();
         c_hazyMechBase.toggleTurnDelay();
     }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

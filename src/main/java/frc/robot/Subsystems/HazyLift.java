@@ -116,9 +116,9 @@ public class HazyLift extends SubsystemBase  {
         liftMotorRight.set(-0.5);
         liftMotorLeft.follow(liftMotorRight,true);
         System.out.println("Right" + liftRightEncoder.getPosition());
-        if(liftRightEncoder.getPosition() >= RobotMap.MINLIFTHEIGHT){
-            liftMotorRight.set(0);
-        }
+        // if(liftRightEncoder.getPosition() >= RobotMap.MINLIFTHEIGHT){
+             liftMotorRight.set(0);
+        // }
 
         System.out.println("LIFT MOVING DOWN");
     }

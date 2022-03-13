@@ -4,7 +4,6 @@ package frc.robot.Subsystems; //folder the file is in
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.networktables.*;
 
 
@@ -31,7 +30,6 @@ public class HazyMechBase extends SubsystemBase {
     private SparkMaxPIDController rBackSparkPID;
 
     //Declaration of variables used by vision
-    private Solenoid solenoidToLight;
     private NetworkTableInstance limeTable; //Not sure why we're using a serial port instead of a network table to get Limelight data. Consider changing later
 
     
@@ -56,10 +54,16 @@ public class HazyMechBase extends SubsystemBase {
         lBackSpark = new CANSparkMax(RobotMap.LEFTBACKSPARK, MotorType.kBrushless);
         rBackSpark = new CANSparkMax(RobotMap.RIGHTBACKSPARK, MotorType.kBrushless);
 
+        lFrontSpark.restoreFactoryDefaults();
+        rFrontSpark.restoreFactoryDefaults();
+        lBackSpark.restoreFactoryDefaults();
+        rBackSpark.restoreFactoryDefaults();
+
+
         lFrontSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
         lBackSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
         rFrontSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        lBackSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        rBackSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
 
         //PID setup (we may be able to change this where one motor on each side is a leader an the other one follows it)
@@ -93,6 +97,7 @@ public class HazyMechBase extends SubsystemBase {
         lBackSparkPID.setOutputRange(-.35, .35);
         rFrontSparkPID.setOutputRange(-.35, .35);
         rBackSparkPID.setOutputRange(-.35, .35);
+
         resetEncoders();
     }
 

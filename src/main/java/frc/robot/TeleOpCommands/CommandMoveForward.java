@@ -16,11 +16,12 @@ public class CommandMoveForward extends CommandBase {
     public CommandMoveForward(HazyMechBase subsystem){
         c_hazyMechBase = subsystem;
         addRequirements(c_hazyMechBase); //Links the command to the subsystem it affects
+        //c_hazyMechBase.resetEncoders();
     }
-    @Override
-    public void initialize() {
-        c_hazyMechBase.resetEncoders();
-    }
+    // @Override
+    // public void initialize() {
+    //     
+    // }
     //The function that is called by the commandscheduler when command is called
     @Override
     public void execute(){
