@@ -57,14 +57,14 @@ public class HazyIntake extends SubsystemBase {
         }
     }
     public void intakeStop() {
-        System.out.println("DROP STOP");
+        //System.out.println("DROP STOP");
         upDownTalon.set(ControlMode.PercentOutput, 0);
         resetEncoders();
 
     }
 
     public void raise() {
-        System.out.println("R:" + upDownTalon.getSelectedSensorPosition());
+        //System.out.println("R:" + upDownTalon.getSelectedSensorPosition());
         if (upDownTalon.getSelectedSensorPosition() < -1000) {
             upDownTalon.set(ControlMode.PercentOutput, -1);
         }

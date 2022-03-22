@@ -103,24 +103,24 @@ public class HazyLift extends SubsystemBase  {
         liftMotorRight.set(0.75);
         liftMotorLeft.follow(liftMotorRight,true);
         //System.out.println("Left" + liftLeftEncoder.getPosition());
-        System.out.println("Right" + liftRightEncoder.getPosition());
+        //System.out.println("Right" + liftRightEncoder.getPosition());
         if(liftRightEncoder.getPosition() <= RobotMap.MAXLIFTHEIGHT){ //Going up is negative encoder ticks so we do <= instead of >=
             liftMotorRight.set(0); 
         }
 
-        System.out.println("LIFT MOVING DOWNup");
+        //System.out.println("LIFT MOVING DOWNup");
 
     }
 
     public void stupidDown(){
         liftMotorRight.set(-0.5);
         liftMotorLeft.follow(liftMotorRight,true);
-        System.out.println("Right" + liftRightEncoder.getPosition());
+        //System.out.println("Right" + liftRightEncoder.getPosition());
          if(liftRightEncoder.getPosition() >= RobotMap.MINLIFTHEIGHT){
              liftMotorRight.set(0);
          }
 
-        System.out.println("LIFT MOVING DOWN");
+        //System.out.println("LIFT MOVING DOWN");
     }
     // public void reallyStupidTilt(double ticks) {
     //     if (tiltEncoder.getPosition() > .12) {
@@ -132,7 +132,7 @@ public class HazyLift extends SubsystemBase  {
 
     public void stupidTilt(){
         // tiltMotor.set(-0.3);
-        System.out.println("tilt" + tiltEncoder.getPosition());
+        //System.out.println("tilt" + tiltEncoder.getPosition());
 
         //System.out.println("Hello");
         //tilt(0.093);
@@ -140,7 +140,7 @@ public class HazyLift extends SubsystemBase  {
 
     public void stupidTiltBack(){
         tiltMotor.set(0.3);
-        System.out.println("Hello");
+        //System.out.println("Hello");
     }
 
     
@@ -149,7 +149,7 @@ public class HazyLift extends SubsystemBase  {
         liftMotorLeft.set(0);
         liftMotorRight.set(0); 
         tiltMotor.set(0);
-        System.out.println(liftRightEncoder.getPosition());
+        //System.out.println(liftRightEncoder.getPosition());
     }
     public void fakeEStop() {
         liftMotorLeft.set(0);

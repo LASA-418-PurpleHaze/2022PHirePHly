@@ -149,7 +149,7 @@ public class HazyMechBase extends SubsystemBase {
     //Only turns the robot to face the target
     public void turnToTarget(){
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-        System.out.println("Error: " + distance);
+        //System.out.println("Error: " + distance);
 
         //SmartDashboard.putNumber("limelight", distance);
         //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
@@ -196,7 +196,7 @@ public class HazyMechBase extends SubsystemBase {
 
         distance = (targetHeight - limeHeight)/(Math.tan( Math.PI/180 * (limeAngle+ty)));
 
-        System.out.println("our offset is " + offset + " and distance is " + distance);
+        //System.out.println("our offset is " + offset + " and distance is " + distance);
     }
     
     
@@ -213,7 +213,7 @@ public class HazyMechBase extends SubsystemBase {
     }
 
     public boolean didMoveForward () {
-        System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
+        //System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
         return lFrontSpark.getEncoder().getPosition() <= -(RobotMap.AUTONTAXIDISTANCE-1);
     }
 
