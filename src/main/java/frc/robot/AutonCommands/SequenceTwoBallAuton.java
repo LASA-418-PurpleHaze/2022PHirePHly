@@ -12,14 +12,19 @@ public class SequenceTwoBallAuton extends SequentialCommandGroup {
     //Pass the subsystem and controllers used in command into the constructor for initialization
     public SequenceTwoBallAuton(HazyMechBase chassis, HazyShooter shooter, HazyIntake intake){
         addCommands(
-            new CommandDropIntake(intake),
+            //new CommandDropIntake(intake),
             new ParallelCommandGroup(
-                new TimedCommandSpinIntake(intake),
-                new SequentialCommandGroup(
-                    new CommandMoveForward(chassis),
-                    new TimedCommandTurnVision(chassis),
-                    new CommandStopMecBase(chassis),
-                    new CommandTimedShoot(shooter)
+                //new TimedCommandSpinIntake(intake),
+                new SequentialCommandGroup (
+                    new CommandTimedShoot(shooter),
+                    //new CommandShooterDefault(shooter),
+                    new SequentialCommandGroup(
+                        new CommandMoveForward(chassis),
+                    //new TimedCommandTurnVision(chassis),
+                        new CommandStopMecBase(chassis)
+                    //new CommandTimedShoot(shooter)
+                )
+                //new CommandTimedShootSlower(shooter)
                 )
                 // stop
             ),
@@ -28,5 +33,23 @@ public class SequenceTwoBallAuton extends SequentialCommandGroup {
                 new CommandIntakeDefault(intake)
             )
         );
+
+        // addCommands(
+        //     //new CommandDropIntake(intake),
+        //     new ParallelCommandGroup(
+        //         //new TimedCommandSpinIntake(intake),
+        //         new SequentialCommandGroup (
+        //             new CommandMoveForward(chassis),
+        //             //new TimedCommandTurnVision(chassis),
+        //             new CommandStopMecBase(chassis),
+        //             new CommandTimedShoot(shooter)
+        //         )
+        //     ),
+        //         // stop
+        //     new ParallelCommandGroup(
+        //         new CommandShooterDefault(shooter),
+        //         new CommandIntakeDefault(intake)
+        //     )
+        // );
     }
 }

@@ -55,6 +55,12 @@ public class HazyShooter extends SubsystemBase{
         if(getShooterRPM() >= RobotMap.SHOOTERSPEED - 100) 
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
+    public void shootSlow(){
+        shooterLeft.set(ControlMode.Velocity, 7000);
+        shooterRight.follow(shooterLeft);
+        if(getShooterRPM() >= 7000 - 100) 
+           highFeeder.set(RobotMap.HIGHFEEDERSPEED);
+    }
     public void shootLow(){
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERLOWSPEED);
         shooterRight.follow(shooterLeft);

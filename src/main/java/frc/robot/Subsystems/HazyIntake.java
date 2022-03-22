@@ -49,7 +49,7 @@ public class HazyIntake extends SubsystemBase {
     public void drop() {
         System.out.println("D:" + upDownTalon.getSelectedSensorPosition());
         if (upDownTalon.getSelectedSensorPosition() > -400) {
-            upDownTalon.set(ControlMode.PercentOutput, .7);
+            upDownTalon.set(ControlMode.PercentOutput, 1);
         }
         else{
             //intakeStop();
