@@ -19,4 +19,8 @@ public class CommandHighFeed extends CommandBase{
     public void execute(){
         c_hazyShooter.moveFeeder();
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

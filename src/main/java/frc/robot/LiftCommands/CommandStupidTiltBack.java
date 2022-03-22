@@ -18,4 +18,8 @@ public class CommandStupidTiltBack extends CommandBase {
     public void execute() {
         c_hazyLift.stupidTiltBack();
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

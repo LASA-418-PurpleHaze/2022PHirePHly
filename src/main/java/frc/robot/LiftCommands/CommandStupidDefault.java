@@ -18,4 +18,8 @@ public class CommandStupidDefault extends CommandBase {
     public void execute() {
         c_hazyLift.stupidDefault();
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

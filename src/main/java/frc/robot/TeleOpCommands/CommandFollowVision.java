@@ -19,5 +19,10 @@ public class CommandFollowVision extends CommandBase {
         c_hazyMechBase.readData();
         c_hazyMechBase.goToTarget();
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+    
 
 }

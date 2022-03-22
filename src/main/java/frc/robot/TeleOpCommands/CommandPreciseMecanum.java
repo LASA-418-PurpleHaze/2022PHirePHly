@@ -27,4 +27,8 @@ public class CommandPreciseMecanum extends CommandBase {
     public void execute(){
         c_hazyMechBase.driveCartesian(0.5 * c_leftJoystick.getX(), 0.5 * -c_leftJoystick.getY(), 0.5 * -c_rightJoystick.getX());
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

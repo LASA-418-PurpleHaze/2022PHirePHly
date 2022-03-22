@@ -20,4 +20,8 @@ public class CommandResetLiftEncoder extends CommandBase {
     public void execute() {
         c_hazyLift.resetEncoders();;
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

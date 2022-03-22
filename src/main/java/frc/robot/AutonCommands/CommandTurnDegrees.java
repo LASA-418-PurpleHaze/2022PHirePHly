@@ -24,4 +24,10 @@ public class CommandTurnDegrees extends CommandBase {
     public void execute(){
         c_hazyMechBase.turnDegrees(degrees);
     }
+
+    @Override
+    public boolean isFinished(){
+        return false;
+    }
+
 }

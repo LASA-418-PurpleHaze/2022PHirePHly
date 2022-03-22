@@ -19,4 +19,8 @@ public class CommandBarThreeTilt extends CommandBase {
     public void execute() {
         c_hazyLift.tilt(RobotMap.BARTHREETILT);
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

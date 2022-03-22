@@ -18,4 +18,8 @@ public class CommandFakeEStop extends CommandBase {
     public void execute() {
         c_hazyLift.fakeEStop();
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

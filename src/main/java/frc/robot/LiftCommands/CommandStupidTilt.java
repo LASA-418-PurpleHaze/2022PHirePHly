@@ -18,4 +18,8 @@ public class CommandStupidTilt extends CommandBase {
     public void execute() {
         c_hazyLift.stupidTilt();
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

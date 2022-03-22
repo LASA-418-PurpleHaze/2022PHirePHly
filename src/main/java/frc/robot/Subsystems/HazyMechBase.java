@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
 
-
 //REV imports
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
@@ -101,6 +100,19 @@ public class HazyMechBase extends SubsystemBase {
         resetEncoders();
     }
 
+    public CANSparkMax getLFrontSparkMax(){
+        return lFrontSpark;
+    }
+    public CANSparkMax getRFrontSparkMax(){
+        return rFrontSpark;
+    }
+    public CANSparkMax getLBackSparkMax(){
+        return lBackSpark;
+    }
+    public CANSparkMax getRBackSparkMax(){
+        return rBackSpark;
+    }
+    
     public void resetEncoders(){
         lFrontSpark.getEncoder().setPosition(0);
         lBackSpark.getEncoder().setPosition(0);
@@ -217,6 +229,11 @@ public class HazyMechBase extends SubsystemBase {
         return lFrontSpark.getEncoder().getPosition() <= -(RobotMap.AUTONTAXIDISTANCE-1);
     }
 
+    public boolean didMoveForward (double ticks, CANSparkMax spark) {
+        //System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
+        return spark.getEncoder().getPosition() <= -(ticks-1) || spark.getEncoder().getPosition() >= (ticks+1);
+    }
+
     //Tells the robot to turn "x" degrees
     //Convert "x" rotations to degrees
     public void turnDegrees(double x){
@@ -225,8 +242,6 @@ public class HazyMechBase extends SubsystemBase {
         rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
         rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition); 
     }
-    
-
 
     // Joystick Driving Functions //
     
@@ -250,7 +265,6 @@ public class HazyMechBase extends SubsystemBase {
         rFrontSpark.set(wheelSpeeds[1]);
         lBackSpark.set(-wheelSpeeds[2]);
         rBackSpark.set(wheelSpeeds[3]);
-
     }
 
     //Keeps input value between the high and low values
