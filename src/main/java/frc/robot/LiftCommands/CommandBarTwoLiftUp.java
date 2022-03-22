@@ -20,4 +20,8 @@ public class CommandBarTwoLiftUp extends CommandBase {
         //c_hazyLift.lift(RobotMap.BARTWOUP);
         //c_IntialLift.tilt(0);
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

@@ -18,4 +18,8 @@ public class CommandBarTwoTilt extends CommandBase {
     public void execute() {
         c_hazyLift.tilt(0);
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

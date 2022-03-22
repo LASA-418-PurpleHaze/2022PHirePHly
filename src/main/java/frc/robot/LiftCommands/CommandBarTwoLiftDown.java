@@ -19,4 +19,8 @@ public class CommandBarTwoLiftDown extends CommandBase {
     public void execute() {
         c_hazyLift.lifttilt(RobotMap.BARTWODOWN, 0);
     }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

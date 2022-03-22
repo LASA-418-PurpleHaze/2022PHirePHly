@@ -14,7 +14,7 @@ import frc.robot.*;
 public class HazyIntake extends SubsystemBase {
     private TalonSRX spinTalon;
     private TalonSRX upDownTalon;
-    
+   
     public HazyIntake () {
         spinTalon = new TalonSRX(RobotMap.INTAKESPINTALON);
         upDownTalon = new TalonSRX(RobotMap.INTAKEUPDOWNTALON);
@@ -47,7 +47,7 @@ public class HazyIntake extends SubsystemBase {
     }
 
     public void drop() {
-        System.out.println("D:" + upDownTalon.getSelectedSensorPosition());
+        // System.out.println("D:" + upDownTalon.getSelectedSensorPosition());
         if (upDownTalon.getSelectedSensorPosition() > -400) {
             upDownTalon.set(ControlMode.PercentOutput, 1);
         }
@@ -60,7 +60,6 @@ public class HazyIntake extends SubsystemBase {
         //System.out.println("DROP STOP");
         upDownTalon.set(ControlMode.PercentOutput, 0);
         resetEncoders();
-
     }
 
     public void raise() {
