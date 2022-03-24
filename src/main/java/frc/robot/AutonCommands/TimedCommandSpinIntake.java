@@ -29,7 +29,6 @@ public class TimedCommandSpinIntake extends CommandBase {
     @Override
     public boolean isFinished() {
         if (java.lang.System.currentTimeMillis() > startTime + 14000) {
-            System.out.println("Intake Stopped");
             return true;
         }
         return false;

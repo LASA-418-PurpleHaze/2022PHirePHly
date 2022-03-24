@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //local imports
 import frc.robot.Subsystems.HazyMechBase;
+import frc.robot.Print;
 
 public class TimedCommandTurnVision extends CommandBase {
 
@@ -30,10 +31,7 @@ public class TimedCommandTurnVision extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        //System.out.println("starttime " + startTime + ", current " + java.lang.System.currentTimeMillis());
-        //System.out.println("Difference: " + (java.lang.System.currentTimeMillis() - startTime));
         if (java.lang.System.currentTimeMillis()> startTime + 2000) {
-            // System.out.println("turn vision finished");
             return true;
         } else {
             return false;

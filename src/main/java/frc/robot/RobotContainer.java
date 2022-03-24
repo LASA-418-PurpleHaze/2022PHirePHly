@@ -129,7 +129,6 @@ public class RobotContainer {
         // Lift //
         if(hazyController.getPOV() == 0) {} //Up
         else if(hazyController.getPOV() == 90){ //Right
-            //System.out.println("dpad 90");
             //commandShootLow.execute();                    // DPad right --> tilt arm back to be on bar 3
         }
         else if(hazyController.getPOV() == 180){ //Down

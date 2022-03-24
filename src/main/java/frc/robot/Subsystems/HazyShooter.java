@@ -97,7 +97,6 @@ public class HazyShooter extends SubsystemBase{
 
     //Testing Method: please delete later
     public void stupidShoot() {
-        //System.out.println("we stupid");
         shooterLeft.set(ControlMode.PercentOutput,-.5);
     }
 

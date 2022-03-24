@@ -17,7 +17,6 @@ public class CommandDropIntake extends CommandBase {
     @Override
     public void execute () {
         c_hazyIntake.drop();
-        // System.out.println("you are stuck in drop");
     }
 
     @Override

@@ -2,6 +2,8 @@ package frc.robot; //folder the file is in
 
 //Stores all constant values for the robot (ports, etc.)
 public class RobotMap {
+    public static final boolean PRINTSENABLED = true;
+
     // OI //
     public static final int CONTROLLERPORT = 0;
     public static final int LEFTJOYSTICKPORT = 1;
