@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //local imports
 import frc.robot.Subsystems.HazyMechBase;
-import frc.robot.Print;
 
 public class TimedCommandTurnVision extends CommandBase {
 
