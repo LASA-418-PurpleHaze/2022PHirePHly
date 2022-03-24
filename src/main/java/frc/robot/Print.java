@@ -24,11 +24,15 @@ public class Print {
 
     //Prints the class's name and the method's name and a given double s (so you don't have to change types before calling)
     public static void p (double s) {
-        p(Double.toString(s));
+        if (RobotMap.PRINTSENABLED) {
+            System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + ": " + Double.toString(s));
+        }
     }
 
     //Prints the class's name and the method's name and a given integer s (so you don't have to change types before calling)
     public static void p (int s) {
-        p(Integer.toString(s));
+        if (RobotMap.PRINTSENABLED) {
+            System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + Thread.currentThread().getStackTrace()[2].getClassName() + ": " + Integer.toString(s));
+        }
     }
 }
