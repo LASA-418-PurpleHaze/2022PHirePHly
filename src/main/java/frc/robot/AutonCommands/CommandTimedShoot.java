@@ -3,10 +3,12 @@ package frc.robot.AutonCommands; //folder the file is in
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //local imports
 import frc.robot.Subsystems.HazyShooter;
-public class CommandTimedShoot extends CommandBase{
+public class CommandTimedShoot extends CommandBase {
+
     //Declare the controllers and subsystem used to control the command
     private HazyShooter c_hazyShooter;
     long startTime;
+    
     //Pass the subsystem and controllers used in command into the constructor for initialization
     public CommandTimedShoot(HazyShooter shooter){
         c_hazyShooter = shooter;
@@ -25,7 +27,8 @@ public class CommandTimedShoot extends CommandBase{
     public boolean isFinished(){
         if(java.lang.System.currentTimeMillis() > startTime + 2000){
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }

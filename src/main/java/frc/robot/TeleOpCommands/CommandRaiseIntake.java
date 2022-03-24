@@ -18,4 +18,9 @@ public class CommandRaiseIntake extends CommandBase {
     public void execute () {
         c_hazyIntake.raise();
     }
+
+    @Override
+    public boolean isFinished () {
+        return c_hazyIntake.didRaise();
+    }
 }

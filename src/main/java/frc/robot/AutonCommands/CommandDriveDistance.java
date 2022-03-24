@@ -3,6 +3,7 @@ package frc.robot.AutonCommands; //folder the file is in
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotMap;
+
 //local imports
 import frc.robot.Subsystems.*;
 
@@ -27,6 +28,6 @@ public class CommandDriveDistance extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return c_hazyMechBase.didMoveForward(RobotMap.AUTONTAXIDISTANCE, c_hazyMechBase.getLFrontSparkMax());
+        return c_hazyMechBase.didMoveFeet(RobotMap.AUTONTAXIDISTANCE, c_hazyMechBase.getLFrontSparkMax());
     }
 }

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.*;
 
 public class CommandTurnDegrees extends CommandBase {
-    
+
     //Declare the controllers and subsystem used to control the command
     private final HazyMechBase c_hazyMechBase;
     private final double degrees;
@@ -29,5 +29,4 @@ public class CommandTurnDegrees extends CommandBase {
     public boolean isFinished(){
         return false;
     }
-
 }

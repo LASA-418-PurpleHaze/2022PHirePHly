@@ -35,6 +35,5 @@ public class CommandMecanum extends CommandBase {
     @Override
     public boolean isFinished() {
         return false;
-    }
-    
+    }  
 }

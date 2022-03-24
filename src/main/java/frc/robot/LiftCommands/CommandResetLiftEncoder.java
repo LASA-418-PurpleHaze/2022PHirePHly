@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //local imports
 import frc.robot.Subsystems.HazyLift;
-import frc.robot.*;
-
 
 public class CommandResetLiftEncoder extends CommandBase {
 

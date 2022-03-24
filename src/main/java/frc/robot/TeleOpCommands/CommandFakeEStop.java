@@ -9,6 +9,7 @@ import frc.robot.Subsystems.HazyLift;
 public class CommandFakeEStop extends CommandBase {
 
     private HazyLift c_hazyLift;
+
     public CommandFakeEStop(HazyLift lift) {
         c_hazyLift = lift;
         addRequirements(c_hazyLift);
@@ -18,6 +19,7 @@ public class CommandFakeEStop extends CommandBase {
     public void execute() {
         c_hazyLift.fakeEStop();
     }
+    
     @Override
     public boolean isFinished() {
         return false;

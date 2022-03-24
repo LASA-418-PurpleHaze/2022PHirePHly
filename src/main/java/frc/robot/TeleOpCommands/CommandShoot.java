@@ -10,6 +10,7 @@ public class CommandShoot extends CommandBase{
 
     //Declare the controllers and subsystem used to control the command
     private HazyShooter c_hazyShooter;
+
     //Pass the subsystem and controllers used in command into the constructor for initialization
     public CommandShoot(HazyShooter shooter){
         c_hazyShooter = shooter;
@@ -17,6 +18,7 @@ public class CommandShoot extends CommandBase{
     }
 
     //The function that is called by the commandscheduler when command is called
+    @Override
     public void execute(){
         c_hazyShooter.shoot();
     }

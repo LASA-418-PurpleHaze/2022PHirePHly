@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.HazyMechBase;
 
 public class CommandTurnVision extends CommandBase {
+    
     private HazyMechBase c_hazyMechBase;
 
     public CommandTurnVision(HazyMechBase base){
@@ -19,6 +20,7 @@ public class CommandTurnVision extends CommandBase {
         c_hazyMechBase.readData();
         c_hazyMechBase.turnToTarget();
     }
+
     @Override
     public boolean isFinished() {
         return false;

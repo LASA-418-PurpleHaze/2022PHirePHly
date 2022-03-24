@@ -1,7 +1,6 @@
 package frc.robot.TeleOpCommands; //folder the file is in
 
 //wpilib imports
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotMap;
 //local imports
@@ -18,10 +17,12 @@ public class CommandMoveForward extends CommandBase {
         addRequirements(c_hazyMechBase); //Links the command to the subsystem it affects
         //c_hazyMechBase.resetEncoders();
     }
+
     // @Override
     // public void initialize() {
     //     
     // }
+    
     //The function that is called by the commandscheduler when command is called
     @Override
     public void execute(){
@@ -32,7 +33,6 @@ public class CommandMoveForward extends CommandBase {
     
     @Override
     public boolean isFinished() {
-        return c_hazyMechBase.didMoveForward();
+        return c_hazyMechBase.didMoveFeet();
     }
-
 }

@@ -18,6 +18,7 @@ public class CommandIntakeDefault extends CommandBase {
     public void execute () {
         c_hazyIntake.defaultC();
     }
+    
     @Override
     public boolean isFinished() {
         return false;

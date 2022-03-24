@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.HazyIntake;
 
 public class CommandSpinIntake extends CommandBase {
+    
     private HazyIntake c_hazyIntake;
 
     public CommandSpinIntake (HazyIntake subsystem) {
@@ -18,6 +19,7 @@ public class CommandSpinIntake extends CommandBase {
     public void execute () {
         c_hazyIntake.spin();
     }
+
     @Override
     public boolean isFinished() {
         return false;

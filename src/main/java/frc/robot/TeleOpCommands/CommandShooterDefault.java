@@ -18,8 +18,14 @@ public class CommandShooterDefault extends CommandBase{
     }
 
     //The function that is called by the commandscheduler when command is called
+    @Override
     public void execute(){
         c_hazyShooter.stopFeeder();
         c_hazyShooter.stopShooter();
+    }
+
+    @Override
+    public boolean isFinished () {
+        return false;
     }
 }

@@ -2,7 +2,6 @@ package frc.robot.Subsystems; //folder the file is in
 
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
 
@@ -30,7 +29,6 @@ public class HazyMechBase extends SubsystemBase {
 
     //Declaration of variables used by vision
     private NetworkTableInstance limeTable; //Not sure why we're using a serial port instead of a network table to get Limelight data. Consider changing later
-
     
     private boolean delayed;
     private boolean turnDelay;
@@ -58,12 +56,10 @@ public class HazyMechBase extends SubsystemBase {
         lBackSpark.restoreFactoryDefaults();
         rBackSpark.restoreFactoryDefaults();
 
-
         lFrontSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
         lBackSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
         rFrontSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
         rBackSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
-
 
         //PID setup (we may be able to change this where one motor on each side is a leader an the other one follows it)
         lFrontSparkPID = lFrontSpark.getPIDController();
@@ -119,134 +115,13 @@ public class HazyMechBase extends SubsystemBase {
         rFrontSpark.getEncoder().setPosition(0);
         rBackSpark.getEncoder().setPosition(0);
     }
-    // Vision Functions //
-
-    //Turns the robot to face the target and drives it to the correct shooting distance
-    public void goToTarget(){
-        //solenoidToLight.set(true);
-        
-        //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
-        if (delayed){
-            milStart = java.lang.System.currentTimeMillis();
-            delayed = false;
-        }
-
-        //Basically a primitive, custom coded, primary and auxiliary closed loop (PID) control. 
-        //The primary loop is moving the robot to the shooting distance while the auxiliary loop is turning the robot to face the target
-        if(java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY){
-            double travelDistance;
-            if(distance == -1.0)
-            travelDistance = 0.0;
-            else
-            travelDistance = RobotMap.SHOOTDISTANCE - distance;
-            //System.out.println(java.lang.System.currentTimeMillis()-lastData);
-            // double turnPower = clamp(RobotMap.VISIONTURN * (offset/22), RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
-            double turnPower = RobotMap.VISIONTURN * (offset/22);
-            if(turnPower > -0.105 && turnPower < 0.0 && Math.abs(offset) >= 10.0) 
-            turnPower = -0.105;
-            else if(turnPower < 0.105 && turnPower > 0.0 && Math.abs(offset) >= 10.0)
-            turnPower = 0.105;
-            SmartDashboard.putNumber("limelight", distance);
-            //This checks if the robot is "close enough" to facing the target as the real error will rarely ever be 0 exactly.
-            //We don't need the error to be 0 exactly, we just need the robot to face the target with some allowable room for error
-            if(Math.abs(offset) < 10.0)
-            turnPower = 0.0;
-            
-            double forwardPower =clamp(-travelDistance*RobotMap.VISIONSPEED, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
-            //System.out.println("turn: " + turnPower + " forward: " + forwardPower);
-            driveCartesian(0, forwardPower, -turnPower);
-        }
-    }
-
-    //Only turns the robot to face the target
-    public void turnToTarget(){
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-        //System.out.println("Error: " + distance);
-
-        //SmartDashboard.putNumber("limelight", distance);
-        //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
-        if (delayed){
-          milStart = java.lang.System.currentTimeMillis();
-          delayed = false;
-        }
-        if(java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY){
-            double turnPower = RobotMap.VISIONVELTURN * (offset/22);
-            driveCartesian(0, 0, -turnPower);
-            //lFrontSpark.set(turnPower);
-            //rFrontSpark.set(turnPower);
-            //lBackSpark.set(turnPower);
-            //rBackSpark.set(turnPower);
 
 
-        //   rightFrontTalon.set(ControlMode.Velocity,turnPower);
-        //   rightBackTalon.set(ControlMode.Velocity,turnPower);
-        //   leftFrontTalon.set(ControlMode.Velocity,turnPower);
-        //   leftBackTalon.set(ControlMode.Velocity,turnPower);
-        }
-      }
-
-    //Turns RingLights Off
-    public void lightOff(){
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
-    }
-
-    //Sets delay to true
-    public void toggleDelayed(){
-        delayed = true;
-    }
-
-    //Sets turn delay to true
-    public void toggleTurnDelay(){
-        turnDelay = true;
-    }
-
-    public void readData(){
-        tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-        offset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-        ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-        ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
-
-        distance = (targetHeight - limeHeight)/(Math.tan( Math.PI/180 * (limeAngle+ty)));
-
-        //System.out.println("our offset is " + offset + " and distance is " + distance);
-    }
-    
-    
-    
-    // Autonomous Functions //
-
-    //Tells the robot to move forward "x" feet
-    //Convert "x" rotations to feet
-    public void moveFeet(double x){
-        lFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
-        lBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
-        rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
-        rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
-    }
-
-    public boolean didMoveForward () {
-        //System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
-        return lFrontSpark.getEncoder().getPosition() <= -(RobotMap.AUTONTAXIDISTANCE-1);
-    }
-
-    public boolean didMoveForward (double ticks, CANSparkMax spark) {
-        //System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
-        return spark.getEncoder().getPosition() <= -(ticks-1) || spark.getEncoder().getPosition() >= (ticks+1);
-    }
-
-    //Tells the robot to turn "x" degrees
-    //Convert "x" rotations to degrees
-    public void turnDegrees(double x){
-        lFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
-        lBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
-        rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
-        rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition); 
-    }
 
     // Joystick Driving Functions //
     
     //Mecanum drive function that is called by the default
-    public void driveCartesian(double x, double y, double angle){
+    public void driveCartesian (double x, double y, double angle) {
         x = clamp(x, -1.0,1.0);
         x = applyDeadband(x, RobotMap.DEADBAND);
         y = clamp(y, -1.0,1.0);
@@ -266,6 +141,134 @@ public class HazyMechBase extends SubsystemBase {
         lBackSpark.set(-wheelSpeeds[2]);
         rBackSpark.set(wheelSpeeds[3]);
     }
+
+    
+
+    // Vision Functions //
+
+    //Turns the robot to face the target and drives it to the correct shooting distance
+    public void goToTarget () {
+        //solenoidToLight.set(true);
+        
+        //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
+        if (delayed) {
+            milStart = java.lang.System.currentTimeMillis();
+            delayed = false;
+        }
+
+        //Basically a primitive, custom coded, primary and auxiliary closed loop (PID) control. 
+        //The primary loop is moving the robot to the shooting distance while the auxiliary loop is turning the robot to face the target
+        if (java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY) {
+            double travelDistance;
+            if (distance == -1.0)
+                travelDistance = 0.0;
+            else
+                travelDistance = RobotMap.SHOOTDISTANCE - distance;
+            // System.out.println(java.lang.System.currentTimeMillis()-lastData);
+            // double turnPower = clamp(RobotMap.VISIONTURN * (offset/22), RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
+            double turnPower = RobotMap.VISIONTURN * (offset/22);
+            if (turnPower > -0.105 && turnPower < 0.0 && Math.abs(offset) >= 10.0) 
+                turnPower = -0.105;
+            else if (turnPower < 0.105 && turnPower > 0.0 && Math.abs(offset) >= 10.0)
+                turnPower = 0.105;
+            SmartDashboard.putNumber("limelight", distance);
+            //This checks if the robot is "close enough" to facing the target as the real error will rarely ever be 0 exactly.
+            //We don't need the error to be 0 exactly, we just need the robot to face the target with some allowable room for error
+            if (Math.abs(offset) < 10.0)
+                turnPower = 0.0;
+            
+            double forwardPower = clamp(-travelDistance * RobotMap.VISIONSPEED, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
+            // System.out.println("turn: " + turnPower + " forward: " + forwardPower);
+            driveCartesian(0, forwardPower, -turnPower);
+        }
+    }
+
+    //Only turns the robot to face the target
+    public void turnToTarget () {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+        // System.out.println("Error: " + distance);
+
+        //SmartDashboard.putNumber("limelight", distance);
+        //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
+        if (delayed) {
+          milStart = java.lang.System.currentTimeMillis();
+          delayed = false;
+        }
+
+        if (java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY) {
+            double turnPower = RobotMap.VISIONVELTURN * (offset / 22);
+            driveCartesian(0, 0, -turnPower);
+            // lFrontSpark.set(turnPower);
+            // rFrontSpark.set(turnPower);
+            // lBackSpark.set(turnPower);
+            // rBackSpark.set(turnPower);
+
+            // rightFrontTalon.set(ControlMode.Velocity,turnPower);
+            // rightBackTalon.set(ControlMode.Velocity,turnPower);
+            // leftFrontTalon.set(ControlMode.Velocity,turnPower);
+            // leftBackTalon.set(ControlMode.Velocity,turnPower);
+        }
+      }
+
+    //Turns RingLights Off
+    public void lightOff () {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    }
+
+    //Sets delay to true
+    public void toggleDelayed () {
+        delayed = true;
+    }
+
+    //Sets turn delay to true
+    public void toggleTurnDelay () {
+        turnDelay = true;
+    }
+
+    public void readData () {
+        tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+        offset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+        ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+        ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+
+        distance = (targetHeight - limeHeight)/(Math.tan( Math.PI/180 * (limeAngle+ty)));
+
+        // System.out.println("our offset is " + offset + " and distance is " + distance);
+    }
+    
+    
+    
+    // Autonomous Functions //
+
+    //Tells the robot to move forward "x" feet
+    //Convert "x" rotations to feet
+    public void moveFeet(double x){
+        lFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
+        lBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
+        rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+    }
+
+    public boolean didMoveFeet () {
+        //System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
+        return lFrontSpark.getEncoder().getPosition() <= -(RobotMap.AUTONTAXIDISTANCE-1);
+    }
+
+    public boolean didMoveFeet (double ticks, CANSparkMax spark) {
+        //System.out.println("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
+        return spark.getEncoder().getPosition() <= -(ticks-1) || spark.getEncoder().getPosition() >= (ticks+1);
+    }
+
+    //Tells the robot to turn "x" degrees
+    //Convert "x" rotations to degrees
+    public void turnDegrees (double x) {
+        lFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
+        lBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
+        rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition); 
+    }
+
+    // Utility driving functions //
 
     //Keeps input value between the high and low values
     private double clamp (double input, double low, double high){ //utility function for drive cartesian

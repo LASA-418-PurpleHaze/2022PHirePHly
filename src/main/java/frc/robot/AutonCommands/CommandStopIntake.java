@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Subsystems.HazyIntake;
 
 public class CommandStopIntake extends CommandBase {
+    
     private HazyIntake c_hazyIntake;
 
     public CommandStopIntake(HazyIntake subsystem) {
@@ -18,6 +19,7 @@ public class CommandStopIntake extends CommandBase {
     public void execute () {
         c_hazyIntake.defaultC();
     }
+
     @Override
     public boolean isFinished() {
         return true;

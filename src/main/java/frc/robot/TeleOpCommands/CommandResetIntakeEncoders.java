@@ -18,4 +18,9 @@ public class CommandResetIntakeEncoders extends CommandBase {
     public void execute() {
         c_resetIntake.resetEncoders();
     }
+
+    @Override
+    public boolean isFinished () {
+        return true;
+    }
 }

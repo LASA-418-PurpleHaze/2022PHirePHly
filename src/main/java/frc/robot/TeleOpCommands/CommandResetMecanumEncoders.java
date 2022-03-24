@@ -1,7 +1,6 @@
 package frc.robot.TeleOpCommands; //folder the file is in
 
 //wpilib imports
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //local imports
@@ -12,7 +11,6 @@ public class CommandResetMecanumEncoders extends CommandBase {
     //Declare the controllers and subsystem used to control the command
     private final HazyMechBase c_hazyMechBase;
 
-    
     //Pass the subsystem and controllers used in command into the constructor for initialization
     public CommandResetMecanumEncoders(HazyMechBase subsystem){
         c_hazyMechBase = subsystem;
@@ -23,5 +21,10 @@ public class CommandResetMecanumEncoders extends CommandBase {
     @Override
     public void execute(){
         c_hazyMechBase.resetEncoders();
+    }
+
+    @Override
+    public boolean isFinished () {
+        return true;
     }
 }

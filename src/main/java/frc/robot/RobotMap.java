@@ -95,7 +95,6 @@ public class RobotMap {
     public static final double FIRSTTURN = 0;
     public static final int AUTONTAXIDISTANCE = 45;
 
-
     // Vision //
     public static final int BAUDRATE = 115200;
     public static final int VISIONDELAY = 200;
@@ -104,7 +103,4 @@ public class RobotMap {
     public static final double VISIONVELTURN = 0.5;
     public static final double VISIONTURN = .001;
     public static final double VISIONSPEED = .007;
-
-    
-
 }

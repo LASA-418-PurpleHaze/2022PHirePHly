@@ -7,22 +7,26 @@
 // import frc.robot.Subsystems.HazyIntake;
 
 // public class TimedCommandDropIntake extends CommandBase {
+
 //     private HazyIntake c_hazyIntake;
-//      long startTime;
+//     long startTime;
+
 //     public TimedCommandDropIntake (HazyIntake subsystem) {
 //         c_hazyIntake = subsystem;
 //         addRequirements(c_hazyIntake);
 //     }
+
 //     @Override
 //     public void initialize(){
 //         startTime = java.lang.System.currentTimeMillis();
 //     }
+
 //     @Override
 //     public void execute () {
 //         c_hazyIntake.drop();
 //         System.out.println("you are stuck in drop");
-
 //     }
+
 //     @Override
 //     public boolean isFinished(){
 //         if(java.lang.System.currentTimeMillis() > startTime + 2000){
