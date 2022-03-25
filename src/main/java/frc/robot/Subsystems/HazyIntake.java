@@ -108,8 +108,6 @@ public class HazyIntake extends SubsystemBase {
     public void resetEncoders() {
         upDownTalon.setSelectedSensorPosition(0);
     }
-<<<<<<< Updated upstream
-=======
     
     // public void dropOrRaise () {
     //     if (upDownTalon.getSelectedSensorPosition() > -1000) {
@@ -120,7 +118,6 @@ public class HazyIntake extends SubsystemBase {
     //         upDownTalon.set(ControlMode.Position, RobotMap.INTAKEUPTICKS);
     //     }
     // }
->>>>>>> Stashed changes
 
     public void spin () {
         spinTalon.set(ControlMode.PercentOutput, 1);

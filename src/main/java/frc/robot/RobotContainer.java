@@ -37,10 +37,7 @@ public class RobotContainer {
 
     // Intake //
     HazyIntake hazyIntake = new HazyIntake();
-<<<<<<< Updated upstream
-=======
     //CommandRaiseDropIntake commandRaiseDropIntake = new CommandRaiseDropIntake(hazyIntake);
->>>>>>> Stashed changes
     CommandIntakeDefault commandIntakeDefault = new CommandIntakeDefault(hazyIntake);
     CommandDropIntake commandDropIntake = new CommandDropIntake(hazyIntake);
     CommandRaiseIntake commandRaiseIntake = new CommandRaiseIntake(hazyIntake);
