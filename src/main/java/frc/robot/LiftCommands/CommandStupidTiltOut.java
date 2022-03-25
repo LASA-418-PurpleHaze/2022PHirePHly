@@ -6,17 +6,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 //local imports
 import frc.robot.Subsystems.HazyLift;
 
-public class CommandStupidTilt extends CommandBase {
+public class CommandStupidTiltOut extends CommandBase {
 
     private HazyLift c_hazyLift;
-    public CommandStupidTilt(HazyLift lift) {
+    public CommandStupidTiltOut(HazyLift lift) {
         c_hazyLift = lift;
         addRequirements(c_hazyLift);
     }
 
     @Override
     public void execute() {
-        c_hazyLift.stupidTilt();
+        c_hazyLift.stupidTiltOut();
     }
     @Override
     public boolean isFinished() {

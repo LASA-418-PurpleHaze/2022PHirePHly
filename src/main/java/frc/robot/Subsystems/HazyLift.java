@@ -1,5 +1,6 @@
 package frc.robot.Subsystems; //folder the file is in
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -47,6 +48,7 @@ public class HazyLift extends SubsystemBase  {
         liftLeftEncoder = liftMotorLeft.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
         //liftRightEncoder = liftMotorRight.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
         //liftRightEncoder.setInverted(true);
+        //liftLeftEncoder.setInverted(true);
         tiltMotor.setInverted(true);
 
         tiltMotorPID = tiltMotor.getPIDController();
@@ -72,6 +74,7 @@ public class HazyLift extends SubsystemBase  {
 
         liftMotorLeftPID.setOutputRange(-1, 1);
         liftMotorRightPID.setOutputRange(-1, 1);
+        
         resetEncoders();
         //tiltMotorPID.setReference(0, CANSparkMax.ControlType.kPosition);
     }
@@ -98,7 +101,9 @@ public class HazyLift extends SubsystemBase  {
     public void resetEncoders(){
         tiltEncoder.setPosition(0);
         liftLeftEncoder.setPosition(0);
-        liftRightEncoder.setPosition(0);
+        //liftRightEncoder.setPosition(0);
+        //liftLeftEncoder.setInverted(true);
+
     }
 
     public void stopsOn(){
@@ -107,27 +112,29 @@ public class HazyLift extends SubsystemBase  {
 
     public void stopsOff(){
         stopEnabled = false;
+        System.out.println("Stops DIsabled");
     }
 
     //testing method, please remove later
     public void stupidLift(){
-        liftMotorRight.set(0.75);
-        liftMotorLeft.follow(liftMotorRight,true);
+        liftMotorLeft.set(-0.5);
+        liftMotorRight.follow(liftMotorLeft,true);
         PHrint.p(liftLeftEncoder.getPosition());
      
-        if(stopEnabled && liftLeftEncoder.getPosition() <= RobotMap.MAXLIFTHEIGHT){ //Going up is negative encoder ticks so we do <= instead of >=
+        if(stopEnabled && (liftLeftEncoder.getPosition() >= RobotMap.MAXLIFTHEIGHT)){ //Going up is negative encoder ticks so we do <= instead of >=
             PHrint.p("stop");
-            liftMotorRight.set(0); 
+            liftMotorLeft.set(0); 
         }
     }
 
     public void stupidDown(){
-        liftMotorRight.set(-0.5);
-        liftMotorLeft.follow(liftMotorRight,true);
+        liftMotorLeft.set(0.75);
+        liftMotorRight.follow(liftMotorLeft,true);
         PHrint.p(liftLeftEncoder.getPosition());
-         if(stopEnabled && liftLeftEncoder.getPosition() >= RobotMap.MINLIFTHEIGHT){
+        System.out.println(stopEnabled);
+        if(stopEnabled && (liftLeftEncoder.getPosition() <= RobotMap.MINLIFTHEIGHT)){
              PHrint.p("stop");
-            liftMotorRight.set(0);
+            liftMotorLeft.set(0);
          }
 
     }
@@ -138,14 +145,24 @@ public class HazyLift extends SubsystemBase  {
     //     }
     // }
 
-    public void stupidTilt(){
-        // tiltMotor.set(-0.3);
+    public void stupidTiltOut(){
+        tiltMotor.set(-1);
+        System.out.println(tiltEncoder.getPosition());
+        if(stopEnabled && (tiltEncoder.getPosition() >= RobotMap.MAXTILT)){
+            PHrint.p("stop");
+           tiltMotor.set(0);
+        }
         //tilt(0.093);
     }
 
-    public void stupidTiltBack(){
-        tiltMotor.set(0.3);
-        PHrint.p();
+    public void stupidTiltIn(){
+        tiltMotor.set(1);
+        System.out.println(tiltEncoder.getPosition());
+        if(stopEnabled && (tiltEncoder.getPosition() <= RobotMap.MINTILT)){
+            PHrint.p("stop");
+           tiltMotor.set(0);
+        }
+        //PHrint.p();
     }
 
     public void stupidDefault(){

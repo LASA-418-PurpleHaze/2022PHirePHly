@@ -88,8 +88,12 @@ public class RobotMap {
     public static final double BARTHREEEXTEND = 0;
     public static final double BARTHREETILTBACK = 0;
     public static final double BARTHREEPULL = 0;
-    public static final double MAXLIFTHEIGHT = -3.3;
-    public static final double MINLIFTHEIGHT = -0.05;
+    public static final double MAXLIFTHEIGHT = 3.4;
+    public static final double ABSOLUTEMAXLIFTHEIGHT = 5.5;
+    public static final double MINLIFTHEIGHT = 0.05;
+    public static final double MINTILT = 0.05;
+    public static final double MAXTILT = 5.8;
+
     public static final double MAINTAINPOSVOLTAGE = 0;
 
     // Autonomous //

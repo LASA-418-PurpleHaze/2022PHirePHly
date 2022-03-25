@@ -59,8 +59,8 @@ public class RobotContainer {
     CommandStupidDefault commandStupidDefault = new CommandStupidDefault(hazyLift);
     CommandStupidLift commandStupidLift = new CommandStupidLift(hazyLift);
     CommandStupidDown commandStupidDown = new CommandStupidDown(hazyLift);
-    CommandStupidTilt commandStupidTilt = new CommandStupidTilt(hazyLift);
-    CommandStupidTiltBack commandStupidTiltBack = new CommandStupidTiltBack(hazyLift);
+    CommandStupidTiltOut commandStupidTiltOut = new CommandStupidTiltOut(hazyLift);
+    CommandStupidTiltIn commandStupidTiltIn = new CommandStupidTiltIn(hazyLift);
     CommandEnableStops commandEnableStops = new CommandEnableStops(hazyLift);
     CommandDisableStops commandDisableStops = new CommandDisableStops(hazyLift);
 
@@ -117,6 +117,8 @@ public class RobotContainer {
         // Lift //
         new JoystickButton(hazyController, Button.kLeftStick.value).whileHeld(commandStupidDown);       // press left xbox stick    --> manually move lift down
         new JoystickButton(hazyController, Button.kRightStick.value).whileHeld(commandStupidLift);      // press right xbox stick   --> manually move lift up 
+        new JoystickButton(hazyController, Button.kLeftBumper.value).whileHeld(commandStupidTiltIn);       
+        new JoystickButton(hazyController, Button.kRightBumper.value).whileHeld(commandStupidTiltOut);
         // new JoystickButton(leftJoystick, 3).whenPressed(commandBarTwoLiftUp);                        // LJ 3                     --> lift up to above bar 2
         // new JoystickButton(leftJoystick, 5).whenPressed(commandBarTwoLiftDown);                      // LJ 5                     --> lift down to be completely on bar 2
 

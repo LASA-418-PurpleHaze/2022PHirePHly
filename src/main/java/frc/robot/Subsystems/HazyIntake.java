@@ -60,7 +60,7 @@ public class HazyIntake extends SubsystemBase {
     public void drop () {
         PHrint.p(upDownTalon.getSelectedSensorPosition());
         if (upDownTalon.getSelectedSensorPosition() > -1000) {
-            upDownTalon.set(ControlMode.PercentOutput, 1);
+            upDownTalon.set(ControlMode.PercentOutput, .7);
         }
         else {
             //intakeStop();
@@ -74,7 +74,7 @@ public class HazyIntake extends SubsystemBase {
 
     public void raise() {
         double please = -1000;
-        if (upDownTalon.getSelectedSensorPosition() < please) {
+        if (upDownTalon.getSelectedSensorPosition() < -800) {
             upDownTalon.set(ControlMode.PercentOutput, -.55);
         }
         else {
