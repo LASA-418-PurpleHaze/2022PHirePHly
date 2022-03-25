@@ -42,7 +42,6 @@ public class HazyIntake extends SubsystemBase {
     }
 
     public void defaultC () {
-        System.out.println("Sylvie the printer");
         //upDownTalon.set(ControlMode.PercentOutput, 0);
         spinTalon.set(ControlMode.PercentOutput, 0);
     }
@@ -65,28 +64,21 @@ public class HazyIntake extends SubsystemBase {
         }
         else {
             //intakeStop();
-            System.out.println("we in da else" + upDownTalon.getSelectedSensorPosition());
             upDownTalon.set(ControlMode.PercentOutput, 0);
         }
     }
     // public void intakeStop() {
-    //     //System.out.println("DROP STOP");
     //     upDownTalon.set(ControlMode.PercentOutput, 0);
     //     resetEncoders();
     // }
 
     public void raise() {
-        //System.out.println("R:" + upDownTalon.getSelectedSensorPosition());
         double please = -1000;
         if (upDownTalon.getSelectedSensorPosition() < please) {
             upDownTalon.set(ControlMode.PercentOutput, -.55);
-            System.out.println("what if?" + upDownTalon.getSelectedSensorPosition());
-
         }
         else {
             upDownTalon.set(ControlMode.PercentOutput, 0);
-            System.out.println("we in da else" + upDownTalon.getSelectedSensorPosition());
-
             //intakeStop();
         }
     }

@@ -131,7 +131,7 @@ public class RobotContainer {
         new JoystickButton(leftJoystick, 6).whenPressed(commandEnableStops);
         new JoystickButton(leftJoystick, 11).whenPressed(commandDisableStops);
 
-        //new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetLiftEncoders);
+        new JoystickButton(leftJoystick, 7).whenPressed(commandResetLiftEncoder);
         //new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandResetAllEncoders);
     }
 
