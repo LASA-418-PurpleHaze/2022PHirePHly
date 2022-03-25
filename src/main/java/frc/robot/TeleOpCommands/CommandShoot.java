@@ -2,7 +2,7 @@ package frc.robot.TeleOpCommands; //folder the file is in
 
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+// import frc.robot.Print;
 //local imports
 import frc.robot.Subsystems.HazyShooter;
 
@@ -20,6 +20,7 @@ public class CommandShoot extends CommandBase{
     //The function that is called by the commandscheduler when command is called
     @Override
     public void execute(){
+        // PHrint.p();
         c_hazyShooter.shoot();
     }
 }

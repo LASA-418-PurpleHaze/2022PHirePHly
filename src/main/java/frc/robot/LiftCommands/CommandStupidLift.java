@@ -2,7 +2,8 @@ package frc.robot.LiftCommands; //folder the file is in
 
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.PHrint;
+// import frc.robot.Print;
 //local imports
 import frc.robot.Subsystems.HazyLift;
 
@@ -16,6 +17,7 @@ public class CommandStupidLift extends CommandBase {
 
     @Override
     public void execute() {
+        PHrint.p();
         c_hazyLift.stupidLift();
     }
     @Override

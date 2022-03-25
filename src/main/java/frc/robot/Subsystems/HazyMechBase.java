@@ -177,7 +177,7 @@ public class HazyMechBase extends SubsystemBase {
                 turnPower = 0.0;
             
             double forwardPower = clamp(-travelDistance * RobotMap.VISIONSPEED, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
-            Print.p("turn: " + turnPower + " forward: " + forwardPower);
+            PHrint.p("turn: " + turnPower + " forward: " + forwardPower);
             driveCartesian(0, forwardPower, -turnPower);
         }
     }
@@ -185,7 +185,7 @@ public class HazyMechBase extends SubsystemBase {
     //Only turns the robot to face the target
     public void turnToTarget () {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-        Print.p("Error: " + distance);
+        PHrint.p("Error: " + distance);
 
         //SmartDashboard.putNumber("limelight", distance);
         //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
@@ -232,7 +232,7 @@ public class HazyMechBase extends SubsystemBase {
 
         distance = (targetHeight - limeHeight)/(Math.tan( Math.PI/180 * (limeAngle+ty)));
 
-        Print.p("our offset is " + offset + " and distance is " + distance);
+        PHrint.p("our offset is " + offset + " and distance is " + distance);
     }
     
     
@@ -249,12 +249,12 @@ public class HazyMechBase extends SubsystemBase {
     }
 
     public boolean didMoveFeet () {
-        Print.p("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
+        PHrint.p("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
         return lFrontSpark.getEncoder().getPosition() <= -(RobotMap.AUTONTAXIDISTANCE-1);
     }
 
     public boolean didMoveFeet (double ticks, CANSparkMax spark) {
-        Print.p("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
+        PHrint.p("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
         return spark.getEncoder().getPosition() <= -(ticks-1) || spark.getEncoder().getPosition() >= (ticks+1);
     }
 
