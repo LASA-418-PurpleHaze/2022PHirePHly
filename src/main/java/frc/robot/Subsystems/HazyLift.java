@@ -28,6 +28,8 @@ public class HazyLift extends SubsystemBase  {
     private SparkMaxPIDController liftMotorLeftPID;
     private SparkMaxPIDController liftMotorRightPID;
 
+    private boolean stopEnabled;
+
     double setpoint;
 
     public HazyLift() { //Initalizes all declared variables in the constructor
@@ -38,6 +40,8 @@ public class HazyLift extends SubsystemBase  {
         tiltMotor.restoreFactoryDefaults();
         liftMotorLeft.restoreFactoryDefaults();
         liftMotorRight.restoreFactoryDefaults();
+
+        stopEnabled = true;
 
         tiltEncoder = tiltMotor.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
         liftLeftEncoder = liftMotorLeft.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
@@ -97,6 +101,7 @@ public class HazyLift extends SubsystemBase  {
         liftRightEncoder.setPosition(0);
     }
 
+<<<<<<< Updated upstream
     public void stupidLift(){
         liftMotorRight.set(0.75);
         liftMotorLeft.follow(liftMotorRight,true);
@@ -106,17 +111,48 @@ public class HazyLift extends SubsystemBase  {
         //     liftMotorRight.set(0); 
         // }
         PHrint.p("UP");
+=======
+    public void stopsOn(){
+        stopEnabled = true;
+    }
+
+    public void stopsOff(){
+        stopEnabled = false;
+    }
+
+    //testing method, please remove later
+    public void stupidLift(){
+        liftMotorRight.set(0.75);
+        liftMotorLeft.follow(liftMotorRight,true);
+        //System.out.println("Left" + liftLeftEncoder.getPosition());
+        //System.out.println("Right" + liftRightEncoder.getPosition());
+        if(stopEnabled && liftRightEncoder.getPosition() <= RobotMap.MAXLIFTHEIGHT){ //Going up is negative encoder ticks so we do <= instead of >=
+            liftMotorRight.set(0); 
+        }
+
+        //System.out.println("LIFT MOVING DOWNup");
+
+>>>>>>> Stashed changes
     }
 
     public void stupidDown(){
         liftMotorRight.set(-0.5);
         liftMotorLeft.follow(liftMotorRight,true);
+<<<<<<< Updated upstream
         PHrint.p("Left" + liftLeftEncoder.getPosition());
         PHrint.p("Right" + liftRightEncoder.getPosition());
         // if(liftRightEncoder.getPosition() >= RobotMap.MINLIFTHEIGHT){
         //     liftMotorRight.set(0);
         // }
         PHrint.p("LIFT MOVING DOWN");
+=======
+        //System.out.println("Right" + liftRightEncoder.getPosition());
+         if(stopEnabled && liftRightEncoder.getPosition() >= RobotMap.MINLIFTHEIGHT){
+            liftMotorRight.set(0);
+         }
+
+        //System.out.println("LIFT MOVING DOWN");
+>>>>>>> Stashed changes
     }
 
     // public void reallyStupidTilt(double ticks) {

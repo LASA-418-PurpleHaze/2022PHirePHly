@@ -37,6 +37,10 @@ public class RobotContainer {
 
     // Intake //
     HazyIntake hazyIntake = new HazyIntake();
+<<<<<<< Updated upstream
+=======
+    //CommandRaiseDropIntake commandRaiseDropIntake = new CommandRaiseDropIntake(hazyIntake);
+>>>>>>> Stashed changes
     CommandIntakeDefault commandIntakeDefault = new CommandIntakeDefault(hazyIntake);
     CommandDropIntake commandDropIntake = new CommandDropIntake(hazyIntake);
     CommandRaiseIntake commandRaiseIntake = new CommandRaiseIntake(hazyIntake);
@@ -60,6 +64,8 @@ public class RobotContainer {
     CommandStupidDown commandStupidDown = new CommandStupidDown(hazyLift);
     CommandStupidTilt commandStupidTilt = new CommandStupidTilt(hazyLift);
     CommandStupidTiltBack commandStupidTiltBack = new CommandStupidTiltBack(hazyLift);
+    CommandEnableStops commandEnableStops = new CommandEnableStops(hazyLift);
+    CommandDisableStops commandDisableStops = new CommandDisableStops(hazyLift);
 
     CommandBarTwoLiftUp commandBarTwoLiftUp = new CommandBarTwoLiftUp(hazyLift);
     CommandBarTwoLiftDown commandBarTwoLiftDown = new CommandBarTwoLiftDown(hazyLift);
@@ -118,11 +124,18 @@ public class RobotContainer {
         // new JoystickButton(leftJoystick, 5).whenPressed(commandBarTwoLiftDown);                      // LJ 5                     --> lift down to be completely on bar 2
 
         // Etc //
-        // new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetIntakeEncoders);
-        // new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetIntakeEncoders);
-        // new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetMecanumEncoders);
-        // new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetLiftEncoders);
-        // new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandResetAllEncoders);
+        /*new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetIntakeEncoders);
+        new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetIntakeEncoders);
+        new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetMecanumEncoders);
+        */
+        new JoystickButton(hazyController, Button.kBack.value).toggleWhenPressed(commandShootLow);
+        new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
+
+        new JoystickButton(leftJoystick, 6).whenPressed(commandEnableStops);
+        new JoystickButton(leftJoystick, 11).whenPressed(commandDisableStops);
+
+        //new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetLiftEncoders);
+        //new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandResetAllEncoders);
     }
 
     public void DPadWrapper() {
