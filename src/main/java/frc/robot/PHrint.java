@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.Arrays;
+
 // Helper class to print values so that
 // we don't have to type System.out every time and
 // we can turn on and off prints easily w/o just commenting & uncommenting and 
@@ -9,45 +11,46 @@ package frc.robot;
 public class PHrint {
 
     //Prints the class's name and the method's name
-    // public static void p () {
-    //     if (RobotMap.PRINTSENABLED) {
-    //         String[] fullClassName = Thread.currentThread().getStackTrace()[2].getClassName().split(".");
-    //         // String className = fullClassName[fullClassName.length-1];
-    //         // System.out.println(fullClassName);
+    public static void p () {
+        if (RobotMap.PRINTSENABLED) {
+            String[] fullClassName = Thread.currentThread().getStackTrace()[2].getClassName().split(".");
+            // String className = fullClassName[fullClassName.length-1];
+            System.out.println(Thread.currentThread().getStackTrace()[2].getClassName());
+             System.out.println(Arrays.toString(fullClassName));
 
-    //         // System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + className);
-    //     }
-    // }
+            // System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + className);
+        }
+    }
 
-    // //Prints the class's name and the method's name and a given String s
-    // public static void p (String s) {
-    //     if (RobotMap.PRINTSENABLED) {
-    //         String[] fullClassName = Thread.currentThread().getStackTrace()[2].getClassName().split(".");
-    //         // System.out.println(fullClassName);
-    //         // String className = fullClassName[fullClassName.length-1];
-    //         // System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + className + ": " + s);
-    //     }
-    // }
+    //Prints the class's name and the method's name and a given String s
+    public static void p (String s) {
+        if (RobotMap.PRINTSENABLED) {
+            String[] fullClassName = Thread.currentThread().getStackTrace()[2].getClassName().split(".");
+            System.out.println(Arrays.toString(fullClassName));
+            // String className = fullClassName[fullClassName.length-1];
+            //System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + className + ": " + s);
+        }
+    }
 
-    // //Prints the class's name and the method's name and a given double s (so you don't have to change types before calling)
-    // public static void p (double s) {
-    //     if (RobotMap.PRINTSENABLED) {
-    //         String[] fullClassName = Thread.currentThread().getStackTrace()[2].getClassName().split(".");
-    //         // System.out.println(fullClassName);
+    //Prints the class's name and the method's name and a given double s (so you don't have to change types before calling)
+    public static void p (double s) {
+        if (RobotMap.PRINTSENABLED) {
+            String[] fullClassName = Thread.currentThread().getStackTrace()[2].getClassName().split(".");
+            System.out.println(Arrays.toString(fullClassName));
 
-    //         // String className = fullClassName[fullClassName.length-1];
-    //         // System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + className + ": " + s);
-    //     }
-    // }
+            // String className = fullClassName[fullClassName.length-1];
+            // System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + className + ": " + s);
+        }
+    }
 
-    // //Prints the class's name and the method's name and a given integer s (so you don't have to change types before calling)
-    // public static void p (int s) {
-    //     if (RobotMap.PRINTSENABLED) {
-    //         String[] fullClassName = Thread.currentThread().getStackTrace()[2].getClassName().split(".");
-    //         // System.out.println(fullClassName);
+    //Prints the class's name and the method's name and a given integer s (so you don't have to change types before calling)
+    public static void p (int s) {
+        if (RobotMap.PRINTSENABLED) {
+            String[] fullClassName = Thread.currentThread().getStackTrace()[2].getClassName().split(".");
+            System.out.println(Arrays.toString(fullClassName));
 
-    //         // String className = fullClassName[fullClassName.length-1];
-    //         // System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + className + ": " + s);
-    //     }
-    // }
+            // String className = fullClassName[fullClassName.length-1];
+            // System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " in " + className + ": " + s);
+        }
+    }
 }
