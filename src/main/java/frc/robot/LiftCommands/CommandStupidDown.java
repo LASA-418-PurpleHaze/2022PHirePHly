@@ -18,7 +18,7 @@ public class CommandStupidDown extends CommandBase {
     @Override
     public void execute() {
         c_hazyLift.stupidDown();
-        PHrint.p();
+        //print.p();
     }
     @Override
     public boolean isFinished() {

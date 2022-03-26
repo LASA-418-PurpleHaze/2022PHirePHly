@@ -43,7 +43,8 @@ public class HazyIntake extends SubsystemBase {
 
     public void defaultC () {
         //upDownTalon.set(ControlMode.PercentOutput, 0);
-        spinTalon.set(ControlMode.PercentOutput, 0);
+        // PHrint.p();
+       // spinTalon.set(ControlMode.PercentOutput, 0);
     }
 
     // not used
@@ -58,9 +59,9 @@ public class HazyIntake extends SubsystemBase {
     }
 
     public void drop () {
-        PHrint.p(upDownTalon.getSelectedSensorPosition());
+        //print.p(upDownTalon.getSelectedSensorPosition());
         if (upDownTalon.getSelectedSensorPosition() > -1000) {
-            upDownTalon.set(ControlMode.PercentOutput, .7);
+            upDownTalon.set(ControlMode.PercentOutput, .5);
         }
         else {
             //intakeStop();
@@ -73,7 +74,6 @@ public class HazyIntake extends SubsystemBase {
     // }
 
     public void raise() {
-        double please = -1000;
         if (upDownTalon.getSelectedSensorPosition() < -800) {
             upDownTalon.set(ControlMode.PercentOutput, -.55);
         }
@@ -92,7 +92,7 @@ public class HazyIntake extends SubsystemBase {
     }
 
     public void intakeStop () {
-        PHrint.p("DROP STOP");
+        //print.p("DROP STOP");
         upDownTalon.set(ControlMode.PercentOutput, 0);
         resetEncoders();
     }
@@ -113,11 +113,13 @@ public class HazyIntake extends SubsystemBase {
 
     public void spin () {
         spinTalon.set(ControlMode.PercentOutput, 1);
-        PHrint.p("Volts: " + spinTalon.getBusVoltage());
+        PHrint.p();
+        //print.p("Volts: " + spinTalon.getBusVoltage());
     }
 
     public void spit () {
         spinTalon.set(ControlMode.PercentOutput, -1);
-        PHrint.p("Volts: " + spinTalon.getBusVoltage());
+        PHrint.p();
+        //print.p("Volts: " + spinTalon.getBusVoltage());
     }
 }

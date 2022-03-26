@@ -17,7 +17,7 @@ public class CommandStupidLift extends CommandBase {
 
     @Override
     public void execute() {
-        PHrint.p();
+        //print.p();
         c_hazyLift.stupidLift();
     }
     @Override

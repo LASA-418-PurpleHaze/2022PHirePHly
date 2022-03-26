@@ -1,7 +1,5 @@
 package frc.robot;
 
-import java.util.Arrays;
-
 // Helper class to print values so that
 // we don't have to type System.out every time and
 // we can turn on and off prints easily w/o just commenting & uncommenting and 
