@@ -165,7 +165,7 @@ public class HazyMechBase extends SubsystemBase {
             // PHrint.p("travel distance " + travelDistance);
 
             // double turnPower = clamp(RobotMap.VISIONTURN * (offset/22), RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
-            double turnPower = RobotMap.VISIONVELTURN * (offset/22);  
+            double turnPower = RobotMap.VISIONVELTURN * (offset/RobotMap.OFFSETDIVISOR);  
             // if(offset < 4){
 
             // } 
