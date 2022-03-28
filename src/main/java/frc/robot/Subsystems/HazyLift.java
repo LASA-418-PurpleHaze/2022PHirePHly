@@ -1,6 +1,5 @@
 package frc.robot.Subsystems; //folder the file is in
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -23,7 +22,6 @@ public class HazyLift extends SubsystemBase  {
 
     private RelativeEncoder tiltEncoder;
     private RelativeEncoder liftLeftEncoder;
-    private RelativeEncoder liftRightEncoder;
 
     private SparkMaxPIDController tiltMotorPID;
     private SparkMaxPIDController liftMotorLeftPID;
@@ -44,11 +42,8 @@ public class HazyLift extends SubsystemBase  {
 
         stopEnabled = true;
 
-        tiltEncoder = tiltMotor.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
-        liftLeftEncoder = liftMotorLeft.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
-        //liftRightEncoder = liftMotorRight.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 8192);
-        //liftRightEncoder.setInverted(true);
-        //liftLeftEncoder.setInverted(true);
+        tiltEncoder = tiltMotor.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, RobotMap.HALENCONDERTICKSPERROTATION);
+        liftLeftEncoder = liftMotorLeft.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, RobotMap.HALENCONDERTICKSPERROTATION);
         tiltMotor.setInverted(true);
 
         tiltMotorPID = tiltMotor.getPIDController();
@@ -66,7 +61,6 @@ public class HazyLift extends SubsystemBase  {
         liftMotorLeftPID.setFF(RobotMap.LIFTF);
 
         liftMotorRightPID = liftMotorRight.getPIDController();
-        // liftMotorRightPID.setFeedbackDevice(liftRightEncoder);
         liftMotorRightPID.setP(RobotMap.LIFTP);
         liftMotorRightPID.setI(RobotMap.LIFTI);
         liftMotorRightPID.setD(RobotMap.LIFTD);
@@ -76,12 +70,10 @@ public class HazyLift extends SubsystemBase  {
         liftMotorRightPID.setOutputRange(-1, 1);
         
         resetEncoders();
-        //tiltMotorPID.setReference(0, CANSparkMax.ControlType.kPosition);
     }
 
     //tilts the lift a certain number of encoder ticks
     public void tilt(double ticks) {
-        //print.p(tiltEncoder.getPosition());
         tiltMotorPID.setReference(ticks, CANSparkMax.ControlType.kPosition);
     }
     
@@ -93,17 +85,11 @@ public class HazyLift extends SubsystemBase  {
         // //print.p(liftRightEncoder.getPosition());
     }
 
-    public void lifttilt(double liftTicks, double tiltTicks) {
-        // lift(liftTicks);
-        // tilt(tiltTicks);
-    }
-
     public void resetEncoders(){
         tiltEncoder.setPosition(0);
         liftLeftEncoder.setPosition(0);
         //liftRightEncoder.setPosition(0);
         //liftLeftEncoder.setInverted(true);
-
     }
 
     public void stopsOn(){
@@ -114,67 +100,74 @@ public class HazyLift extends SubsystemBase  {
         stopEnabled = false;
     }
 
-    //testing method, please remove later
     public void stupidLift(){
         liftMotorLeft.set(-1);
         liftMotorRight.follow(liftMotorLeft,true);
-        //print.p(liftLeftEncoder.getPosition());
      
-        if(stopEnabled && (liftLeftEncoder.getPosition() >= RobotMap.MAXLIFTHEIGHT)){ //Going up is negative encoder ticks so we do <= instead of >=
-            //print.p("stop");
-            //liftMotorLeft.set(0); 
+        if(stopEnabled && (liftLeftEncoder.getPosition() >= RobotMap.MAXMAXLIFTHEIGHT)){ //Going up is negative encoder ticks so we do <= instead of >=
+            liftMotorLeft.set(0); 
         }
     }
 
     public void stupidDown(){
         liftMotorLeft.set(1);
         liftMotorRight.follow(liftMotorLeft,true);
-        //print.p(liftLeftEncoder.getPosition());
         if(stopEnabled && (liftLeftEncoder.getPosition() <= RobotMap.MINLIFTHEIGHT)){
-             //print.p("stop");
             liftMotorLeft.set(0);
-         }
-
+        }
     }
-
-    // public void reallyStupidTilt(double ticks) {
-    //     if (tiltEncoder.getPosition() > .12) {
-    //         tiltMotorPID.setReference(ticks, CANSparkMax.ControlType.kPosition);
-    //     }
-    // }
 
     public void stupidTiltOut(){
         tiltMotor.set(-1);
         if(stopEnabled && (tiltEncoder.getPosition() >= RobotMap.MAXTILT)){
-            //print.p("stop");
            tiltMotor.set(0);
         }
-        //tilt(0.093);
+        PHrint.p(tiltEncoder.getPosition());
+        
     }
 
     public void stupidTiltIn(){
         tiltMotor.set(1);
         if(stopEnabled && (tiltEncoder.getPosition() <= RobotMap.MINTILT)){
-            //print.p("stop");
            tiltMotor.set(0);
         }
-        ////print.p();
+    }
+
+    public void stupidTiltOutLiftUp () {
+        tiltMotor.set(-1);
+        if(stopEnabled && (tiltEncoder.getPosition() >= RobotMap.MAXTILT)){
+           tiltMotor.set(0);
+        }
+        
+        liftMotorLeft.set(-1);
+        liftMotorRight.follow(liftMotorLeft, true);
+        if(stopEnabled && (liftLeftEncoder.getPosition() >= RobotMap.MAXMAXLIFTHEIGHT)){ //Going up is negative encoder ticks so we do <= instead of >=
+            liftMotorLeft.set(0); 
+        }
+    }
+
+    public void stupidTiltInLiftDown () {
+        tiltMotor.set(1);
+        if(stopEnabled && (tiltEncoder.getPosition() <= RobotMap.MINTILT)){
+            tiltMotor.set(0);
+        }
+
+        liftMotorLeft.set(1);
+        liftMotorRight.follow(liftMotorLeft, true);
+        if(stopEnabled && (liftLeftEncoder.getPosition() <= RobotMap.MINLIFTHEIGHT)){
+            liftMotorLeft.set(0);
+        }
     }
 
     public void stupidDefault(){
         liftMotorLeft.set(0);
         liftMotorRight.set(0); 
         tiltMotor.set(0);
-        // //print.p(liftRightEncoder.getPosition());
     }
 
     public void fakeEStop() {
         liftMotorLeft.set(0);
         liftMotorRight.set(0); 
         tiltMotor.set(0);
-    }
-
-    public void noTilt(){
-        tiltMotorPID.setReference(0, CANSparkMax.ControlType.kPosition);
     }
 }

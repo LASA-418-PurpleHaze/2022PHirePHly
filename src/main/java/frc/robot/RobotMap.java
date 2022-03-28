@@ -9,6 +9,9 @@ public class RobotMap {
     public static final int LEFTJOYSTICKPORT = 1;
     public static final int RIGHTJOYSTICKPORT = 2;
 
+    public static final int LEFTTRIGGERAXIS = 2;
+    public static final int RIGHTTRIGGERAXIS = 3;
+
     // Drive Train //
     public static final int LEFTFRONTSPARK = 9;
     public static final int RIGHTFRONTSPARK = 5;
@@ -40,8 +43,12 @@ public class RobotMap {
     // Intake //
     public static final int INTAKESPINTALON = 0;
     public static final int INTAKEUPDOWNTALON = 1;
-    public static final int INTAKEDOWNTICKS = -1600;
-    public static final int INTAKEUPTICKS = -200;
+
+    public static final int INTAKEDROPPOSITION = -1000;
+    public static final int INTAKERAISEPOSITION = -500;
+
+    public static final double INTAKEDROPSPEED = 0.5;
+    public static final double INTAKERAISESPEED = -0.55;
 
     public static final double INTAKEUPP = 0.65;
     public static final double INTAKEUPI = 0;
@@ -71,11 +78,12 @@ public class RobotMap {
     public static final int LIFTMOTORPORTRIGHT = 4;
     public static final int TILTMOTORPORT = 2;
 
+    public static final int HALENCONDERTICKSPERROTATION = 8192;
+
     public static final double TILTP = 5;
     public static final double TILTI = 0;
     public static final double TILTD = 0;
     public static final double TILTF = 0;
-
 
     public static final double LIFTP = 30;
     public static final double LIFTI = 0;
@@ -89,10 +97,10 @@ public class RobotMap {
     public static final double BARTHREETILTBACK = 0;
     public static final double BARTHREEPULL = 0;
     public static final double MAXLIFTHEIGHT = 3.4;
-    public static final double ABSOLUTEMAXLIFTHEIGHT = 5.5;
+    public static final double MAXMAXLIFTHEIGHT = 5.5;
     public static final double MINLIFTHEIGHT = 0.05;
     public static final double MINTILT = 0.05;
-    public static final double MAXTILT = 5.8;
+    public static final double MAXTILT = 7.74;
 
     public static final double MAINTAINPOSVOLTAGE = 0;
 
@@ -100,6 +108,7 @@ public class RobotMap {
     public static final double FIRSTMOVE = 0;
     public static final double FIRSTTURN = 0;
     public static final int AUTONTAXIDISTANCE = 45;
+    public static final double MAXCHASSISPIDSPEED = 0.35;
 
     // Vision //
     public static final int BAUDRATE = 115200;
@@ -109,4 +118,9 @@ public class RobotMap {
     public static final double VISIONVELTURN = 0.5;
     public static final double VISIONTURN = .001;
     public static final double VISIONSPEED = .05;
+    public static final double VISIONTARGETHEIGHT = 104.0;
+    public static final double LIMELIGHTHEIGHT = 36.0;
+    public static final double LIMELIGHTANGLE = 12;
+    public static final double SHOOTOFFSET = 0;
+    public static final int VISIONDISTANCEERRORRANGE = 5;
 }

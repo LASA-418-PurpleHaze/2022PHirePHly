@@ -22,9 +22,7 @@ public class HazyShooter extends SubsystemBase{
     private TalonSRX shooterRight;
     private CANSparkMax highFeeder;
 
-    // private boolean feederEnabled;
-
-     //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
+    //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
     public HazyShooter(){
         shooterLeft = new TalonSRX(RobotMap.SHOOTERTALONLEFT);
         shooterRight = new TalonSRX(RobotMap.SHOOTERTALONRIGHT);
@@ -54,11 +52,6 @@ public class HazyShooter extends SubsystemBase{
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
         shooterRight.follow(shooterLeft);
         highFeeder.set(0);
-        // PHrint.p(getShooterRPM());
-        // if (feederEnabled && getShooterRPM() >= RobotMap.SHOOTERSPEED - 10 && getShooterRPM() <= RobotMap.SHOOTERSPEED + 10)  {
-        //     PHrint.p("high feed at " + getShooterRPM());
-        //     highFeeder.set(RobotMap.HIGHFEEDERSPEED);
-        // }
     }
 
     public void shootAndFeed () {

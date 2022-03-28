@@ -27,9 +27,7 @@ public class HazyMechBase extends SubsystemBase {
     private SparkMaxPIDController lBackSparkPID;
     private SparkMaxPIDController rBackSparkPID;
 
-    //Declaration of variables used by vision
-    private NetworkTableInstance limeTable; //Not sure why we're using a serial port instead of a network table to get Limelight data. Consider changing later
-    
+    //Declaration of variables used by vision    
     private boolean delayed;
     private boolean turnDelay;
     private double milStart;
@@ -39,9 +37,6 @@ public class HazyMechBase extends SubsystemBase {
     private double ty;
     private double ta;
 
-    private final double targetHeight = 104.0;
-    private final double limeHeight = 36.0;
-    private final double limeAngle = 12;
     private double distance;
 
     //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
@@ -88,10 +83,10 @@ public class HazyMechBase extends SubsystemBase {
 
         //solenoidToLight = new Solenoid(PneumaticsModuleType.REVPH,5);
         //visionPort = new SerialPort(RobotMap.BAUDRATE, SerialPort.Port.kMXP);  
-        lFrontSparkPID.setOutputRange(-.35, .35);
-        lBackSparkPID.setOutputRange(-.35, .35);
-        rFrontSparkPID.setOutputRange(-.35, .35);
-        rBackSparkPID.setOutputRange(-.35, .35);
+        lFrontSparkPID.setOutputRange(-RobotMap.MAXCHASSISPIDSPEED, RobotMap.MAXCHASSISPIDSPEED);
+        lBackSparkPID.setOutputRange(-RobotMap.MAXCHASSISPIDSPEED, RobotMap.MAXCHASSISPIDSPEED);
+        rFrontSparkPID.setOutputRange(-RobotMap.MAXCHASSISPIDSPEED, RobotMap.MAXCHASSISPIDSPEED);
+        rBackSparkPID.setOutputRange(-RobotMap.MAXCHASSISPIDSPEED, RobotMap.MAXCHASSISPIDSPEED);
 
         resetEncoders();
     }
@@ -122,9 +117,9 @@ public class HazyMechBase extends SubsystemBase {
     
     //Mecanum drive function that is called by the default
     public void driveCartesian (double x, double y, double angle) {
-        x = clamp(x, -1.0,1.0);
+        x = clamp(x, -1.0, 1.0);
         x = applyDeadband(x, RobotMap.DEADBAND);
-        y = clamp(y, -1.0,1.0);
+        y = clamp(y, -1.0, 1.0);
         y = applyDeadband(y, RobotMap.DEADBAND);
 
         //The + and - are to make the mecanum drive move correctly & be able to move side to side
@@ -136,7 +131,7 @@ public class HazyMechBase extends SubsystemBase {
     
         normalize(wheelSpeeds);
     
-        lFrontSpark.set(-wheelSpeeds[0] );
+        lFrontSpark.set(-wheelSpeeds[0]);
         rFrontSpark.set(wheelSpeeds[1]);
         lBackSpark.set(-wheelSpeeds[2]);
         rBackSpark.set(wheelSpeeds[3]);
@@ -178,9 +173,8 @@ public class HazyMechBase extends SubsystemBase {
             SmartDashboard.putNumber("limelight", distance);
             
             double forwardPower = clamp(travelDistance * RobotMap.VISIONSPEED, -RobotMap.MAXVISIONSPEED, RobotMap.MAXVISIONSPEED);
-            if (Math.abs(travelDistance) < 5) {
+            if (Math.abs(travelDistance) < RobotMap.VISIONDISTANCEERRORRANGE) {
                 forwardPower = 0;
-                //System.out.println("zeroed");
             }
             PHrint.p("turn power " + turnPower);
             //print.p("turn: " + turnPower + " forward: " + forwardPower);
@@ -233,18 +227,15 @@ public class HazyMechBase extends SubsystemBase {
     }
 
     public void readData () {
-        // PHrint.p();
         tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-        offset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+        offset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0) + RobotMap.SHOOTOFFSET;
         ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
         ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
         PHrint.p("ty " + ty + " offsest " + offset);
-        distance = (targetHeight - limeHeight)/(Math.tan( (Math.PI/180) * (limeAngle+ty)));
+        distance = (RobotMap.VISIONTARGETHEIGHT - RobotMap.LIMELIGHTHEIGHT) / (Math.tan( (Math.PI/180) * (RobotMap.LIMELIGHTANGLE + ty)));
 
         PHrint.p(distance);
-
-        //print.p("our offset is " + offset + " and distance is " + distance);
     }
     
     

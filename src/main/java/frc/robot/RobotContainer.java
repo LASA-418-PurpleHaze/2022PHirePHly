@@ -64,6 +64,9 @@ public class RobotContainer {
     CommandStupidDown commandStupidDown = new CommandStupidDown(hazyLift);
     CommandStupidTiltOut commandStupidTiltOut = new CommandStupidTiltOut(hazyLift);
     CommandStupidTiltIn commandStupidTiltIn = new CommandStupidTiltIn(hazyLift);
+    CommandStupidTiltInLiftDown commandStupidTiltInLiftDown = new CommandStupidTiltInLiftDown(hazyLift);
+    CommandStupidTiltOutLiftUp commandStupidTiltOutLiftUp = new CommandStupidTiltOutLiftUp(hazyLift);
+
     CommandEnableStops commandEnableStops = new CommandEnableStops(hazyLift);
     CommandDisableStops commandDisableStops = new CommandDisableStops(hazyLift);
 
@@ -101,9 +104,9 @@ public class RobotContainer {
         // new JoystickButton(rightJoystick, 4).whenPressed(commandSwapDirection);                      // RJ 4 --> swap direction
         new JoystickButton(leftJoystick, 2).whileHeld(commandPreciseMecanum);                           // LJ 2 --> precise mecanum
         new JoystickButton(rightJoystick, 2).whileHeld(commandTurnVision);
-        // new JoystickButton(rightJoystick, 2).whileHeld(commandSpinIntake);                              // RJ 2 --> turn to vision
+        // new JoystickButton(rightJoystick, 2).whileHeld(commandSpinIntake);                           // RJ 2 --> turn to vision
         new JoystickButton(rightJoystick, 3).whileHeld(commandFollowVision);                            // RJ 3 --> follow vision
-        new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
+        // new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
 
         // Intake //
         new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                              // RJ 1 --> spin intake
@@ -123,6 +126,9 @@ public class RobotContainer {
         new JoystickButton(hazyController, Button.kRightStick.value).whileHeld(commandStupidLift);      // press right xbox stick   --> manually move lift up 
         new JoystickButton(hazyController, Button.kLeftBumper.value).whileHeld(commandStupidTiltIn);       
         new JoystickButton(hazyController, Button.kRightBumper.value).whileHeld(commandStupidTiltOut);
+        new HazyTrigger(hazyController, RobotMap.LEFTTRIGGERAXIS).whileHeld(commandStupidTiltInLiftDown);
+        new HazyTrigger(hazyController, RobotMap.RIGHTTRIGGERAXIS).whileHeld(commandStupidTiltOutLiftUp);
+        
         // new JoystickButton(leftJoystick, 3).whenPressed(commandBarTwoLiftUp);                        // LJ 3                     --> lift up to above bar 2
         // new JoystickButton(leftJoystick, 5).whenPressed(commandBarTwoLiftDown);                      // LJ 5                     --> lift down to be completely on bar 2
 
@@ -142,7 +148,6 @@ public class RobotContainer {
     }
 
     public void DPadWrapper() {
-        // Lift //
         if(hazyController.getPOV() == 0) {} //Up
         else if(hazyController.getPOV() == 90){ //Right
             //commandShootLow.execute();                    // DPad right --> tilt arm back to be on bar 3
@@ -154,7 +159,7 @@ public class RobotContainer {
             //sequenceBarThreeTiltExtend.execute();         // DPad left  --> tilt arm to bar 3 and extend to bar 3
         }
     }
-    
+
     //Sends autonomous command so that it can be used in robot.java
     public Command getAutonomousCommand() {
         //return chooser.getSelected();
