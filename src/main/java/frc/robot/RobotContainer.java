@@ -71,7 +71,6 @@ public class RobotContainer {
     CommandDisableStops commandDisableStops = new CommandDisableStops(hazyLift);
 
     CommandBarTwoLiftUp commandBarTwoLiftUp = new CommandBarTwoLiftUp(hazyLift);
-    CommandBarTwoLiftDown commandBarTwoLiftDown = new CommandBarTwoLiftDown(hazyLift);
 
     SequenceBarThreeTiltExtend sequenceBarThreeTiltExtend = new SequenceBarThreeTiltExtend(hazyLift);
     CommandBarThreeTiltBack commandBarThreeTiltBack = new CommandBarThreeTiltBack(hazyLift);
