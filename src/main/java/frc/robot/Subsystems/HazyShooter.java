@@ -1,5 +1,6 @@
 package frc.robot.Subsystems; //folder the file is in
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -48,7 +49,7 @@ public class HazyShooter extends SubsystemBase{
     }
 
     //Spins the shooter up to a certain velocity
-    public void shoot(){
+    public void shoot() {
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
         shooterRight.follow(shooterLeft);
         highFeeder.set(0);
@@ -62,17 +63,6 @@ public class HazyShooter extends SubsystemBase{
             PHrint.p("high feed at " + getShooterRPM());
             highFeeder.set(RobotMap.HIGHFEEDERSPEED);
         }
-    }
-
-    // public void toggleFeeder () {
-    //     feederEnabled = !feederEnabled;
-    // }
-
-    public void shootSlow(){
-        shooterLeft.set(ControlMode.Velocity, 7000);
-        shooterRight.follow(shooterLeft);
-        if(getShooterRPM() >= 7000 - 100) 
-           highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
     
     public void shootLow(){
@@ -122,6 +112,7 @@ public class HazyShooter extends SubsystemBase{
     public void moveFeeder(){
         highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
+
     public void backFeeder(){
         highFeeder.set(-RobotMap.HIGHFEEDERSPEED);
     }

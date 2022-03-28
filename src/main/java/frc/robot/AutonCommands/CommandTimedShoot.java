@@ -1,6 +1,8 @@
 package frc.robot.AutonCommands; //folder the file is in
+
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
 //local imports
 import frc.robot.Subsystems.HazyShooter;
 public class CommandTimedShoot extends CommandBase {
@@ -14,10 +16,12 @@ public class CommandTimedShoot extends CommandBase {
         c_hazyShooter = shooter;
         addRequirements(shooter);
     }
+
     @Override
     public void initialize(){
         startTime = java.lang.System.currentTimeMillis();
     }
+
     //The function that is called by the commandscheduler when command is called
     public void execute(){
         c_hazyShooter.shootLow();
@@ -25,7 +29,7 @@ public class CommandTimedShoot extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if(java.lang.System.currentTimeMillis() > startTime + 2000){
+        if (java.lang.System.currentTimeMillis() > startTime + 2000) {
             return true;
         } else {
             return false;

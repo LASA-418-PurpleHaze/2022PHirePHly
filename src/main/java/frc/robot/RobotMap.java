@@ -64,7 +64,7 @@ public class RobotMap {
     public static final int SHOOTERTALONLEFT = 6;
     public static final int SHOOTERTALONRIGHT = 8;
     public static final int HIGHFEEDERSPARK = 10;
-    public static final double SHOOTERSPEED = 16000;
+    public static final double SHOOTERSPEED = 14500;
     public static final double SHOOTERLOWSPEED = 8500;
     public static final double SHOOTERP = 0.015;
     public static final double SHOOTERI = 0.00008;
@@ -100,7 +100,7 @@ public class RobotMap {
     public static final double MAXMAXLIFTHEIGHT = 5.5;
     public static final double MINLIFTHEIGHT = 0.05;
     public static final double MINTILT = 0.05;
-    public static final double MAXTILT = 7.74;
+    public static final double MAXTILT = 4.35;
 
     public static final double MAINTAINPOSVOLTAGE = 0;
 
@@ -113,7 +113,7 @@ public class RobotMap {
     // Vision //
     public static final int BAUDRATE = 115200;
     public static final int VISIONDELAY = 200;
-    public static final double SHOOTDISTANCE = 170;
+    public static final double SHOOTDISTANCE = 145;
     public static final double MAXVISIONSPEED = .5;
     public static final double VISIONVELTURN = 0.5;
     public static final double VISIONTURN = .001;

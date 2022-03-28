@@ -118,7 +118,8 @@ public class RobotContainer {
 
         // Shooter //
         new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);            // A    --> full shoot by itself
-        new JoystickButton(hazyController, Button.kBack.value).toggleWhenPressed(commandHighFeedBack);
+        new JoystickButton(hazyController, Button.kBack.value).whileHeld(commandHighFeedBack);
+        new JoystickButton(hazyController, Button.kBack.value).whileHeld(commandSpitIntake);
         new JoystickButton(hazyController, Button.kStart.value).toggleWhenPressed(commandShootAndFeed);
 
         // Lift //
@@ -145,6 +146,13 @@ public class RobotContainer {
 
         new JoystickButton(leftJoystick, 7).whenPressed(commandResetLiftEncoder);
         //new JoystickButton(hazyController, Button.kBack.value).whenPressed(commandResetAllEncoders);
+    }
+
+    public void putAllData () {
+        // hazyMechBase.putData();
+        //hazyIntake.putNumber();
+        // hazyShooter.putData();
+        hazyLift.putData();
     }
 
     public void DPadWrapper() {

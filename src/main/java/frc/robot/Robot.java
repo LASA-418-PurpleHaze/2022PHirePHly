@@ -81,6 +81,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         robotContainer.DPadWrapper();
+        robotContainer.putAllData();
     }
 
     /** This function is called once when the robot is disabled. */

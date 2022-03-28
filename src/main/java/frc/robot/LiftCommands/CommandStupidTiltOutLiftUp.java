@@ -16,7 +16,8 @@ public class CommandStupidTiltOutLiftUp extends CommandBase {
 
     @Override
     public void execute() {
-        c_hazyLift.stupidTiltOutLiftUp();
+        c_hazyLift.stupidTiltOut();
+        c_hazyLift.stupidLift();
     }
     
     @Override

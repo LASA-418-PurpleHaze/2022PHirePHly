@@ -24,5 +24,4 @@ public class CommandStopMecBase extends CommandBase {
     public boolean isFinished() {
         return true;
     }
-
 }

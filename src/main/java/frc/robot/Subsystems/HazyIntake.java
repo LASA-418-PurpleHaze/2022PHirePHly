@@ -87,10 +87,10 @@ public class HazyIntake extends SubsystemBase {
     }
     
     public void spin () {
-        spinTalon.set(ControlMode.PercentOutput, 1);
+        spinTalon.set(ControlMode.PercentOutput, .75);
     }
 
     public void spit () {
-        spinTalon.set(ControlMode.PercentOutput, -1);
+        spinTalon.set(ControlMode.PercentOutput, -.75);
     }
 }
