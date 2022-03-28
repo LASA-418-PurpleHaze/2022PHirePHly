@@ -115,6 +115,7 @@ public class RobotContainer {
         // new JoystickButton(hazyController, Button.kX.value).whenPressed(commandStopDropIntake);      // X    --> half lift intake to get bouncing balls
         new JoystickButton(hazyController, Button.kY.value).whenPressed(commandRaiseIntake);
         // new JoystickButton(hazyController, Button.kY.value).whenPressed(commandShoot);               //      --> half lift intake to get bouncing balls
+        new JoystickButton(hazyController, 7).whenPressed(commandResetIntakeEncoders);
 
         // Shooter //
         new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);            // A    --> full shoot by itself

@@ -120,11 +120,9 @@ public class HazyShooter extends SubsystemBase{
 
     //Moves the high feeder at a set speed, used for manually spinning the high feeder
     public void moveFeeder(){
-        PHrint.p();
         highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
     public void backFeeder(){
-        PHrint.p();
         highFeeder.set(-RobotMap.HIGHFEEDERSPEED);
     }
 }

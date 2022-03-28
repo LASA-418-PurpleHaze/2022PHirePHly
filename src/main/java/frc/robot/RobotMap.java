@@ -123,7 +123,5 @@ public class RobotMap {
     public static final double LIMELIGHTANGLE = 12;
     public static final double SHOOTOFFSET = 0;
     public static final int VISIONDISTANCEERRORRANGE = 5;
-    public static final int OFFSETDIVISOR = 22;
-
-
+    public static final int VISIONOFFSETDIVISOR = 22; //The max horizontal offset you expect to receive, because you want the max offset to only give a power of 1 or -1 as these are the max powers the motorcontrollers accept
 }
