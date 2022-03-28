@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //CTRE imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 //local imports
@@ -20,6 +21,7 @@ public class HazyIntake extends SubsystemBase {
         spinTalon = new TalonSRX(RobotMap.INTAKESPINTALON);
         upDownTalon = new TalonSRX(RobotMap.INTAKEUPDOWNTALON);
         
+        upDownTalon.setNeutralMode(NeutralMode.Brake);
         resetEncoders();
        
         // upDownTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -44,18 +46,18 @@ public class HazyIntake extends SubsystemBase {
     public void defaultC () {
         //upDownTalon.set(ControlMode.PercentOutput, 0);
         // PHrint.p();
-       // spinTalon.set(ControlMode.PercentOutput, 0);
+       spinTalon.set(ControlMode.PercentOutput, 0);
     }
 
     // not used
     public void dropOrRaise () {
-        if (upDownTalon.getSelectedSensorPosition() > -1000) {
-            upDownTalon.selectProfileSlot(0, 0); //Sets the motor to use the "0" id where we have stored our PID values and makes usre its running in primary closed loop mode: each motor can have multiple PID slots each with its own id
-            upDownTalon.set(ControlMode.Position, RobotMap.INTAKEDOWNTICKS);
-        } else {
-            upDownTalon.selectProfileSlot(1, 0); //Sets the motor to use the "1" id where we have stored our PID values and makes usre its running in primary closed loop mode: each motor can have multiple PID slots each with its own id
-            upDownTalon.set(ControlMode.Position, RobotMap.INTAKEUPTICKS);
-        }
+        // if (upDownTalon.getSelectedSensorPosition() > -1000) {
+        //     upDownTalon.selectProfileSlot(0, 0); //Sets the motor to use the "0" id where we have stored our PID values and makes usre its running in primary closed loop mode: each motor can have multiple PID slots each with its own id
+        //     upDownTalon.set(ControlMode.Position, RobotMap.INTAKEDOWNTICKS);
+        // } else {
+        //     upDownTalon.selectProfileSlot(1, 0); //Sets the motor to use the "1" id where we have stored our PID values and makes usre its running in primary closed loop mode: each motor can have multiple PID slots each with its own id
+        //     upDownTalon.set(ControlMode.Position, RobotMap.INTAKEUPTICKS);
+        // }
     }
 
     public void drop () {
@@ -113,13 +115,13 @@ public class HazyIntake extends SubsystemBase {
 
     public void spin () {
         spinTalon.set(ControlMode.PercentOutput, 1);
-        PHrint.p();
+        // PHrint.p();
         //print.p("Volts: " + spinTalon.getBusVoltage());
     }
 
     public void spit () {
         spinTalon.set(ControlMode.PercentOutput, -1);
-        PHrint.p();
+        // PHrint.p();
         //print.p("Volts: " + spinTalon.getBusVoltage());
     }
 }

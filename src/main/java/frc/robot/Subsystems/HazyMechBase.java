@@ -41,7 +41,7 @@ public class HazyMechBase extends SubsystemBase {
 
     private final double targetHeight = 104.0;
     private final double limeHeight = 36.0;
-    private final double limeAngle = 7.5;
+    private final double limeAngle = 12;
     private double distance;
 
     //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
@@ -149,7 +149,7 @@ public class HazyMechBase extends SubsystemBase {
     //Turns the robot to face the target and drives it to the correct shooting distance
     public void goToTarget () {
         //solenoidToLight.set(true);
-        
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
         //Sets up a delay of length RobotMap.VISIONDELAY between the time the button is pressed and the robot starts following vision 
         if (delayed) {
             milStart = java.lang.System.currentTimeMillis();
@@ -164,20 +164,27 @@ public class HazyMechBase extends SubsystemBase {
                 travelDistance = 0.0;
             else
                 travelDistance = RobotMap.SHOOTDISTANCE - distance;
+
+            //System.out.println("vision distance " + distance);
+            //System.out.println("travel: " + travelDistance);
+            // PHrint.p("travel distance " + travelDistance);
+
             // double turnPower = clamp(RobotMap.VISIONTURN * (offset/22), RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
-            double turnPower = RobotMap.VISIONTURN * (offset/22);
-            if (turnPower > -0.105 && turnPower < 0.0 && Math.abs(offset) >= 10.0) 
-                turnPower = -0.105;
-            else if (turnPower < 0.105 && turnPower > 0.0 && Math.abs(offset) >= 10.0)
-                turnPower = 0.105;
+            double turnPower = RobotMap.VISIONVELTURN * (offset/22);  
+            // if(offset < 4){
+
+            // } 
+            // turnPower = clamp(turnPower, -.105, .105);
             SmartDashboard.putNumber("limelight", distance);
-            //This checks if the robot is "close enough" to facing the target as the real error will rarely ever be 0 exactly.
-            //We don't need the error to be 0 exactly, we just need the robot to face the target with some allowable room for error
-            if (Math.abs(offset) < 10.0)
-                turnPower = 0.0;
             
-            double forwardPower = clamp(-travelDistance * RobotMap.VISIONSPEED, RobotMap.MAXVISIONSPEED, -RobotMap.MAXVISIONSPEED);
+            double forwardPower = clamp(travelDistance * RobotMap.VISIONSPEED, -RobotMap.MAXVISIONSPEED, RobotMap.MAXVISIONSPEED);
+            if (Math.abs(travelDistance) < 5) {
+                forwardPower = 0;
+                //System.out.println("zeroed");
+            }
+            PHrint.p("turn power " + turnPower);
             //print.p("turn: " + turnPower + " forward: " + forwardPower);
+
             driveCartesian(0, forwardPower, -turnPower);
         }
     }
@@ -196,6 +203,7 @@ public class HazyMechBase extends SubsystemBase {
 
         if (java.lang.System.currentTimeMillis() > milStart + RobotMap.VISIONDELAY) {
             double turnPower = RobotMap.VISIONVELTURN * (offset / 22);
+            PHrint.p("Turn Power: " + turnPower);
             driveCartesian(0, 0, -turnPower);
             // lFrontSpark.set(turnPower);
             // rFrontSpark.set(turnPower);
@@ -225,12 +233,16 @@ public class HazyMechBase extends SubsystemBase {
     }
 
     public void readData () {
+        // PHrint.p();
         tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
         offset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
         ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
         ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
-        distance = (targetHeight - limeHeight)/(Math.tan( Math.PI/180 * (limeAngle+ty)));
+        PHrint.p("ty " + ty + " offsest " + offset);
+        distance = (targetHeight - limeHeight)/(Math.tan( (Math.PI/180) * (limeAngle+ty)));
+
+        PHrint.p(distance);
 
         //print.p("our offset is " + offset + " and distance is " + distance);
     }

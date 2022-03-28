@@ -122,7 +122,7 @@ public class HazyLift extends SubsystemBase  {
      
         if(stopEnabled && (liftLeftEncoder.getPosition() >= RobotMap.MAXLIFTHEIGHT)){ //Going up is negative encoder ticks so we do <= instead of >=
             //print.p("stop");
-            liftMotorLeft.set(0); 
+            //liftMotorLeft.set(0); 
         }
     }
 

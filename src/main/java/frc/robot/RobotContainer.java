@@ -49,9 +49,12 @@ public class RobotContainer {
     // Shooter //
     HazyShooter hazyShooter = new HazyShooter();
     CommandShoot commandShoot = new CommandShoot(hazyShooter);
+    CommandShootAndFeed commandShootAndFeed = new CommandShootAndFeed(hazyShooter);
     CommandHighFeed commandHighFeed = new CommandHighFeed(hazyShooter);
+    CommandHighFeedBack commandHighFeedBack = new CommandHighFeedBack(hazyShooter);
     CommandShooterDefault commandShooterDefault = new CommandShooterDefault(hazyShooter);
     CommandShootLow commandShootLow = new CommandShootLow(hazyShooter);
+    // CommandToggleFeeder commandToggleFeeder = new CommandToggleFeeder(hazyShooter);
 
     // Lift //
     HazyLift hazyLift = new HazyLift();
@@ -83,6 +86,7 @@ public class RobotContainer {
         hazyIntake.setDefaultCommand(commandIntakeDefault);
         hazyShooter.setDefaultCommand(commandShooterDefault);
         hazyLift.setDefaultCommand(commandStupidDefault);
+        
         //Not sure if lift needs a default command since all it does is go to PID positions so it won't keep spinning forever, maybe I'm wrong
 
         chooser.setDefaultOption("Two Ball Auto", twoBallAuton);
@@ -97,8 +101,7 @@ public class RobotContainer {
         // new JoystickButton(rightJoystick, 4).whenPressed(commandSwapDirection);                      // RJ 4 --> swap direction
         new JoystickButton(leftJoystick, 2).whileHeld(commandPreciseMecanum);                           // LJ 2 --> precise mecanum
         new JoystickButton(rightJoystick, 2).whileHeld(commandTurnVision);
-        new JoystickButton(rightJoystick, 2).whileHeld(commandSpinIntake);                              // RJ 2 --> turn to vision
-        // RJ 2 --> turn to vision
+        // new JoystickButton(rightJoystick, 2).whileHeld(commandSpinIntake);                              // RJ 2 --> turn to vision
         new JoystickButton(rightJoystick, 3).whileHeld(commandFollowVision);                            // RJ 3 --> follow vision
         new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
 
@@ -112,7 +115,8 @@ public class RobotContainer {
 
         // Shooter //
         new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);            // A    --> full shoot by itself
-        new JoystickButton(hazyController, Button.kBack.value).toggleWhenPressed(commandShootLow);
+        new JoystickButton(hazyController, Button.kBack.value).toggleWhenPressed(commandHighFeedBack);
+        new JoystickButton(hazyController, Button.kStart.value).toggleWhenPressed(commandShootAndFeed);
 
         // Lift //
         new JoystickButton(hazyController, Button.kLeftStick.value).whileHeld(commandStupidDown);       // press left xbox stick    --> manually move lift down
@@ -127,7 +131,7 @@ public class RobotContainer {
         new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetIntakeEncoders);
         new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetMecanumEncoders);
         */
-        new JoystickButton(hazyController, Button.kBack.value).toggleWhenPressed(commandShootLow);
+        //new JoystickButton(hazyController, Button.kBack.value).toggleWhenPressed(commandShootLow);
         new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
 
         new JoystickButton(leftJoystick, 6).whenPressed(commandEnableStops);
