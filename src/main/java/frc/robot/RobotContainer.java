@@ -112,7 +112,7 @@ public class RobotContainer {
         new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                              // RJ 1 --> spin intake
         new JoystickButton(leftJoystick, 1).whileHeld(commandSpitIntake);                               // LJ 1 --> spin intake (backwards)
         new JoystickButton(hazyController, Button.kB.value).whenPressed(commandDropIntake);  
-        new JoystickButton(rightJoystick, 8).whenPressed(commandHalfRaiseIntake);                              // RJ 1 --> spin intake
+        //new JoystickButton(rightJoystick, 8).whenPressed(commandHalfRaiseIntake);                              // RJ 1 --> spin intake
         // B    --> raise/drop intake
         // new JoystickButton(hazyController, Button.kX.value).whenPressed(commandStopDropIntake);      // X    --> half lift intake to get bouncing balls
         new JoystickButton(hazyController, Button.kY.value).whenPressed(commandRaiseIntake);
@@ -142,7 +142,7 @@ public class RobotContainer {
         new JoystickButton(hazyController, Button.kStart.value).whenPressed(commandResetMecanumEncoders);
         */
         //new JoystickButton(hazyController, Button.kBack.value).toggleWhenPressed(commandShootLow);
-        new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
+        //new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
 
         new JoystickButton(leftJoystick, 6).whenPressed(commandEnableStops);
         new JoystickButton(leftJoystick, 11).whenPressed(commandDisableStops);
