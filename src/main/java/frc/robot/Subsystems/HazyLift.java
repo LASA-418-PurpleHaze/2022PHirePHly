@@ -141,7 +141,7 @@ public class HazyLift extends SubsystemBase  {
     }
 
     public void stupidTiltOutLiftUp () {
-        tiltMotor.set(-0.75);
+        tiltMotor.set(- .6);
         if(stopEnabled && (tiltEncoder.getPosition() >= RobotMap.MAXTILT)){
            tiltMotor.set(0);
         }
@@ -155,11 +155,18 @@ public class HazyLift extends SubsystemBase  {
 
     public void stupidTiltInLiftDown () {
         tiltMotor.set(1);
+        PHrint.p("Tilt: " + tiltEncoder.getPosition() + " Winch: " + liftLeftEncoder.getPosition());
         if(stopEnabled && (tiltEncoder.getPosition() <= RobotMap.MINTILT)){
             tiltMotor.set(0);
         }
+        liftMotorLeft.set(1);
+        // if (stopEnabled && liftLeftEncoder.getPosition() >= RobotMap.THIRDBARPOSITION) {
+        //     liftMotorLeft.set(.4);
+        //     if (tiltEncoder.getPosition() <= RobotMap.MINTILT) {
+        //         liftMotorLeft.set(1);
+        //     }
+        // }
 
-        liftMotorLeft.set(0.75);
         liftMotorRight.follow(liftMotorLeft, true);
         if(stopEnabled && (liftLeftEncoder.getPosition() <= RobotMap.MINLIFTHEIGHT)){
             liftMotorLeft.set(0);

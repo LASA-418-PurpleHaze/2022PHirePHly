@@ -41,6 +41,7 @@ public class RobotContainer {
     CommandIntakeDefault commandIntakeDefault = new CommandIntakeDefault(hazyIntake);
     CommandDropIntake commandDropIntake = new CommandDropIntake(hazyIntake);
     CommandRaiseIntake commandRaiseIntake = new CommandRaiseIntake(hazyIntake);
+    CommandHalfRaiseIntake commandHalfRaiseIntake = new CommandHalfRaiseIntake(hazyIntake);
     CommandSpinIntake commandSpinIntake = new CommandSpinIntake(hazyIntake);
     CommandSpitIntake commandSpitIntake = new CommandSpitIntake(hazyIntake);
     CommandStopDropIntake commandStopDropIntake = new CommandStopDropIntake(hazyIntake);
@@ -110,11 +111,13 @@ public class RobotContainer {
         // Intake //
         new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                              // RJ 1 --> spin intake
         new JoystickButton(leftJoystick, 1).whileHeld(commandSpitIntake);                               // LJ 1 --> spin intake (backwards)
-        new JoystickButton(hazyController, Button.kB.value).whenPressed(commandDropIntake);             // B    --> raise/drop intake
+        new JoystickButton(hazyController, Button.kB.value).whenPressed(commandDropIntake);  
+        new JoystickButton(rightJoystick, 8).whenPressed(commandHalfRaiseIntake);                              // RJ 1 --> spin intake
+        // B    --> raise/drop intake
         // new JoystickButton(hazyController, Button.kX.value).whenPressed(commandStopDropIntake);      // X    --> half lift intake to get bouncing balls
         new JoystickButton(hazyController, Button.kY.value).whenPressed(commandRaiseIntake);
         // new JoystickButton(hazyController, Button.kY.value).whenPressed(commandShoot);               //      --> half lift intake to get bouncing balls
-        new JoystickButton(hazyController, 7).whenPressed(commandResetIntakeEncoders);
+        new JoystickButton(rightJoystick, 7).whenPressed(commandResetIntakeEncoders);
 
         // Shooter //
         new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);            // A    --> full shoot by itself
@@ -149,9 +152,9 @@ public class RobotContainer {
     }
 
     public void putAllData () {
-        // hazyMechBase.putData();
-        //hazyIntake.putNumber();
-        // hazyShooter.putData();
+        hazyMechBase.putData();
+        hazyIntake.putData();
+        hazyShooter.putData();
         hazyLift.putData();
     }
 

@@ -116,4 +116,11 @@ public class HazyShooter extends SubsystemBase{
     public void backFeeder(){
         highFeeder.set(-RobotMap.HIGHFEEDERSPEED);
     }
+
+    public void putData () {
+        SmartDashboard.putNumber("Left Motor Speed", shooterLeft.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("Right Motor Speed", shooterRight.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("Left Motor Amps", shooterLeft.getStatorCurrent());
+        SmartDashboard.putNumber("Right Motor Amps", shooterRight.getStatorCurrent());
+    }
 }

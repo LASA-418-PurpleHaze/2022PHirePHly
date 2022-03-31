@@ -310,4 +310,16 @@ public class HazyMechBase extends SubsystemBase {
             }
         }
     }
+
+    public void putData () {
+        SmartDashboard.putNumber("Left Front Position", lFrontSpark.getEncoder().getPosition());
+        SmartDashboard.putNumber("Right Front Position", rFrontSpark.getEncoder().getPosition());
+        SmartDashboard.putNumber("Left Back Position", lBackSpark.getEncoder().getPosition());
+        SmartDashboard.putNumber("Right Back Position", rBackSpark.getEncoder().getPosition());
+
+        SmartDashboard.putNumber("Left Front amps", lFrontSpark.getOutputCurrent());
+        SmartDashboard.putNumber("Right Front amps", rFrontSpark.getOutputCurrent());
+        SmartDashboard.putNumber("Left Back amps", lBackSpark.getOutputCurrent());
+        SmartDashboard.putNumber("Right Back amps", rBackSpark.getOutputCurrent());
+    }
 }

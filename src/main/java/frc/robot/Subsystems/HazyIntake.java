@@ -2,6 +2,7 @@ package frc.robot.Subsystems; //folder the file is in
 
 //wpilib imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //CTRE imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -46,6 +47,7 @@ public class HazyIntake extends SubsystemBase {
     public void defaultC () {
         //upDownTalon.set(ControlMode.PercentOutput, 0);
         // PHrint.p();
+        PHrint.p(upDownTalon.getSelectedSensorPosition());
        spinTalon.set(ControlMode.PercentOutput, 0);
     }
 
@@ -73,6 +75,27 @@ public class HazyIntake extends SubsystemBase {
             upDownTalon.set(ControlMode.PercentOutput, 0);
         }
     }
+    public void halfRaise() {
+        PHrint.p("HALF RAISE IS RUNNING!");
+        // PHrint.p(upDownTalon.getSelectedSensorPosition());
+        if (upDownTalon.getSelectedSensorPosition() < RobotMap.INTAKEHALFRAISEPOSITION) {
+            //PHrint.p("if");
+            upDownTalon.set(ControlMode.PercentOutput, -.5);
+         }
+        // else if (upDownTalon.getSelectedSensorPosition() > RobotMap.INTAKEHALFRAISEPOSITION &&  upDownTalon.getSelectedSensorPosition() < RobotMap.INTAKERAISEPOSITION) {
+        //     PHrint.p("else if");
+        //     upDownTalon.set(ControlMode.PercentOutput, -.2);
+        // }
+        // else if (upDownTalon.getSelectedSensorPosition() < 0 &&  upDownTalon.getSelectedSensorPosition() > -400) {
+        //     PHrint.p("else if2");
+        //     upDownTalon.set(ControlMode.PercentOutput, .45);
+        // }
+
+        // else {
+        //     PHrint.p("else if");
+        //     upDownTalon.set(ControlMode.PercentOutput, 0);
+        // }
+    }
 
     public boolean didDrop () {
         return (upDownTalon.getSelectedSensorPosition() < RobotMap.INTAKEDROPPOSITION);
@@ -81,16 +104,26 @@ public class HazyIntake extends SubsystemBase {
     public boolean didRaise () {
         return (upDownTalon.getSelectedSensorPosition() > RobotMap.INTAKERAISEPOSITION);
     }
+    public boolean didHalfRaise () {
+        return (upDownTalon.getSelectedSensorPosition() > RobotMap.INTAKEHALFRAISEPOSITION);
+    }
 
     public void resetEncoders() {
         upDownTalon.setSelectedSensorPosition(0);
     }
     
     public void spin () {
-        spinTalon.set(ControlMode.PercentOutput, .75);
+        spinTalon.set(ControlMode.PercentOutput, 1);
     }
 
     public void spit () {
-        spinTalon.set(ControlMode.PercentOutput, -.75);
+        spinTalon.set(ControlMode.PercentOutput, -1);
     }
+
+    public void putData () {
+        SmartDashboard.putNumber("Intake Up/Down Encoder", upDownTalon.getSelectedSensorPosition());
+        // SmartDashboard.putNumber("Intake Spin Speed", spinTalon.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("Intake Up/Down Amps", upDownTalon.getStatorCurrent());
+        SmartDashboard.putNumber("Intake Spin Amps", spinTalon.getStatorCurrent());
+    } 
 }

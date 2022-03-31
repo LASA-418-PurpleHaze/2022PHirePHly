@@ -45,6 +45,7 @@ public class RobotMap {
     public static final int INTAKEUPDOWNTALON = 1;
 
     public static final int INTAKEDROPPOSITION = -1000;
+    public static final double INTAKEHALFRAISEPOSITION = -900;
     public static final int INTAKERAISEPOSITION = -500;
 
     public static final double INTAKEDROPSPEED = 0.5;
