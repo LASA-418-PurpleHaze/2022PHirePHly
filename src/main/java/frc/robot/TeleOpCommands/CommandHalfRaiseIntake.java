@@ -23,6 +23,6 @@ public class CommandHalfRaiseIntake extends CommandBase {
     @Override
     public boolean isFinished() {
         return false;
-        //return c_hazyIntake.didDrop();
+        //return c_hazyIntake.did3Drop();
     }
 }

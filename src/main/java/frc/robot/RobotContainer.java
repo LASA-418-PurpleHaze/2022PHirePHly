@@ -111,27 +111,27 @@ public class RobotContainer {
         // Intake //
         new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                              // RJ 1 --> spin intake
         new JoystickButton(leftJoystick, 1).whileHeld(commandSpitIntake);                               // LJ 1 --> spin intake (backwards)
-        new JoystickButton(hazyController, Button.kB.value).whenPressed(commandDropIntake);  
+        new JoystickButton(hazyController, 3).whenPressed(commandDropIntake);  
         //new JoystickButton(rightJoystick, 8).whenPressed(commandHalfRaiseIntake);                              // RJ 1 --> spin intake
         // B    --> raise/drop intake
-        // new JoystickButton(hazyController, Button.kX.value).whenPressed(commandStopDropIntake);      // X    --> half lift intake to get bouncing balls
-        new JoystickButton(hazyController, Button.kY.value).whenPressed(commandRaiseIntake);
+        new JoystickButton(hazyController, 1).whenPressed(commandStopDropIntake);      // X    --> half lift intake to get bouncing balls
+        new JoystickButton(hazyController, 4).whenPressed(commandRaiseIntake);
         // new JoystickButton(hazyController, Button.kY.value).whenPressed(commandShoot);               //      --> half lift intake to get bouncing balls
         new JoystickButton(rightJoystick, 7).whenPressed(commandResetIntakeEncoders);
 
         // Shooter //
-        new JoystickButton(hazyController, Button.kA.value).toggleWhenPressed(commandShoot);            // A    --> full shoot by itself
-        new JoystickButton(hazyController, Button.kBack.value).whileHeld(commandHighFeedBack);
-        new JoystickButton(hazyController, Button.kBack.value).whileHeld(commandSpitIntake);
-        new JoystickButton(hazyController, Button.kStart.value).toggleWhenPressed(commandShootAndFeed);
+        new JoystickButton(hazyController, 2).toggleWhenPressed(commandShoot);            // A    --> full shoot by itself
+        new JoystickButton(hazyController, 9).whileHeld(commandHighFeedBack);
+        new JoystickButton(hazyController, 9).whileHeld(commandSpitIntake);
+        new JoystickButton(hazyController, 10).toggleWhenPressed(commandShootAndFeed);
 
         // Lift //
-        new JoystickButton(hazyController, Button.kLeftStick.value).whileHeld(commandStupidDown);       // press left xbox stick    --> manually move lift down
-        new JoystickButton(hazyController, Button.kRightStick.value).whileHeld(commandStupidLift);      // press right xbox stick   --> manually move lift up 
-        new JoystickButton(hazyController, Button.kLeftBumper.value).whileHeld(commandStupidTiltIn);       
-        new JoystickButton(hazyController, Button.kRightBumper.value).whileHeld(commandStupidTiltOut);
-        new HazyTrigger(hazyController, RobotMap.LEFTTRIGGERAXIS).whileHeld(commandStupidTiltInLiftDown);
-        new HazyTrigger(hazyController, RobotMap.RIGHTTRIGGERAXIS).whileHeld(commandStupidTiltOutLiftUp);
+        new JoystickButton(hazyController, 11).whileHeld(commandStupidDown);       // press left xbox stick    --> manually move lift down
+        new JoystickButton(hazyController, 12).whileHeld(commandStupidLift);      // press right xbox stick   --> manually move lift up 
+        new JoystickButton(hazyController, 5).whileHeld(commandStupidTiltIn);       
+        new JoystickButton(hazyController, 6).whileHeld(commandStupidTiltOut);
+        new JoystickButton(hazyController, 7).whileHeld(commandStupidTiltInLiftDown);
+        new JoystickButton(hazyController, 8).whileHeld(commandStupidTiltOutLiftUp);
         
         // new JoystickButton(leftJoystick, 3).whenPressed(commandBarTwoLiftUp);                        // LJ 3                     --> lift up to above bar 2
         // new JoystickButton(leftJoystick, 5).whenPressed(commandBarTwoLiftDown);                      // LJ 5                     --> lift down to be completely on bar 2

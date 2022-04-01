@@ -53,7 +53,7 @@ public class HazyIntake extends SubsystemBase {
 
 
     public void drop () {
-        //print.p(upDownTalon.getSelectedSensorPosition());
+        PHrint.p("controller works");
         if (upDownTalon.getSelectedSensorPosition() > RobotMap.INTAKEDROPPOSITION) { 
             upDownTalon.set(ControlMode.PercentOutput, RobotMap.INTAKEDROPSPEED);
         }
@@ -62,10 +62,10 @@ public class HazyIntake extends SubsystemBase {
             upDownTalon.set(ControlMode.PercentOutput, 0);
         }
     }
-    // public void intakeStop() {
-    //     upDownTalon.set(ControlMode.PercentOutput, 0);
-    //     resetEncoders();
-    // }
+    public void intakeStop() {
+        upDownTalon.set(ControlMode.PercentOutput, 0);
+        //resetEncoders();
+    }
 
     public void raise() {
         if (upDownTalon.getSelectedSensorPosition() < RobotMap.INTAKERAISEPOSITION) {

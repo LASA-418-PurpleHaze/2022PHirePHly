@@ -17,7 +17,7 @@ public class CommandStopDropIntake extends CommandBase {
 
     @Override
     public void execute () {
-       // c_hazyIntake.intakeStop();
+        c_hazyIntake.intakeStop();
     }
 
     @Override
