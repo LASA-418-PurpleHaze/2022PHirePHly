@@ -2,7 +2,7 @@ package frc.robot; //folder the file is in
 
 //Stores all constant values for the robot (ports, etc.)
 public class RobotMap {
-    public static final boolean PRINTSENABLED = true;
+    public static final boolean PRINTSENABLED = false;
 
     // OI //
     public static final int CONTROLLERPORT = 0;
@@ -20,7 +20,7 @@ public class RobotMap {
 
     public static final double CHASSISLEFTFRONTP = 1;
     public static final double CHASSISLEFTFRONTI = 0;
-    public static final double CHASSISLEFTFRONTD = 0;
+    public static final double CHASSISLEFTFRONTD = 0;    
     public static final double CHASSISLEFTFRONTF = 0;
 
     public static final double CHASSISBACKFRONTP = 1;
@@ -65,7 +65,7 @@ public class RobotMap {
     public static final int SHOOTERTALONLEFT = 6;
     public static final int SHOOTERTALONRIGHT = 8;
     public static final int HIGHFEEDERSPARK = 10;
-    public static final double SHOOTERSPEED = 14500;
+    public static final double SHOOTERSPEED = 14750;
     public static final double SHOOTERLOWSPEED = 8500;
     public static final double SHOOTERP = 0.015;
     public static final double SHOOTERI = 0.00008;
@@ -98,7 +98,7 @@ public class RobotMap {
     public static final double BARTHREETILTBACK = 0;
     public static final double BARTHREEPULL = 0;
     public static final double MAXLIFTHEIGHT = 3.4;
-    public static final double MAXMAXLIFTHEIGHT = 5.5;
+    public static final double MAXMAXLIFTHEIGHT = 5.45;
     public static final double MINLIFTHEIGHT = 0.05;
     public static final double MINTILT = 0.05;
     public static final double MAXTILT = 4.35;
@@ -114,7 +114,7 @@ public class RobotMap {
     // Vision //
     public static final int BAUDRATE = 115200;
     public static final int VISIONDELAY = 200;
-    public static final double SHOOTDISTANCE = 145;
+    public static final double SHOOTDISTANCE = 175;
     public static final double MAXVISIONSPEED = .5;
     public static final double VISIONVELTURN = 0.5;
     public static final double VISIONTURN = .001;

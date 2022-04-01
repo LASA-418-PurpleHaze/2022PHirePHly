@@ -102,9 +102,9 @@ public class RobotContainer {
     public void configureButtonBindings () {
         // Chassis //
         // new JoystickButton(rightJoystick, 4).whenPressed(commandSwapDirection);                      // RJ 4 --> swap direction
-        new JoystickButton(leftJoystick, 2).whileHeld(commandPreciseMecanum);                           // LJ 2 --> precise mecanum
+        new JoystickButton(leftJoystick, 3).whileHeld(commandPreciseMecanum);                           // LJ 2 --> precise mecanum
         new JoystickButton(rightJoystick, 2).whileHeld(commandTurnVision);
-        // new JoystickButton(rightJoystick, 2).whileHeld(commandSpinIntake);                           // RJ 2 --> turn to vision
+         new JoystickButton(rightJoystick, 2).whileHeld(commandSpinIntake);                           // RJ 2 --> turn to vision
         new JoystickButton(rightJoystick, 3).whileHeld(commandFollowVision);                            // RJ 3 --> follow vision
         // new JoystickButton(leftJoystick, 8).whenPressed(commandMoveForward);
 
