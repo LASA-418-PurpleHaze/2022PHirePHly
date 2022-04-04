@@ -118,13 +118,16 @@ public class RobotContainer {
         // Intake //
         new JoystickButton(rightJoystick, 1).whileHeld(commandSpinIntake);                              // RJ 1 --> spin intake
         new JoystickButton(leftJoystick, 1).whileHeld(commandSpitIntake);                               // LJ 1 --> spin intake (backwards)
-        new JoystickButton(hazyController, 3).whenPressed(commandDropIntake);  
+        //new JoystickButton(hazyController, 3).whenPressed(commandDropIntake);  
         //new JoystickButton(rightJoystick, 8).whenPressed(commandHalfRaiseIntake);                              // RJ 1 --> spin intake
         // B    --> raise/drop intake
         new JoystickButton(hazyController, 1).whenPressed(commandStopDropIntake);      // X    --> half lift intake to get bouncing balls
-        new JoystickButton(hazyController, 4).whenPressed(commandRaiseIntake);
+        //new JoystickButton(hazyController, 4).whenPressed(commandRaiseIntake);
         // new JoystickButton(hazyController, Button.kY.value).whenPressed(commandShoot);               //      --> half lift intake to get bouncing balls
         new JoystickButton(rightJoystick, 7).whenPressed(commandResetIntakeEncoders);
+
+        new JoystickButton(hazyController, 3).whenPressed(timedCommandDropIntake);
+        new JoystickButton(hazyController, 4).whenPressed(timedCommandRaiseIntake);
 
         // Shooter //
         new JoystickButton(hazyController, 2).toggleWhenPressed(commandShoot);            // A    --> full shoot by itself

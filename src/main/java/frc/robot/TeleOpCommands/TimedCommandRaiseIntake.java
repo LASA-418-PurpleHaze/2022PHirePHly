@@ -22,6 +22,7 @@ public class TimedCommandRaiseIntake extends CommandBase {
     @Override
     public void execute () {
         //print.p();
+        System.out.println("Hello");
         c_hazyIntake.raise();
     }
 

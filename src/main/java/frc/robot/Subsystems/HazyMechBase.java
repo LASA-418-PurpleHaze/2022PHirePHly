@@ -39,6 +39,12 @@ public class HazyMechBase extends SubsystemBase {
 
     private double distance;
 
+
+
+    private double turnDerivative, turnIntegral, turnPreviousError, turnSetPoint, turnError, turnP, turnI, turnD;
+    private double moveDerivative, moveIntegral, movePreviousError, moveSetPoint, moveError, moveP, moveI, moveD;
+
+    private double forwardVoltage, turnVoltage;
     //Constructor includes PID value setup for motorcontrollers and initialization of all motors in subsystem
     public HazyMechBase(){
         lFrontSpark = new CANSparkMax(RobotMap.LEFTFRONTSPARK, MotorType.kBrushless);
@@ -137,10 +143,37 @@ public class HazyMechBase extends SubsystemBase {
         rBackSpark.set(wheelSpeeds[3]);
     }
 
+    public double PIDmove() {
+        moveError = RobotMap.SHOOTDISTANCE - distance;
+        moveIntegral += (moveError*0.02);
+        moveIntegral = (moveError - movePreviousError) / 0.02;
+        return moveP*movePreviousError + moveI*moveIntegral + moveD*moveDerivative;
+    }
+
+    public double PIDturn() {
+        turnError = offset;
+        turnIntegral += (turnError*0.02);
+        turnIntegral = (turnError - turnPreviousError) / 0.02;
+        return turnP*turnPreviousError + turnI*turnIntegral + turnD*turnDerivative;
+    }
     
+    public void PIDGoToTarget() {
+        readData();
+        forwardVoltage = PIDmove();
+        turnVoltage = PIDturn();
+
+        driveCartesian(0, forwardVoltage, -turnVoltage);
+    }
+
 
     // Vision Functions //
 
+    /*
+
+    Note from Nathan on 4/4/22:
+    Instead of feeding the limelight distance into the pid loop we can take the (shooting distance - limelight distance) * encoder ticks per foot and then feed that position into the pid loop.
+
+    */
     //Turns the robot to face the target and drives it to the correct shooting distance
     public void goToTarget () {
         //solenoidToLight.set(true);

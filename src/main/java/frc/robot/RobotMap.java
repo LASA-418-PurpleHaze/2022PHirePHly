@@ -69,7 +69,9 @@ public class RobotMap {
     public static final double AUTOSHOOTSPEED = 13750;
     public static final double SHOOTERLOWSPEED = 8500;
     public static final double SHOOTERP = 0.015;
+    public static final double RIGHTSHOOTERP = 0;
     public static final double SHOOTERI = 0.00008;
+    public static final double RIGHTSHOOTERI = 0.000008;
     public static final double SHOOTERD = 0;
     public static final double SHOOTERF = (3/1561) * (SHOOTERSPEED/4096);
     public static final double SHOOTERMAX = 1;

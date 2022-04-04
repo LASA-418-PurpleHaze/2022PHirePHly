@@ -123,7 +123,7 @@ public class HazyLift extends SubsystemBase  {
     }
 
     public void stupidTiltOut(){
-        tiltMotor.set(-1);
+        tiltMotor.set(-0.5);
         if(stopEnabled && (tiltEncoder.getPosition() >= RobotMap.MAXTILT)){
            tiltMotor.set(0);
         }
@@ -132,7 +132,7 @@ public class HazyLift extends SubsystemBase  {
     }
 
     public void stupidTiltIn(){
-        tiltMotor.set(1);
+        tiltMotor.set(0.5);
         if(stopEnabled && (tiltEncoder.getPosition() <= RobotMap.MINTILT)){
            tiltMotor.set(0);
            PHrint.p("Stopping" + tiltEncoder.getPosition());
@@ -141,36 +141,32 @@ public class HazyLift extends SubsystemBase  {
     }
 
     public void stupidTiltOutLiftUp () {
-        tiltMotor.set(- .6);
+        tiltMotor.set(-0.5);
         if(stopEnabled && (tiltEncoder.getPosition() >= RobotMap.MAXTILT)){
            tiltMotor.set(0);
         }
         
-        liftMotorLeft.set(-1);
-        liftMotorRight.follow(liftMotorLeft, true);
-        if(stopEnabled && (liftLeftEncoder.getPosition() >= RobotMap.MAXMAXLIFTHEIGHT)){ //Going up is negative encoder ticks so we do <= instead of >=
-            liftMotorLeft.set(0); 
-        }
+        // liftMotorLeft.set(-1);
+        // liftMotorRight.follow(liftMotorLeft, true);
+        // if(stopEnabled && (liftLeftEncoder.getPosition() >= RobotMap.MAXMAXLIFTHEIGHT)){ //Going up is negative encoder ticks so we do <= instead of >=
+        //     liftMotorLeft.set(0); 
+        // }
+        stupidLift();
     }
 
     public void stupidTiltInLiftDown () {
-        tiltMotor.set(1);
+        tiltMotor.set(0.5);
         PHrint.p("Tilt: " + tiltEncoder.getPosition() + " Winch: " + liftLeftEncoder.getPosition());
         if(stopEnabled && (tiltEncoder.getPosition() <= RobotMap.MINTILT)){
             tiltMotor.set(0);
         }
-        liftMotorLeft.set(1);
-        // if (stopEnabled && liftLeftEncoder.getPosition() >= RobotMap.THIRDBARPOSITION) {
-        //     liftMotorLeft.set(.4);
-        //     if (tiltEncoder.getPosition() <= RobotMap.MINTILT) {
-        //         liftMotorLeft.set(1);
-        //     }
+    
+        // liftMotorLeft.set(1);
+        // liftMotorRight.follow(liftMotorLeft, true);
+        // if(stopEnabled && (liftLeftEncoder.getPosition() <= RobotMap.MINLIFTHEIGHT)){
+        //     liftMotorLeft.set(0);
         // }
-
-        liftMotorRight.follow(liftMotorLeft, true);
-        if(stopEnabled && (liftLeftEncoder.getPosition() <= RobotMap.MINLIFTHEIGHT)){
-            liftMotorLeft.set(0);
-        }
+        stupidDown();
     }
 
     public void stupidDefault(){

@@ -36,8 +36,8 @@ public class HazyShooter extends SubsystemBase{
         shooterLeft.config_kF(0, RobotMap.SHOOTERF);
 
         shooterRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-        shooterRight.config_kP(0, RobotMap.SHOOTERP);
-        shooterRight.config_kI(0, RobotMap.SHOOTERI);
+        shooterRight.config_kP(0, RobotMap.RIGHTSHOOTERP);
+        shooterRight.config_kI(0, RobotMap.RIGHTSHOOTERI);
         shooterRight.config_kD(0, RobotMap.SHOOTERD);
         shooterRight.config_kF(0, RobotMap.SHOOTERF);
 

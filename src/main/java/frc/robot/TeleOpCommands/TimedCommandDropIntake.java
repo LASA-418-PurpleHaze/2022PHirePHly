@@ -22,6 +22,7 @@ public class TimedCommandDropIntake extends CommandBase {
     @Override
     public void execute () {
         //print.p();
+        System.out.println("ByeBye");
         c_hazyIntake.drop();
     }
 
