@@ -54,7 +54,7 @@ public class HazyIntake extends SubsystemBase {
 
     public void drop () {
         PHrint.p("controller works");
-        if (upDownTalon.getSelectedSensorPosition() > RobotMap.INTAKEDROPPOSITION) { 
+        if (upDownTalon.getSelectedSensorPosition() > RobotMap.INTAKEDROPPOSITION && Math.abs(upDownTalon.getStatorCurrent()) < 30 ) { 
             upDownTalon.set(ControlMode.PercentOutput, RobotMap.INTAKEDROPSPEED);
         }
         else {

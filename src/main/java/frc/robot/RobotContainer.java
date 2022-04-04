@@ -1,5 +1,6 @@
 package frc.robot; //folder the file is in
 
+import edu.wpi.first.hal.HAL;
 //wpilib imports
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -55,6 +56,7 @@ public class RobotContainer {
     CommandHighFeedBack commandHighFeedBack = new CommandHighFeedBack(hazyShooter);
     CommandShooterDefault commandShooterDefault = new CommandShooterDefault(hazyShooter);
     CommandShootLow commandShootLow = new CommandShootLow(hazyShooter);
+    CommandAutoShoot commandAutoShoot = new CommandAutoShoot(hazyShooter);
     // CommandToggleFeeder commandToggleFeeder = new CommandToggleFeeder(hazyShooter);
 
     // Lift //
@@ -124,6 +126,9 @@ public class RobotContainer {
         new JoystickButton(hazyController, 9).whileHeld(commandHighFeedBack);
         new JoystickButton(hazyController, 9).whileHeld(commandSpitIntake);
         new JoystickButton(hazyController, 10).toggleWhenPressed(commandShootAndFeed);
+        new HazyDPad(hazyController, HazyDPad.RIGHT).toggleWhenPressed(commandShootLow);
+        new HazyDPad(hazyController, HazyDPad.UP).toggleWhenPressed(commandAutoShoot);
+
 
         // Lift //
         new JoystickButton(hazyController, 11).whileHeld(commandStupidDown);       // press left xbox stick    --> manually move lift down
@@ -158,18 +163,18 @@ public class RobotContainer {
         hazyLift.putData();
     }
 
-    public void DPadWrapper() {
-        if(hazyController.getPOV() == 0) {} //Up
-        else if(hazyController.getPOV() == 90){ //Right
-            //commandShootLow.execute();                    // DPad right --> tilt arm back to be on bar 3
-        }
-        else if(hazyController.getPOV() == 180){ //Down
-            //commandBarThreePull.execute();                // DPad down  --> pull arm to bar 3
-        }
-        else if(hazyController.getPOV() == 270){ //Left
-            //sequenceBarThreeTiltExtend.execute();         // DPad left  --> tilt arm to bar 3 and extend to bar 3
-        }
-    }
+    // public void DPadWrapper() {
+    //     if(hazyController.getPOV() == 0) {} //Up
+    //     else if(hazyController.getPOV() == 90){ //Right
+    //         commandShootLow.execute();                    // DPad right --> tilt arm back to be on bar 3
+    //     }
+    //     else if(hazyController.getPOV() == 180){ //Down
+    //         //commandBarThreePull.execute();                // DPad down  --> pull arm to bar 3
+    //     }
+    //     else if(hazyController.getPOV() == 270){ //Left
+    //         //sequenceBarThreeTiltExtend.execute();         // DPad left  --> tilt arm to bar 3 and extend to bar 3
+    //     }
+    // }
 
     //Sends autonomous command so that it can be used in robot.java
     public Command getAutonomousCommand() {

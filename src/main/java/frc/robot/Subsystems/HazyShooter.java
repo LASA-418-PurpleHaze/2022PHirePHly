@@ -58,6 +58,7 @@ public class HazyShooter extends SubsystemBase{
     public void shootAndFeed () {
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
         shooterRight.follow(shooterLeft);
+        //highFeeder.set(RobotMap.HIGHFEEDERSPEED);
         // PHrint.p(getShooterRPM());
         if (getShooterRPM() >= RobotMap.SHOOTERSPEED - 10 && getShooterRPM() <= RobotMap.SHOOTERSPEED + 10)  {
             PHrint.p("high feed at " + getShooterRPM());
@@ -67,6 +68,14 @@ public class HazyShooter extends SubsystemBase{
     
     public void shootLow(){
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERLOWSPEED);
+        shooterRight.follow(shooterLeft);
+        //highFeeder.set(RobotMap.HIGHFEEDERSPEED);
+        if(getShooterRPM() >= RobotMap.SHOOTERLOWSPEED - 100) 
+           highFeeder.set(RobotMap.HIGHFEEDERSPEED);
+    }
+
+    public void shootAuto(){
+        shooterLeft.set(ControlMode.Velocity, RobotMap.AUTOSHOOTSPEED);
         shooterRight.follow(shooterLeft);
         if(getShooterRPM() >= RobotMap.SHOOTERLOWSPEED - 100) 
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);

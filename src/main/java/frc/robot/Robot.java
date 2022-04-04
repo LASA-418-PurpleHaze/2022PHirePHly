@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         robotContainer = new RobotContainer();
-        //CameraServer.getInstance().startAutomaticCapture();  
+        CameraServer.getInstance().startAutomaticCapture();  
     }
 
     /**
@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        robotContainer.DPadWrapper();
+        // robotContainer.DPadWrapper();
         robotContainer.putAllData();
     }
 

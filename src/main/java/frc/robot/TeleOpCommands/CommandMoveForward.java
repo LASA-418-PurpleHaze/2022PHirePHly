@@ -27,6 +27,8 @@ public class CommandMoveForward extends CommandBase {
     @Override
     public void execute(){
         c_hazyMechBase.moveFeet(RobotMap.AUTONTAXIDISTANCE);
+        //c_hazyMechBase.moveFeet(76);
+
     }
     
     @Override
