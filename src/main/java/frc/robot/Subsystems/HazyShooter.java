@@ -30,14 +30,14 @@ public class HazyShooter extends SubsystemBase{
         highFeeder = new CANSparkMax(RobotMap.HIGHFEEDERSPARK, MotorType.kBrushed);
 
         shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-        shooterLeft.config_kP(0, RobotMap.SHOOTERP);
-        shooterLeft.config_kI(0, RobotMap.SHOOTERI);
+        shooterLeft.config_kP(0, RobotMap.LEFTSHOOTERP);
+        shooterLeft.config_kI(0, RobotMap.LEFTSHOOTERI);
         shooterLeft.config_kD(0, RobotMap.SHOOTERD);
         shooterLeft.config_kF(0, RobotMap.SHOOTERF);
 
         shooterRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-        shooterRight.config_kP(0, RobotMap.SHOOTERP);
-        shooterRight.config_kI(0, RobotMap.SHOOTERI);
+        shooterRight.config_kP(0, RobotMap.RIGHTSHOOTERP);
+        shooterRight.config_kI(0, RobotMap.RIGHTSHOOTERI);
         shooterRight.config_kD(0, RobotMap.SHOOTERD);
         shooterRight.config_kF(0, RobotMap.SHOOTERF);
 
@@ -46,38 +46,44 @@ public class HazyShooter extends SubsystemBase{
 
         shooterLeft.setSelectedSensorPosition(0);
         shooterRight.setSelectedSensorPosition(0);
+
+        shooterRight.setSensorPhase(true);
     }
 
     //Spins the shooter up to a certain velocity
     public void shoot() {
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
-        shooterRight.follow(shooterLeft);
+        shooterRight.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
         highFeeder.set(0);
     }
 
     public void shootAndFeed () {
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
-        shooterRight.follow(shooterLeft);
+        shooterRight.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
+        //shooterRight.set(ControlMode.Velocity, 0);
+
         //highFeeder.set(RobotMap.HIGHFEEDERSPEED);
         // PHrint.p(getShooterRPM());
-        if (getShooterRPM() >= RobotMap.SHOOTERSPEED - 10 && getShooterRPM() <= RobotMap.SHOOTERSPEED + 10)  {
-            PHrint.p("high feed at " + getShooterRPM());
+        if(within(getLeftShooterRPM(),RobotMap.SHOOTERSPEED,150) && within(getRightShooterRPM(),RobotMap.SHOOTERSPEED,150) ) { 
+            //PHrint.p("high feed at " + getShooterRPM());
             highFeeder.set(RobotMap.HIGHFEEDERSPEED);
         }
+        // else    
+        //     highFeeder.set(0);
     }
     
     public void shootLow(){
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERLOWSPEED);
-        shooterRight.follow(shooterLeft);
+        shooterRight.set(ControlMode.Velocity, RobotMap.SHOOTERLOWSPEED);
         //highFeeder.set(RobotMap.HIGHFEEDERSPEED);
-        if(getShooterRPM() >= RobotMap.SHOOTERLOWSPEED - 100) 
+        if(within(getLeftShooterRPM(),RobotMap.SHOOTERLOWSPEED,100) && within(getRightShooterRPM(),RobotMap.SHOOTERLOWSPEED,100)) 
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
 
     public void shootAuto(){
         shooterLeft.set(ControlMode.Velocity, RobotMap.AUTOSHOOTSPEED);
-        shooterRight.follow(shooterLeft);
-        if(getShooterRPM() >= RobotMap.SHOOTERLOWSPEED - 100) 
+        shooterRight.set(ControlMode.Velocity, RobotMap.AUTOSHOOTSPEED);
+        if(within(getLeftShooterRPM(),RobotMap.AUTOSHOOTSPEED,500) && within(getRightShooterRPM(),RobotMap.AUTOSHOOTSPEED,500)) 
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
 
@@ -113,8 +119,12 @@ public class HazyShooter extends SubsystemBase{
     }
 
     //returns RPM of the shooter
-    public double getShooterRPM(){
+    public double getLeftShooterRPM(){
         return shooterLeft.getSelectedSensorVelocity();
+    }
+
+    public double getRightShooterRPM(){
+        return shooterRight.getSelectedSensorVelocity();
     }
 
     //Moves the high feeder at a set speed, used for manually spinning the high feeder
@@ -124,6 +134,10 @@ public class HazyShooter extends SubsystemBase{
 
     public void backFeeder(){
         highFeeder.set(-RobotMap.HIGHFEEDERSPEED);
+    }
+
+    public boolean within(double input, double target, double range){
+        return (input >= target - range) && (input <= target + range);
     }
 
     public void putData () {

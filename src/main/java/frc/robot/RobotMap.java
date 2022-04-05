@@ -65,13 +65,16 @@ public class RobotMap {
     public static final int SHOOTERTALONLEFT = 6;
     public static final int SHOOTERTALONRIGHT = 8;
     public static final int HIGHFEEDERSPARK = 10;
-    public static final double SHOOTERSPEED = 14750;
+    public static final double SHOOTERSPEED = 14750; //Actual shooter speed should be 14750 but the right one always spins faster for some reason so it needs a lower setpoint
+    public static final double RIGHTSHOOTERSPEED = 12750;
     public static final double AUTOSHOOTSPEED = 13750;
     public static final double SHOOTERLOWSPEED = 8500;
-    public static final double SHOOTERP = 0.015;
-    public static final double SHOOTERI = 0.00008;
+    public static final double LEFTSHOOTERP = 0.015;
+    public static final double RIGHTSHOOTERP = 0.015;
+    public static final double LEFTSHOOTERI = 0.0001;
+    public static final double RIGHTSHOOTERI = 0.0001;
     public static final double SHOOTERD = 0;
-    public static final double SHOOTERF = (3/1561) * (SHOOTERSPEED/4096);
+    public static final double SHOOTERF = (12/18730) * (14750/8192);
     public static final double SHOOTERMAX = 1;
     public static final double HIGHFEEDERSPEED = 0.7;
 
@@ -99,7 +102,7 @@ public class RobotMap {
     public static final double BARTHREETILTBACK = 0;
     public static final double BARTHREEPULL = 0;
     public static final double MAXLIFTHEIGHT = 3.4;
-    public static final double MAXMAXLIFTHEIGHT = 5.45;
+    public static final double MAXMAXLIFTHEIGHT = 5.42;
     public static final double MINLIFTHEIGHT = 0.05;
     public static final double MINTILT = 0.05;
     public static final double MAXTILT = 7.5;
