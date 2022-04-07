@@ -2,7 +2,7 @@ package frc.robot; //folder the file is in
 
 //Stores all constant values for the robot (ports, etc.)
 public class RobotMap {
-    public static final boolean PRINTSENABLED = true;
+    public static final boolean PRINTSENABLED = false;
 
     // OI //
     public static final int CONTROLLERPORT = 0;
@@ -49,7 +49,7 @@ public class RobotMap {
     public static final int INTAKERAISEPOSITION = -500;
 
     public static final double INTAKEDROPSPEED = 0.5;
-    public static final double INTAKERAISESPEED = -0.55;
+    public static final double INTAKERAISESPEED = -0.7;
 
     public static final double INTAKEUPP = 0.65;
     public static final double INTAKEUPI = 0;
@@ -65,18 +65,20 @@ public class RobotMap {
     public static final int SHOOTERTALONLEFT = 6;
     public static final int SHOOTERTALONRIGHT = 8;
     public static final int HIGHFEEDERSPARK = 10;
-    public static final double SHOOTERSPEED = 14750; //Actual shooter speed should be 14750 but the right one always spins faster for some reason so it needs a lower setpoint
-    public static final double RIGHTSHOOTERSPEED = 12750;
+    public static final double SHOOTERSPEED = 13250; //Actual shooter speed should be 14750 but the right one always spins faster for some reason so it needs a lower setpoint
+    public static final double RIGHTSHOOTERSPEED = 11250;
     public static final double AUTOSHOOTSPEED = 13750;
     public static final double SHOOTERLOWSPEED = 8500;
-    public static final double LEFTSHOOTERP = 0.015;
-    public static final double RIGHTSHOOTERP = 0.015;
-    public static final double LEFTSHOOTERI = 0.0001;
-    public static final double RIGHTSHOOTERI = 0.0001;
-    public static final double SHOOTERD = 0;
-    public static final double SHOOTERF = (12/18730) * (14750/8192);
+    public static final double LEFTSHOOTERP = 0.02;
+    public static final double RIGHTSHOOTERP = 0.02;
+    public static final double LEFTSHOOTERI = 0.0002;
+    public static final double RIGHTSHOOTERI = 0.0002;
+    public static final double SHOOTERD = 1;
+    public static final double LEFTSHOOTERF = (12/18730) * (14750/8192); //((.483 * 1023) / 14750);
+    public static final double RIGHTSHOOTERF = (12/18730) * (14750/8192); //((.483 * 1023) / 14750)*.92;
+
     public static final double SHOOTERMAX = 1;
-    public static final double HIGHFEEDERSPEED = 0.7;
+    public static final double HIGHFEEDERSPEED = 1;
 
     // Lift //
     public static final int LIFTMOTORPORTLEFT = 12;
@@ -102,17 +104,17 @@ public class RobotMap {
     public static final double BARTHREETILTBACK = 0;
     public static final double BARTHREEPULL = 0;
     public static final double MAXLIFTHEIGHT = 3.4;
-    public static final double MAXMAXLIFTHEIGHT = 5.4;
+    public static final double MAXMAXLIFTHEIGHT = 5.45;
     public static final double MINLIFTHEIGHT = 0.05;
     public static final double MINTILT = 0.05;
     public static final double MAXTILT = 7.5;
 
     public static final double MAINTAINPOSVOLTAGE = 0;
 
-    // Autonomous //
+    // Autonomous //  
     public static final double FIRSTMOVE = 0;
     public static final double FIRSTTURN = 0;
-    public static final int AUTONTAXIDISTANCE = 45;
+    public static final int AUTONTAXIDISTANCE = 74;
     public static final double MAXCHASSISPIDSPEED = 0.35;
 
     // Vision //

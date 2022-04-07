@@ -22,7 +22,7 @@ public class HazyIntake extends SubsystemBase {
         spinTalon = new TalonSRX(RobotMap.INTAKESPINTALON);
         upDownTalon = new TalonSRX(RobotMap.INTAKEUPDOWNTALON);
         
-        upDownTalon.setNeutralMode(NeutralMode.Brake);
+        //upDownTalon.setNeutralMode(NeutralMode.Brake);
         resetEncoders();
        
         // upDownTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);

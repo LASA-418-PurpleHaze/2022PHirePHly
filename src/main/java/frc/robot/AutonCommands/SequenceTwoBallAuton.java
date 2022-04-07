@@ -40,11 +40,11 @@ public class SequenceTwoBallAuton extends SequentialCommandGroup {
 
     public SequenceTwoBallAuton(HazyMechBase chassis, HazyShooter shooter, HazyIntake intake){
         addCommands(
-            new CommandDropIntake(intake),
+            new TimedAutonCommandDropIntake(intake),
             new ParallelCommandGroup(
                 new TimedCommandSpinIntake(intake), //the intake should be spinning throughout the whole sequence
                 new SequentialCommandGroup (
-                    new CommandTimedShoot(shooter),
+                    //new CommandTimedShoot(shooter),
                     // new CommandShooterDefault(shooter),
                     new SequentialCommandGroup(
                         new CommandMoveForward(chassis),

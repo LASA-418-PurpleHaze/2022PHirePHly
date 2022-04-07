@@ -24,7 +24,7 @@ public class CommandTimedShoot extends CommandBase {
 
     //The function that is called by the commandscheduler when command is called
     public void execute(){
-        c_hazyShooter.shootLow();
+        c_hazyShooter.shootAuto();
     }
 
     @Override

@@ -47,7 +47,7 @@ public class RobotContainer {
     CommandSpitIntake commandSpitIntake = new CommandSpitIntake(hazyIntake);
     CommandStopDropIntake commandStopDropIntake = new CommandStopDropIntake(hazyIntake);
     CommandResetIntakeEncoders commandResetIntakeEncoders = new CommandResetIntakeEncoders(hazyIntake);
-    TimedCommandDropIntake timedCommandDropIntake = new TimedCommandDropIntake(hazyIntake);
+    TimedAutonCommandDropIntake timedCommandDropIntake = new TimedAutonCommandDropIntake(hazyIntake);
     TimedCommandRaiseIntake timedCommandRaiseIntake = new TimedCommandRaiseIntake(hazyIntake);
 
     

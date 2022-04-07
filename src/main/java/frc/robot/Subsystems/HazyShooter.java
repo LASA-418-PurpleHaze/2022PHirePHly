@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 //CTRE Imports
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -33,17 +34,18 @@ public class HazyShooter extends SubsystemBase{
         shooterLeft.config_kP(0, RobotMap.LEFTSHOOTERP);
         shooterLeft.config_kI(0, RobotMap.LEFTSHOOTERI);
         shooterLeft.config_kD(0, RobotMap.SHOOTERD);
-        shooterLeft.config_kF(0, RobotMap.SHOOTERF);
+        shooterLeft.config_kF(0, RobotMap.LEFTSHOOTERF);
 
         shooterRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
         shooterRight.config_kP(0, RobotMap.RIGHTSHOOTERP);
         shooterRight.config_kI(0, RobotMap.RIGHTSHOOTERI);
         shooterRight.config_kD(0, RobotMap.SHOOTERD);
-        shooterRight.config_kF(0, RobotMap.SHOOTERF);
+        shooterRight.config_kF(0, RobotMap.RIGHTSHOOTERF);
 
         shooterLeft.configPeakOutputReverse(-1);
         shooterRight.configPeakOutputForward(1);
-
+        
+        shooterRight.setSensorPhase(true);
         shooterLeft.setSelectedSensorPosition(0);
         shooterRight.setSelectedSensorPosition(0);
     }
@@ -51,33 +53,35 @@ public class HazyShooter extends SubsystemBase{
     //Spins the shooter up to a certain velocity
     public void shoot() {
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
-        shooterRight.follow(shooterLeft);
+        shooterRight.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
         highFeeder.set(0);
+       
     }
 
     public void shootAndFeed () {
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
-        shooterRight.follow(shooterLeft);
+        shooterRight.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
         //highFeeder.set(RobotMap.HIGHFEEDERSPEED);
         // PHrint.p(getShooterRPM());
-        if (getShooterRPM() >= RobotMap.SHOOTERSPEED - 10 && getShooterRPM() <= RobotMap.SHOOTERSPEED + 10)  {
-            PHrint.p("high feed at " + getShooterRPM());
+        if (within(getLeftShooterRPM(), RobotMap.SHOOTERSPEED,150) && within(getRightShooterRPM(),RobotMap.SHOOTERSPEED,150))  {
+            //PHrint.p("high feed at " + getShooterRPM());
             highFeeder.set(RobotMap.HIGHFEEDERSPEED);
-        }
+        } 
     }
     
     public void shootLow(){
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERLOWSPEED);
-        shooterRight.follow(shooterLeft);
+        shooterRight.set(ControlMode.Velocity, RobotMap.SHOOTERLOWSPEED);
         //highFeeder.set(RobotMap.HIGHFEEDERSPEED);
-        if(getShooterRPM() >= RobotMap.SHOOTERLOWSPEED - 100) 
+        if (within(getLeftShooterRPM(), RobotMap.SHOOTERLOWSPEED,150) && within(getRightShooterRPM(),RobotMap.SHOOTERLOWSPEED,150))  { 
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);
+        }
     }
 
     public void shootAuto(){
         shooterLeft.set(ControlMode.Velocity, RobotMap.AUTOSHOOTSPEED);
-        shooterRight.follow(shooterLeft);
-        if(getShooterRPM() >= RobotMap.SHOOTERLOWSPEED - 100) 
+        shooterRight.set(ControlMode.Velocity, RobotMap.AUTOSHOOTSPEED);
+        if (within(getLeftShooterRPM(), RobotMap.AUTOSHOOTSPEED,150) && within(getRightShooterRPM(),RobotMap.AUTOSHOOTSPEED,150))  
            highFeeder.set(RobotMap.HIGHFEEDERSPEED);
     }
 
@@ -113,8 +117,12 @@ public class HazyShooter extends SubsystemBase{
     }
 
     //returns RPM of the shooter
-    public double getShooterRPM(){
+    public double getLeftShooterRPM(){
         return shooterLeft.getSelectedSensorVelocity();
+    }
+
+    public double getRightShooterRPM(){
+        return shooterRight.getSelectedSensorVelocity();
     }
 
     //Moves the high feeder at a set speed, used for manually spinning the high feeder
@@ -126,10 +134,14 @@ public class HazyShooter extends SubsystemBase{
         highFeeder.set(-RobotMap.HIGHFEEDERSPEED);
     }
 
+    public boolean within(double input, double target, double range){
+        return (input >= target - range) && (input <= target + range);
+    }
+
     public void putData () {
         SmartDashboard.putNumber("Left Motor Speed", shooterLeft.getSelectedSensorVelocity());
         SmartDashboard.putNumber("Right Motor Speed", shooterRight.getSelectedSensorVelocity());
-        SmartDashboard.putNumber("Left Motor Amps", shooterLeft.getStatorCurrent());
-        SmartDashboard.putNumber("Right Motor Amps", shooterRight.getStatorCurrent());
+        SmartDashboard.putNumber("Left Motor Volts", shooterLeft.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Right Motor Volts", shooterRight.getMotorOutputVoltage());
     }
 }
