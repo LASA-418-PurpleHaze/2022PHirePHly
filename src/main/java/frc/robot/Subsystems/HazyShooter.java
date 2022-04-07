@@ -30,8 +30,8 @@ public class HazyShooter extends SubsystemBase{
         highFeeder = new CANSparkMax(RobotMap.HIGHFEEDERSPARK, MotorType.kBrushed);
 
         shooterLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-        shooterLeft.config_kP(0, RobotMap.SHOOTERP);
-        shooterLeft.config_kI(0, RobotMap.SHOOTERI);
+        shooterLeft.config_kP(0, RobotMap.LEFTSHOOTERP);
+        shooterLeft.config_kI(0, RobotMap.LEFTSHOOTERI);
         shooterLeft.config_kD(0, RobotMap.SHOOTERD);
         shooterLeft.config_kF(0, RobotMap.SHOOTERF);
 

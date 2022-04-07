@@ -23,15 +23,18 @@ public class TimedCommandDropIntake extends CommandBase {
     public void execute () {
         //print.p();
         System.out.println("ByeBye");
-        c_hazyIntake.drop();
+        c_hazyIntake.timedDrop(startTime);
     }
 
     @Override
     public boolean isFinished() {
-        if (java.lang.System.currentTimeMillis()> startTime + 750) {
-            return true;
-        } else {
-            return false;
-        }
+        // if (java.lang.System.currentTimeMillis()> startTime + 750) {
+        //     PHrint.p("if 1");
+        //     return true;
+        // } else {
+        //     PHrint.p("else 1");
+        //     return false;
+        // }
+        return false;
     }
 }

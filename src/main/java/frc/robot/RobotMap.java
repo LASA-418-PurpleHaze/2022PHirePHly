@@ -2,7 +2,7 @@ package frc.robot; //folder the file is in
 
 //Stores all constant values for the robot (ports, etc.)
 public class RobotMap {
-    public static final boolean PRINTSENABLED = false;
+    public static final boolean PRINTSENABLED = true;
 
     // OI //
     public static final int CONTROLLERPORT = 0;
@@ -102,7 +102,7 @@ public class RobotMap {
     public static final double BARTHREETILTBACK = 0;
     public static final double BARTHREEPULL = 0;
     public static final double MAXLIFTHEIGHT = 3.4;
-    public static final double MAXMAXLIFTHEIGHT = 5.45;
+    public static final double MAXMAXLIFTHEIGHT = 5.4;
     public static final double MINLIFTHEIGHT = 0.05;
     public static final double MINTILT = 0.05;
     public static final double MAXTILT = 7.5;

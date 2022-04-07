@@ -22,16 +22,17 @@ public class TimedCommandRaiseIntake extends CommandBase {
     @Override
     public void execute () {
         //print.p();
-        System.out.println("Hello");
-        c_hazyIntake.raise();
+       // System.out.println("Hello");
+        c_hazyIntake.timedRaise(startTime);
     }
 
     @Override
     public boolean isFinished() {
-        if (java.lang.System.currentTimeMillis()> startTime + 750) {
-            return true;
-        } else {
-            return false;
-        }
+        // if (java.lang.System.currentTimeMillis()> startTime + 550) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+        return false;
     }
 }

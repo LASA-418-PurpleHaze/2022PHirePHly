@@ -70,11 +70,32 @@ public class HazyIntake extends SubsystemBase {
     public void raise() {
         if (upDownTalon.getSelectedSensorPosition() < RobotMap.INTAKERAISEPOSITION) {
             upDownTalon.set(ControlMode.PercentOutput, RobotMap.INTAKERAISESPEED);
+            
         }
         else {
             upDownTalon.set(ControlMode.PercentOutput, 0);
+            PHrint.p("else 2");
         }
     }
+
+    public void timedRaise(long startTime) {
+        if (java.lang.System.currentTimeMillis()< startTime + 450) {
+            upDownTalon.set(ControlMode.PercentOutput, RobotMap.INTAKERAISESPEED);
+        } else {
+            upDownTalon.set(ControlMode.PercentOutput, 0);
+        }
+    }
+
+    public void timedDrop(long startTime) {
+        if (java.lang.System.currentTimeMillis()< startTime + 400) {
+            PHrint.p("if");
+            upDownTalon.set(ControlMode.PercentOutput, RobotMap.INTAKEDROPSPEED);
+        } else {
+            upDownTalon.set(ControlMode.PercentOutput, 0);
+            PHrint.p("else");
+        }
+    }
+
     public void halfRaise() {
         PHrint.p("HALF RAISE IS RUNNING!");
         // PHrint.p(upDownTalon.getSelectedSensorPosition());
