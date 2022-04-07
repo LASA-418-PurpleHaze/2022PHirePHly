@@ -65,20 +65,20 @@ public class RobotMap {
     public static final int SHOOTERTALONLEFT = 6;
     public static final int SHOOTERTALONRIGHT = 8;
     public static final int HIGHFEEDERSPARK = 10;
-    public static final double SHOOTERSPEED = 13250; //Actual shooter speed should be 14750 but the right one always spins faster for some reason so it needs a lower setpoint
-    public static final double RIGHTSHOOTERSPEED = 11250;
+    public static final double SHOOTERSPEED = 15250; //Actual shooter speed should be 14750 but the right one always spins faster for some reason so it needs a lower setpoint
+    public static final double RIGHTSHOOTERSPEED = 12750;
     public static final double AUTOSHOOTSPEED = 13750;
     public static final double SHOOTERLOWSPEED = 8500;
-    public static final double LEFTSHOOTERP = 0.02;
-    public static final double RIGHTSHOOTERP = 0.02;
-    public static final double LEFTSHOOTERI = 0.0002;
-    public static final double RIGHTSHOOTERI = 0.0002;
-    public static final double SHOOTERD = 1;
-    public static final double LEFTSHOOTERF = (12/18730) * (14750/8192); //((.483 * 1023) / 14750);
-    public static final double RIGHTSHOOTERF = (12/18730) * (14750/8192); //((.483 * 1023) / 14750)*.92;
+    public static final double LEFTSHOOTERP = 0.015;
+    public static final double RIGHTSHOOTERP = 0.015;
+    public static final double LEFTSHOOTERI = 0;
+    public static final double RIGHTSHOOTERI = 0;
+    public static final double SHOOTERD = 0.03;
+    public static final double LEFTSHOOTERF =((.483 * 1023) / 14750); //12/18730) * (14750/8192); //
+    public static final double RIGHTSHOOTERF = ((.483 * 1023) / 14750)*.92; //12/18730) * (14750/8192); //
 
     public static final double SHOOTERMAX = 1;
-    public static final double HIGHFEEDERSPEED = 1;
+    public static final double HIGHFEEDERSPEED = .7;
 
     // Lift //
     public static final int LIFTMOTORPORTLEFT = 12;

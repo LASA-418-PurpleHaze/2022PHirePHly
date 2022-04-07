@@ -35,12 +35,14 @@ public class HazyShooter extends SubsystemBase{
         shooterLeft.config_kI(0, RobotMap.LEFTSHOOTERI);
         shooterLeft.config_kD(0, RobotMap.SHOOTERD);
         shooterLeft.config_kF(0, RobotMap.LEFTSHOOTERF);
+        //shooterLeft.config_IntegralZone(0, 350);
 
         shooterRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
         shooterRight.config_kP(0, RobotMap.RIGHTSHOOTERP);
         shooterRight.config_kI(0, RobotMap.RIGHTSHOOTERI);
         shooterRight.config_kD(0, RobotMap.SHOOTERD);
         shooterRight.config_kF(0, RobotMap.RIGHTSHOOTERF);
+        //shooterLeft.config_IntegralZone(0, 350);
 
         shooterLeft.configPeakOutputReverse(-1);
         shooterRight.configPeakOutputForward(1);
@@ -48,6 +50,16 @@ public class HazyShooter extends SubsystemBase{
         shooterRight.setSensorPhase(true);
         shooterLeft.setSelectedSensorPosition(0);
         shooterRight.setSelectedSensorPosition(0);
+
+        shooterLeft.configVoltageCompSaturation(12);
+        shooterRight.configVoltageCompSaturation(12);
+
+        shooterLeft.enableVoltageCompensation(true);
+        shooterRight.enableVoltageCompensation(true);
+
+        highFeeder.enableVoltageCompensation(12);
+        shooterRight.enableVoltageCompensation(true);
+
     }
 
     //Spins the shooter up to a certain velocity
@@ -57,6 +69,8 @@ public class HazyShooter extends SubsystemBase{
         highFeeder.set(0);
        
     }
+
+
 
     public void shootAndFeed () {
         shooterLeft.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
