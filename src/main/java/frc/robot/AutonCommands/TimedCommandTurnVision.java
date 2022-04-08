@@ -29,7 +29,7 @@ public class TimedCommandTurnVision extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (java.lang.System.currentTimeMillis()> startTime + 2000) {
+        if (java.lang.System.currentTimeMillis()> startTime + 3000) {
             return true;
         } else {
             return false;

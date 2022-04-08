@@ -29,7 +29,7 @@ public class CommandTimedShoot extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if (java.lang.System.currentTimeMillis() > startTime + 5000) {
+        if (java.lang.System.currentTimeMillis() > startTime + 10000) {
             return true;
         } else {
             return false;

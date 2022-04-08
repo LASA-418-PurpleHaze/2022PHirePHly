@@ -117,6 +117,15 @@ public class HazyMechBase extends SubsystemBase {
         rBackSpark.getEncoder().setPosition(0);
     }
 
+    public double[] getCurrentWheelPos () {
+        double[] pos = new double[4];
+        pos[0] = lFrontSpark.getEncoder().getPosition();
+        pos[1] = rFrontSpark.getEncoder().getPosition();
+        pos[2] = lBackSpark.getEncoder().getPosition();
+        pos[3] = rBackSpark.getEncoder().getPosition();
+        return pos;
+    }
+
 
 
     // Joystick Driving Functions //
@@ -277,16 +286,28 @@ public class HazyMechBase extends SubsystemBase {
 
     //Tells the robot to move forward "x" feet
     //Convert "x" rotations to feet
-    public void moveFeet(double x){
+    public void moveFeet(double x) {
         lFrontSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
-        lBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
         rFrontSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+        lBackSparkPID.setReference(-x, CANSparkMax.ControlType.kPosition);
         rBackSparkPID.setReference(x, CANSparkMax.ControlType.kPosition);
+    }
+
+    public void moveFeet(double x, double[] initalWheelPos){
+        lFrontSparkPID.setReference(initalWheelPos[0] - x, CANSparkMax.ControlType.kPosition);
+        rFrontSparkPID.setReference(initalWheelPos[1] + x, CANSparkMax.ControlType.kPosition);
+        lBackSparkPID.setReference(initalWheelPos[2] - x, CANSparkMax.ControlType.kPosition);
+        rBackSparkPID.setReference(initalWheelPos[3] + x, CANSparkMax.ControlType.kPosition);
     }
 
     public boolean didMoveFeet () {
         //print.p("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
         return lFrontSpark.getEncoder().getPosition() <= -(RobotMap.AUTONTAXIDISTANCE-1);
+    }
+
+    public boolean didMoveFeet (double[] initialWheelPos) {
+        //print.p("encoder in didmoveforward: " + lFrontSpark.getEncoder().getPosition());
+        return lFrontSpark.getEncoder().getPosition() <= initialWheelPos[0]-(RobotMap.AUTONTAXIDISTANCE-1);
     }
 
     public boolean didMoveFeet (double ticks, CANSparkMax spark) {

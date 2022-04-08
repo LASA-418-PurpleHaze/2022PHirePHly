@@ -4,16 +4,16 @@ package frc.robot.AutonCommands; //folder the file is in
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //local imports
-import frc.robot.Subsystems.HazyIntake;
+import frc.robot.Subsystems.HazyShooter;
 
-public class CommandStopIntake extends CommandBase {
+public class TimedCommandHighFeedBack extends CommandBase {
 
-    private HazyIntake c_hazyIntake;
+    private HazyShooter c_hazyShooter;
     private long startTime;
 
-    public CommandStopIntake(HazyIntake subsystem){
-        c_hazyIntake = subsystem;
-        addRequirements(c_hazyIntake);
+    public TimedCommandHighFeedBack(HazyShooter subsystem){
+        c_hazyShooter = subsystem;
+        addRequirements(c_hazyShooter);
     }
 
     @Override
@@ -23,12 +23,12 @@ public class CommandStopIntake extends CommandBase {
 
     @Override
     public void execute () {
-        c_hazyIntake.defaultC();
+        c_hazyShooter.backFeeder();
     }
 
     @Override
     public boolean isFinished() {
-        if (java.lang.System.currentTimeMillis() > startTime + 750) {
+        if (java.lang.System.currentTimeMillis() > startTime + 650) {
             return true;
         }
         return false;

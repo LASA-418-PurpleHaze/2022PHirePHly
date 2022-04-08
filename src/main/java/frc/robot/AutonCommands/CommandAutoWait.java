@@ -12,9 +12,7 @@ public class CommandAutoWait extends CommandBase {
     long startTime;
     
     //Pass the subsystem and controllers used in command into the constructor for initialization
-    public CommandAutoWait(HazyShooter shooter){
-        c_hazyShooter = shooter;
-        addRequirements(shooter);
+    public CommandAutoWait(){
     }
 
     @Override
@@ -29,7 +27,7 @@ public class CommandAutoWait extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if (java.lang.System.currentTimeMillis() > startTime + 5000) {
+        if (java.lang.System.currentTimeMillis() > startTime + 4000) {
             return true;
         } else {
             return false;

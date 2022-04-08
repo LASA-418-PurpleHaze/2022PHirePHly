@@ -141,6 +141,10 @@ public class HazyIntake extends SubsystemBase {
         spinTalon.set(ControlMode.PercentOutput, -1);
     }
 
+    public void slowSpit() {
+        spinTalon.set(ControlMode.PercentOutput, -.8);
+    }
+
     public void putData () {
         SmartDashboard.putNumber("Intake Up/Down Encoder", upDownTalon.getSelectedSensorPosition());
         // SmartDashboard.putNumber("Intake Spin Speed", spinTalon.getSelectedSensorVelocity());

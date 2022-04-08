@@ -65,8 +65,8 @@ public class RobotMap {
     public static final int SHOOTERTALONLEFT = 6;
     public static final int SHOOTERTALONRIGHT = 8;
     public static final int HIGHFEEDERSPARK = 10;
-    public static final double SHOOTERSPEED = 15250; //Actual shooter speed should be 14750 but the right one always spins faster for some reason so it needs a lower setpoint
-    public static final double RIGHTSHOOTERSPEED = 12750;
+    public static final double SHOOTERSPEED = 14750; //Actual shooter speed should be 14750 but the right one always spins faster for some reason so it needs a lower setpoint
+    public static final double RIGHTSHOOTERSPEED = 12300;
     public static final double AUTOSHOOTSPEED = 13750;
     public static final double SHOOTERLOWSPEED = 8500;
     public static final double LEFTSHOOTERP = 0.015;
@@ -120,7 +120,7 @@ public class RobotMap {
     // Vision //
     public static final int BAUDRATE = 115200;
     public static final int VISIONDELAY = 200;
-    public static final double SHOOTDISTANCE = 175;
+    public static final double SHOOTDISTANCE = 180;
     public static final double MAXVISIONSPEED = .4;
     public static final double VISIONVELTURN = 0.5;
     public static final double VISIONTURN = .001;
@@ -128,7 +128,7 @@ public class RobotMap {
     public static final double VISIONTARGETHEIGHT = 104.0;
     public static final double LIMELIGHTHEIGHT = 36.0;
     public static final double LIMELIGHTANGLE = 12;
-    public static final double SHOOTOFFSET = 0;
-    public static final double VISIONDISTANCEERRORRANGE = 3.5;
+    public static final double SHOOTOFFSET = 3.75;
+    public static final double VISIONDISTANCEERRORRANGE = 1;
     public static final int VISIONOFFSETDIVISOR = 22; //The max horizontal offset you expect to receive, because you want the max offset to only give a power of 1 or -1 as these are the max powers the motorcontrollers accept
 }

@@ -77,7 +77,7 @@ public class HazyShooter extends SubsystemBase{
         shooterRight.set(ControlMode.Velocity, RobotMap.SHOOTERSPEED);
         //highFeeder.set(RobotMap.HIGHFEEDERSPEED);
         // PHrint.p(getShooterRPM());
-        if (within(getLeftShooterRPM(), RobotMap.SHOOTERSPEED,150) && within(getRightShooterRPM(),RobotMap.SHOOTERSPEED,150))  {
+        if ((getLeftShooterRPM() >= RobotMap.SHOOTERSPEED - 150) && ((getRightShooterRPM() >= RobotMap.SHOOTERSPEED - 150)))  {
             //PHrint.p("high feed at " + getShooterRPM());
             highFeeder.set(RobotMap.HIGHFEEDERSPEED);
         } 

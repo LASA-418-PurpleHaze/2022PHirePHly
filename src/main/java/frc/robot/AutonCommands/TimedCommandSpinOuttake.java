@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 //local imports
 import frc.robot.Subsystems.HazyIntake;
 
-public class CommandStopIntake extends CommandBase {
+public class TimedCommandSpinOuttake extends CommandBase {
 
     private HazyIntake c_hazyIntake;
     private long startTime;
 
-    public CommandStopIntake(HazyIntake subsystem){
+    public TimedCommandSpinOuttake(HazyIntake subsystem){
         c_hazyIntake = subsystem;
         addRequirements(c_hazyIntake);
     }
@@ -23,12 +23,12 @@ public class CommandStopIntake extends CommandBase {
 
     @Override
     public void execute () {
-        c_hazyIntake.defaultC();
+        c_hazyIntake.slowSpit();
     }
 
     @Override
     public boolean isFinished() {
-        if (java.lang.System.currentTimeMillis() > startTime + 750) {
+        if (java.lang.System.currentTimeMillis() > startTime + 100) {
             return true;
         }
         return false;
