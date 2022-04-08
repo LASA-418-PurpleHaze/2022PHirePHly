@@ -57,9 +57,9 @@ public class HazyShooter extends SubsystemBase{
         shooterLeft.enableVoltageCompensation(true);
         shooterRight.enableVoltageCompensation(true);
 
+        
         highFeeder.enableVoltageCompensation(12);
-        shooterRight.enableVoltageCompensation(true);
-
+        
     }
 
     //Spins the shooter up to a certain velocity

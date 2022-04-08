@@ -48,8 +48,10 @@ public class SequenceTwoBallAuton extends SequentialCommandGroup {
                     // new CommandShooterDefault(shooter),
                     new SequentialCommandGroup(
                         new CommandMoveForward(chassis),
-                        // new TimedCommandTurnVision(chassis),
+                        new TimedCommandTurnVision(chassis),
                         new CommandStopMecBase(chassis),
+                        //new Command
+                        new CommandAutoWait(shooter),
                         new CommandTimedShoot(shooter)
                     )
                     // new CommandTimedShootSlower(shooter)
